@@ -52,4 +52,15 @@ public class Protocole {
 	public String reqDetail(int idc){
 		return this.reqDetail(0, idc);
 	}
+	
+	/**
+	 * fonction de génération de la requette pour créer un compte
+	 * @param nom nom de l'utilisateur
+	 * @param prenom prénom de l'utilisateur
+	 * @param mdp mot de passe de l'utilisateur
+	 * @return la requette
+	 */
+	public String reqCreerComp(String nom, String prenom, String mdp){
+		return addComp + "|0|" + nom + "|" + prenom + "|" + mdp; 
+	}
 }

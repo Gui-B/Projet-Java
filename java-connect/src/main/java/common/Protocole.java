@@ -63,4 +63,9 @@ public class Protocole {
 	public String reqCreerComp(String nom, String prenom, String mdp){
 		return addComp + "|0|" + nom + "|" + prenom + "|" + mdp; 
 	}
+	
+	public String reqModifInfo(String para, String val){
+		return modifInfo + "|" + para + "|" + val;
+	}
+	
 }

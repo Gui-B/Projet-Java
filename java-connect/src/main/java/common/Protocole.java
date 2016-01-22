@@ -1,8 +1,9 @@
 package common;
 
 /**
+ * Classe permettant de générer toute les requette de communication entre le client et le serveur.
  * @author kriss
- *
+ * @version 1.0
  */
 public class Protocole {
 
@@ -34,12 +35,21 @@ public class Protocole {
 		return this.listUser + "|" + id;
 	}
 	
-	/**
-	 * @param idd
-	 * @param idc
-	 * @return
+	/** fonction générant la requette pour récupérer les détail d'un utilisateur
+	 * @param idd id de l'utilisateur connecté
+	 * @param idc id de l'utilisateur cible
+	 * @return la requete
 	 */
 	public String reqDetail(int idd, int idc){
-		
+		return detailUser + "|" + idd + "|" + idc
+	}
+	
+	/**
+	 * fonction générant la requette pour récupérer les détail d'un utilisateur pour un utilisateur non connecté
+	 * @param idc id de l'utilisateur cible
+	 * @return la requette
+	 */
+	public String reqDetail(int idc){
+		return this.reqDetail(0, idc);
 	}
 }

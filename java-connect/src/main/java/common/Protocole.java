@@ -19,10 +19,11 @@ public class Protocole {
 		return this.reqListUsers(0);
 	}
 	
-	public String reqListUsers(int ID){
-		return this.listUser + "|" + ID;
+	public String reqListUsers(int id){
+		return this.listUser + "|" + id;
 	}
 	
-	
-
+	public String reqDetail(int idd, int idc){
+		
+	}
 }

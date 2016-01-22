@@ -1,5 +1,9 @@
 package common;
 
+/**
+ * @author kriss
+ *
+ */
 public class Protocole {
 
 	private final String listUser = "LIST_USERS";
@@ -15,14 +19,26 @@ public class Protocole {
 	public Protocole() {
 	}
 	
+	/** génére une requette pour la liste des utilisateur pour un utilisateur non connecté
+	 * @return requette liste des utilisateurs
+	 */
 	public String reqListUsers(){
 		return this.reqListUsers(0);
 	}
 	
+	/** génére une requette pour la liste des utilisateur pour un utilisateur connecté
+	 * @param id id de l'utilisateur connecté
+	 * @return requette liste des utilisateurs
+	 */
 	public String reqListUsers(int id){
 		return this.listUser + "|" + id;
 	}
 	
+	/**
+	 * @param idd
+	 * @param idc
+	 * @return
+	 */
 	public String reqDetail(int idd, int idc){
 		
 	}

@@ -64,6 +64,12 @@ public class Protocole {
 		return addComp + "|0|" + nom + "|" + prenom + "|" + mdp; 
 	}
 	
+	/**
+	 * fonction générant la requet de modification de parametre
+	 * @param para le parametre a modifier
+	 * @param val la nouvelle valeur du paramettre
+	 * @return
+	 */
 	public String reqModifInfo(String para, String val){
 		return modifInfo + "|" + para + "|" + val;
 	}

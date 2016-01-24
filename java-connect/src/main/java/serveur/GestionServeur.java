@@ -23,19 +23,21 @@ public class GestionServeur
 	 */
 	public String traiter (String message)
 	{
-		String retour;
+		String retour ="";
 		String[] splitMess = message.split("\\|");
 		if (splitMess[0].equals(proto.getListUserString())){
 			String id = "0"; //contient l'id de l'utilisateur qui demande la liste des utilisateurs
 			if ( splitMess.length > 1){
 				id = splitMess[1];
 			}
-			Utilisateur[] users; //ici apelle a la bdd pour récupérer la liste des utilisateurs
+			Utilisateur u1 = new Utilisateur(1, "blbl", "blblp", "blbl@", "mdp");
+			Utilisateur u2 = new Utilisateur(2, "2blbl", "2blblp", "2blbl@", "2mdp");
+			Utilisateur[] users = { u1, u2}; //ici apelle a la bdd pour récupérer la liste des utilisateurs
 			String mess = "";
-			/*for (Utilisateur user : users) {
-				mess = user.getId()
-			}*/
-			retour ="LIST_USERS";
+			for (Utilisateur user : users) {
+				mess = mess + user.getId() + "|" + user.getNom() + "|" + user.getPrenom() + "|" + user.getMail() + "|";
+			}
+			retour = proto.reponse(mess);
 		}else if (splitMess[0].equals(proto.getDetailUserString())){
 		}else if (splitMess[0].equals(proto.getCreerCompteString())){
 		}else if (splitMess[0].equals(proto.getModifInfoString())){

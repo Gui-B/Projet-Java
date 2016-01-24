@@ -1,10 +1,15 @@
 package serveur;
 
+import common.Protocole;
+
 public class GestionServeur
 {	
+	private Protocole proto;
+	
 	public GestionServeur()
 	{
 		// TODO Auto-generated constructor stub
+		proto = new Protocole();
 	}
 	
 	/**
@@ -14,6 +19,8 @@ public class GestionServeur
 	 */
 	public String traiter (String message)
 	{
+		String[] splitMess = message.split("\\|");
+		
 		return "lol";
 	}
 }

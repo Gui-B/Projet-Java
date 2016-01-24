@@ -142,10 +142,10 @@ public class Protocole {
 	}
 	
 	public String reponse(String message){
-		return "";
+		return message;
 	}
 	
 	public String erreur(int num, String message){
-		 return "";
+		 return num + "|" + message;
 	}
 }

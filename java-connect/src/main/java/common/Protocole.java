@@ -141,4 +141,11 @@ public class Protocole {
 		return modifInfo + "|" + id + "|" + para + "|" + val;
 	}
 	
+	public String reponse(String message){
+		return "";
+	}
+	
+	public String erreur(int num, String message){
+		 return "";
+	}
 }

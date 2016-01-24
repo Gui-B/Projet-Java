@@ -83,14 +83,16 @@ public class Protocole {
 		return connection;
 	}
 
-	/** génére une requette pour la liste des utilisateur pour un utilisateur non connecté
+	/** 
+	 * génére une requette pour la liste des utilisateur pour un utilisateur non connecté
 	 * @return requette liste des utilisateurs
 	 */
 	public String reqListUsers(){
 		return this.reqListUsers(0);
 	}
 	
-	/** génére une requette pour la liste des utilisateur pour un utilisateur connecté
+	/** 
+	 * génére une requette pour la liste des utilisateur pour un utilisateur connecté
 	 * @param id id de l'utilisateur connecté
 	 * @return requette liste des utilisateurs
 	 */
@@ -98,7 +100,8 @@ public class Protocole {
 		return this.listUser + "|" + id;
 	}
 	
-	/** fonction générant la requette pour récupérer les détail d'un utilisateur
+	/** 
+	 * fonction générant la requette pour récupérer les détail d'un utilisateur
 	 * @param idd id de l'utilisateur connecté
 	 * @param idc id de l'utilisateur cible
 	 * @return la requete

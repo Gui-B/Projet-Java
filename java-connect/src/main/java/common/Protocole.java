@@ -66,12 +66,13 @@ public class Protocole {
 	
 	/**
 	 * fonction générant la requet de modification de parametre
+	 * @param id l'id de l'utilisateur
 	 * @param para le parametre a modifier
 	 * @param val la nouvelle valeur du paramettre
 	 * @return
 	 */
-	public String reqModifInfo(String para, String val){
-		return modifInfo + "|" + para + "|" + val;
+	public String reqModifInfo(int id, String para, String val){
+		return modifInfo + "|" + id + "|" + para + "|" + val;
 	}
 	
 }

@@ -20,6 +20,69 @@ public class Protocole {
 	public Protocole() {
 	}
 	
+	/**
+	 * @return the listUser string req
+	 */
+	public String getListUserString() {
+		return listUser;
+	}
+
+	/**
+	 * @return the detailUser string req
+	 */
+	public String getDetailUserString() {
+		return detailUser;
+	}
+
+	/**
+	 * @return the creerCompte string req
+	 */
+	public String getCreerCompteString() {
+		return creerCompte;
+	}
+
+	/**
+	 * @return the modifInfo string req
+	 */
+	public String getModifInfoString() {
+		return modifInfo;
+	}
+
+	/**
+	 * @return the ajoutDiplome string req
+	 */
+	public String getAjoutDiplomeString() {
+		return ajoutDiplome;
+	}
+
+	/**
+	 * @return the suppDiplome string req
+	 */
+	public String getSuppDiplomeString() {
+		return suppDiplome;
+	}
+
+	/**
+	 * @return the addComp string req
+	 */
+	public String getAddCompString() {
+		return addComp;
+	}
+
+	/**
+	 * @return the delComp string req
+	 */
+	public String getDelCompString() {
+		return delComp;
+	}
+
+	/**
+	 * @return the connection string req
+	 */
+	public String getConnectionString() {
+		return connection;
+	}
+
 	/** génére une requette pour la liste des utilisateur pour un utilisateur non connecté
 	 * @return requette liste des utilisateurs
 	 */

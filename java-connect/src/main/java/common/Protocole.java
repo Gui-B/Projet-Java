@@ -88,7 +88,7 @@ public class Protocole {
 	 * @return requette liste des utilisateurs
 	 */
 	public String reqListUsers(){
-		return this.reqListUsers(0);
+		return this.reqListUsers("0");
 	}
 	
 	/** 
@@ -96,7 +96,7 @@ public class Protocole {
 	 * @param id id de l'utilisateur connecté
 	 * @return requette liste des utilisateurs
 	 */
-	public String reqListUsers(int id){
+	public String reqListUsers(String id){
 		return this.listUser + "|" + id;
 	}
 	
@@ -106,8 +106,8 @@ public class Protocole {
 	 * @param idc id de l'utilisateur cible
 	 * @return la requete
 	 */
-	public String reqDetail(int idd, int idc){
-		return detailUser + "|" + idd + "|" + idc
+	public String reqDetail(String idd, String idc){
+		return detailUser + "|" + idd + "|" + idc;
 	}
 	
 	/**
@@ -115,8 +115,8 @@ public class Protocole {
 	 * @param idc id de l'utilisateur cible
 	 * @return la requette
 	 */
-	public String reqDetail(int idc){
-		return this.reqDetail(0, idc);
+	public String reqDetail(String idc){
+		return this.reqDetail("0", idc);
 	}
 	
 	/**
@@ -135,17 +135,74 @@ public class Protocole {
 	 * @param id l'id de l'utilisateur
 	 * @param para le parametre a modifier
 	 * @param val la nouvelle valeur du paramettre
-	 * @return
+	 * @return la req
 	 */
-	public String reqModifInfo(int id, String para, String val){
+	public String reqModifInfo(String id, String para, String val){
 		return modifInfo + "|" + id + "|" + para + "|" + val;
 	}
 	
-	public String reponse(String message){
-		return message;
+	/**
+	 * génération de la requet pour ajouter un diplome
+	 * @param id id de l'utilisateur
+	 * @param idDip id du diplome
+	 * @param annee année d'optention du diplome
+	 * @return la req
+	 */
+	public String reqAjoutDiplome(String id, String idDip, String annee){
+		return ajoutDiplome + "|" + id + "|" + idDip + "|" + annee;
+	}
+
+	/**
+	 * génération de la req de suppression de diplome
+	 * @param id id de l'utilisateur
+	 * @param idDip id du diplome
+	 * @return la req
+	 */
+	public String reqSuppDiplome(String id, String idDip){
+		return suppDiplome + "|" + id + "|" + idDip;
 	}
 	
-	public String erreur(int num, String message){
+	/**
+	 * génération de la req d'ajout de compétence
+	 * @param id id de l'utilisateur
+	 * @param idComp id de la compétence
+	 * @return la req
+	 */
+	public String reqAddComp(String id, String idComp){
+		return addComp + "|" + id + "|" + idComp;
+	}
+	
+	/**
+	 * génération de la requette de supression de compétence
+	 * @param id id de l'utilisateur
+	 * @param idComp id de la compétence 
+	 * @return la req
+	 */
+	public String reqDelComp(String id, String idComp){
+		return delComp + "|" + id + "|" + idComp;
+	}
+	
+	/**
+	 * generation de la req de connection
+	 * @param id id de l'utilisateur ( toujours a 0 puisque c'est l'utilisateur annonyme qui ce connecte )
+	 * @param mail addresse mail de l'utilisateur voulant ce connecter
+	 * @param mdp mot de passe de l'utilisateur
+	 * @return la req
+	 */
+	public String reqConnection(String id, String mail, String mdp){
+		return connection + "|" + id + "|" + mail + "|" + mdp;
+	}
+	
+	/**
+	 * génération d'une requete de réponse du serveur sans erreur
+	 * @param message
+	 * @return
+	 */
+	public String reponse(String message){
+		return "200|" + message;
+	}
+	
+	public String erreur(String num, String message){
 		 return num + "|" + message;
 	}
 }

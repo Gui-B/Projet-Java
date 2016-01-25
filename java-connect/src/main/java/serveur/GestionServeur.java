@@ -66,7 +66,7 @@ public class GestionServeur
 				retour = proto.reponse(mess);
 			}else{
 				String mess ="Erreur nombre de parametre invalide";
-				retour = proto.erreur("400", mess)
+				retour = proto.erreur("400", mess);
 			}
 		}else if (splitMess[0].equals(proto.getCreerCompteString())){
 		}else if (splitMess[0].equals(proto.getModifInfoString())){

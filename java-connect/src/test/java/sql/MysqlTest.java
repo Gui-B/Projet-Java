@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.*;
 
+import sql.MySql;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
@@ -30,9 +31,21 @@ public class MysqlTest extends TestCase {
         return new TestSuite( MysqlTest.class );
     }
     
-    public void testTest()
-    { 
-    	assertTrue(true);
+    public void testConnexion ()
+    {
+    	try
+    	{
+    		Connection db = MySql.connexion();
+        	assertTrue((db!=null));
+        	db.close();
+        	db=null;
+    	}
+    	catch (SQLException e)
+    	{
+    		e.printStackTrace();
+    		assertTrue(false);
+    	}
+    	
     }
 
 }

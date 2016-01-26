@@ -16,7 +16,15 @@ public class Protocole {
 	private final String addComp = "AJOUT_COMP";
 	private final String delComp = "DEL_COMP";
 	private final String connection = "CONNECTION";
+	private final String listComp = "LIST_COMP";
 	
+	/**
+	 * @return the listComp
+	 */
+	public String getListComp() {
+		return listComp;
+	}
+
 	public Protocole() {
 	}
 	
@@ -195,14 +203,36 @@ public class Protocole {
 	
 	/**
 	 * génération d'une requete de réponse du serveur sans erreur
-	 * @param message
+	 * @param message message a envoyer au serveur
 	 * @return
 	 */
 	public String reponse(String message){
 		return "200|" + message;
 	}
 	
+	/**
+	 * fonction générant une requet reréponse d'erreur
+	 * @param num le numéro de l'erreur
+	 * @param message le message qui accompagne l'erreur
+	 * @return
+	 */
 	public String erreur(String num, String message){
 		 return num + "|" + message;
+	}
+	
+	/** 
+	 * fonction générant la requet pour récevoir la liste des compétence
+	 * @param id id de l'utilisateur
+	 * @return
+	 */
+	public String ReqListComp(String id){
+		return listComp + "|" + id;
+	}
+	/**
+	 * fonction générant la requet pour récevoir la liste des compétence
+	 * @return
+	 */
+	public String ReqListComp(){
+		return ReqListComp("0");
 	}
 }

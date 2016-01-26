@@ -171,6 +171,21 @@ public class GestionServeur
 					mess = "Erreur de connexion";
 					retour = proto.erreur("400", mess);
 				}
+			}else if (splitMess[0].equals(proto.getListComp())){
+				String mess ="";
+				String id = "0"; //contient l'id de l'utilisateur qui demande la liste des utilisateurs
+				if ( splitMess.length > 1){
+					id = splitMess[1];
+				}
+				/// DONNEES DE DEBUG
+				Competence c1 = new Competence("1", "comp1");
+				Competence c2 = new Competence("2", "comp2");
+				//FIN DES DONNEES DE DEBUG
+				Competence[] comps = { c1, c2}; //tableau de compétence de l'utilisateur
+				for (Competence comp : comps) {
+					mess = mess + comp.getId() + ";" + comp.getCompetence() + "|";
+				}
+				retour = proto.reponse(mess);
 			}else{
 				mess ="Erreur nombre de parametre invalide";
 				retour = proto.erreur("400", mess);

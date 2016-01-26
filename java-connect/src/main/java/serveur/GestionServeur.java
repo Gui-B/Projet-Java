@@ -72,6 +72,23 @@ public class GestionServeur
 				retour = proto.erreur("400", mess);
 			}
 		}else if (splitMess[0].equals(proto.getCreerCompteString())){
+			String mess;
+			if ( splitMess.length > 4){
+				String nom = splitMess[2];
+				String prenom = splitMess[3];
+				String mdp = splitMess[4];
+				//EXECUTION DE LA REQUET D'AJOUT UTILISATEUR
+				if (true){ //replacer la condition par une vérification de la bonne execution de l'ajout user
+					mess = "OK";
+					retour = proto.reponse(mess);
+				}else{
+					mess = "erreur de création de compte, déjà existant ?";
+					retour = proto.erreur("400", mess);
+				}
+			}else{
+				mess ="Erreur nombre de parametre invalide";
+				retour = proto.erreur("400", mess);
+			}
 		}else if (splitMess[0].equals(proto.getModifInfoString())){
 		}else if (splitMess[0].equals(proto.getAjoutDiplomeString())){
 		}else if (splitMess[0].equals(proto.getSuppDiplomeString())){

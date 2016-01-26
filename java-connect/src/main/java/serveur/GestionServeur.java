@@ -48,12 +48,19 @@ public class GestionServeur
 			if ( splitMess.length > 2){
 				id = splitMess[1];
 				idc = splitMess[2];
-				Utilisateur user; //Utilisateur dont on récupérer les détails
-				Diplome[] dips; // tableau de string contenant les diplome de l'utilisateur
-				Competence[] comps; //tableau de compétence de l'utilisateur
+				/// DONNEES DE DEBUG
+				Utilisateur u1 = new Utilisateur(1, "blbl", "blblp", "blbl@", "mdp"); //Utilisateur dont on récupérer les détails
+				Diplome d1 = new Diplome("1", "diplome1", "2015");
+				Diplome d2 = new Diplome("2", "diplome2", "2016");
+				Competence c1 = new Competence("1", "comp1");
+				Competence c2 = new Competence("2", "comp2");
+				//FIN DES DONNEES DE DEBUG
+				Utilisateur user = u1; //Utilisateur dont on récupérer les détails
+				Diplome[] dips = {d1, d2}; // tableau de string contenant les diplome de l'utilisateur
+				Competence[] comps = { c1, c2}; //tableau de compétence de l'utilisateur
 				mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";
 				for (Diplome dip : dips) {
-					mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + user.getMail() + "/";
+					mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + "/";
 				}
 				mess = mess  + "|";
 				for (Competence comp : comps) {

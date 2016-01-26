@@ -18,6 +18,7 @@ public class DBUtilisateur extends MySql
 			pstmt.setInt(1,local.getIdLocal());
 			pstmt.setString(2, local.getNomLocal());
 			pstmt.setString(3, local.getLieuLocal());
+			
 			pstmt.executeUpdate();
 		}
 		catch (SQLException e)

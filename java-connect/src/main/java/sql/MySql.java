@@ -58,16 +58,14 @@ public class MySql
 			detruireBase();
 			
 			//Table utilisateur
-			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Utilisateur (IdU int(6) NOT NULL, Mail varchar(128) NOT NULL, Nom varchar(256) NOT NULL, Prenom varchar(256) NOT NULL, Admin tinyint(1) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-			db.createStatement().execute("ALTER TABLE Utilisateur ADD CONSTRAINT PK_UTILISATEUR PRIMARY KEY (IdU), ADD CONSTRAINT UK_UTILISATEUR UNIQUE KEY Mail (Mail);");
+			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Utilisateur (IdU int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, Mail varchar(128) NOT NULL, Nom varchar(256) NOT NULL, Prenom varchar(256) NOT NULL, Admin tinyint(1) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			db.createStatement().execute("ALTER TABLE Utilisateur ADD CONSTRAINT UK_UTILISATEUR UNIQUE KEY Mail (Mail);");
 			
 			//Table Competences
-			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Competences (idC int(6) NOT NULL, NomC varchar(256) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-			db.createStatement().execute("ALTER TABLE Competences ADD CONSTRAINT PK_COMPETENCES PRIMARY KEY (idC);");
+			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Competences (idC int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, NomC varchar(256) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			
 			//Table Diplome
-			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Diplome (idD int(6) NOT NULL, NomD varchar(256) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-			db.createStatement().execute("ALTER TABLE Diplome ADD CONSTRAINT PK_DIPLOME PRIMARY KEY (idD);");
+			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Diplome (idD int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, NomD varchar(256) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			
 			//Table Avoir
 			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Avoir (idU int(6) NOT NULL, idC int(6) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");

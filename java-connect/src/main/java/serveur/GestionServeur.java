@@ -1,5 +1,7 @@
 package serveur;
 
+import common.Competence;
+import common.Diplome;
 import common.Protocole;
 import common.Utilisateur;
 
@@ -47,25 +49,19 @@ public class GestionServeur
 				id = splitMess[1];
 				idc = splitMess[2];
 				Utilisateur user; //Utilisateur dont on récupérer les détails
-				String[][] dip; // tableau de string contenant les diplome de l'utilisateur
-				String[] comp; //tableau de compétence de l'utilisateur
+				Diplome[] dips; // tableau de string contenant les diplome de l'utilisateur
+				Competence[] comps; //tableau de compétence de l'utilisateur
 				mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";
-				for (int i = 0; i < dip.length; i++) {
-					if (i > 0 ) {
-						mess = mess  + ";";
-					}
-					mess = mess + dip[i][0] + "/" + dip[i][1];
+				for (Diplome dip : dips) {
+					mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + user.getMail() + "/";
 				}
 				mess = mess  + "|";
-				for (int j = 0; j < comp.length; j++) {
-					if (j > 0 ) {
-						mess = mess  + ";";
-					}
-					mess = mess + comp[j];
+				for (Competence comp : comps) {
+					mess = mess + comp.getId() + ";" + comp.getCompetence() + "/";
 				}
 				retour = proto.reponse(mess);
 			}else{
-				String mess ="Erreur nombre de parametre invalide";
+				mess ="Erreur nombre de parametre invalide";
 				retour = proto.erreur("400", mess);
 			}
 		}else if (splitMess[0].equals(proto.getCreerCompteString())){

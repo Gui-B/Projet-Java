@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.sql.Types;
 import java.util.*;
 
+import common.Competence;
+import common.Diplome;
 import common.Utilisateur;
 import sql.MySql;
 import sql.DBUtilisateur;
@@ -84,4 +86,78 @@ public class MysqlTest extends TestCase {
 			System.out.println(util.getNom());
 		}
 	}
+	
+	public void testInsererCompetence()
+	{
+		Competence c= new Competence(1, "troll");
+		Competence c2= new Competence(2, "comp 2");
+		DBCompetence.insererCompetence(c);
+		assertTrue(DBCompetence.insererCompetence(c2));
+	}
+	
+	public void testModifierCompetence()
+	{
+		Competence c= new Competence(1, "lole");
+		assertTrue(DBCompetence.modifierCompetence(c));
+	}
+	
+	public void testLireCompetences() 
+	{
+		for (Competence c: DBCompetence.lireCompetences())
+		{
+			System.out.println(c.getCompetence());
+		}
+	}
+	
+	public void testAjoutCompetenceUtilisateur() 
+	{
+		Competence c= new Competence(1, "lole");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		assertTrue(DBCompetence.ajoutCompetenceUtilisateur(c, u));
+	}
+	
+	public void testSupprimerCompetenceUtilisateur() 
+	{
+		Competence c= new Competence(1, "lole");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		assertTrue(DBCompetence.supprimerCompetenceUtilisateur(c, u));
+	}
+	
+	public void testAjoutDiplome()
+	{
+		Diplome d= new Diplome(1, "bac");
+		Diplome d2= new Diplome(2, "bac");
+		DBDiplome.insererDiplome(d2);
+		assertTrue(DBDiplome.insererDiplome(d));
+	}
+	
+	public void testModifierDiplome()
+	{
+		Diplome d= new Diplome(1, "brevet");
+		assertTrue(DBDiplome.modifierDiplome(d));
+	}
+	
+	public void testLireDiplomes() 
+	{
+		for (Diplome d: DBDiplome.lireDiplomes())
+		{
+			System.out.println(d.getDiplome());
+		}
+	}
+	
+	public void testObtenirDiplome()
+	{
+		Diplome d= new Diplome (1, "brevet");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		
+		assertTrue(DBDiplome.ajoutDiplomeUtilisateur(d, u, 2003));
+	}
+	
+	public void testSupprimerDiplomeUtilisateur() 
+	{
+		Diplome d= new Diplome (1, "brevet");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		assertTrue(DBDiplome.supprimerDiplomeUtilisateur(d, u));
+	}
+	
 }

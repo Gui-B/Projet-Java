@@ -43,7 +43,7 @@ ALTER TABLE Avoir
 
 
 CREATE TABLE IF NOT EXISTS Obtenir (
-  DateD date DEFAULT NULL,
+  Annee int(6) NOT NULL,
   IdU int(6) NOT NULL,
   idD int(6) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

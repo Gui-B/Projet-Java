@@ -58,7 +58,7 @@ public class MySql
 			detruireBase();
 			
 			//Table utilisateur
-			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Utilisateur (IdU int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, Mail varchar(128) NOT NULL, Nom varchar(256) NOT NULL, Prenom varchar(256) NOT NULL, Admin tinyint(1) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Utilisateur (IdU int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, Mail varchar(128) NOT NULL, Nom varchar(256) NOT NULL, Prenom varchar(256) NOT NULL,Mdp varchar(256) NOT NULL, Admin tinyint(1) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			db.createStatement().execute("ALTER TABLE Utilisateur ADD CONSTRAINT UK_UTILISATEUR UNIQUE KEY Mail (Mail);");
 			
 			//Table Competences

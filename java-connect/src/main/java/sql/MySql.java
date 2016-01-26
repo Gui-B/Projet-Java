@@ -65,14 +65,14 @@ public class MySql
 			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Competences (idC int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, NomC varchar(256) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			
 			//Table Diplome
-			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Diplome (idD int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, NomD varchar(256) DEFAULT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Diplome (idD int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, NomD varchar(256) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			
 			//Table Avoir
 			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Avoir (idU int(6) NOT NULL, idC int(6) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			db.createStatement().execute("ALTER TABLE Avoir ADD CONSTRAINT PK_AVOIR PRIMARY KEY (IdU,idC), ADD KEY FK_Avoir_idC (idC), ADD CONSTRAINT FK_Avoir_idC FOREIGN KEY (idC) REFERENCES Competences (idC), ADD CONSTRAINT FK_Avoir_IdU FOREIGN KEY (IdU) REFERENCES Utilisateur (IdU); ");
 			
 			//Table Obtenir
-			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Obtenir (DateD date DEFAULT NULL, IdU int(6) NOT NULL, idD int(6) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Obtenir (Annee int(6) NOT NULL, IdU int(6) NOT NULL, idD int(6) NOT NULL ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			db.createStatement().execute("ALTER TABLE Obtenir ADD PRIMARY KEY (IdU,idD), ADD CONSTRAINT FK_Obtenir_idD FOREIGN KEY (idD) REFERENCES Diplome (idD), ADD CONSTRAINT FK_Obtenir_IdU FOREIGN KEY (IdU) REFERENCES Utilisateur (IdU);");
 			
 			db.close();

@@ -7,23 +7,20 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-import javax.print.attribute.SetOfIntegerSyntax;
-
-import common.Competence;
+import common.Diplome;
 import common.Utilisateur;
-import common.Competence;
 
-public class DBCompetence extends MySql
+public class DBDiplome extends MySql 
 {
-	public static boolean insererCompetence(Competence c)
+	public static boolean insererDiplome(Diplome d)
 	{
 		try
 		{
 			Connection db= MySql.connexion();
-			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Competences (NomC) VALUES(?);");
+			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Diplome (NomD) VALUES(?);");
 
 			// Parametres
-			pstmt.setString(1,c.getCompetence());
+			pstmt.setString(1,d.getDiplome());
 			
 			pstmt.executeUpdate();
 			db.close();
@@ -38,16 +35,16 @@ public class DBCompetence extends MySql
 		
 	}
 	
-	public static boolean modifierCompetence(Competence c)
+	public static boolean modifierDiplome(Diplome d)
 	{
 		try
 		{
 			Connection db= MySql.connexion();
-			PreparedStatement pstmt = db.prepareStatement("UPDATE Competences SET NomC=? WHERE idC=?;");
+			PreparedStatement pstmt = db.prepareStatement("UPDATE Diplome SET NomD=? WHERE idD=?;");
 
 			// Parametres
-			pstmt.setString(1, c.getCompetence());
-			pstmt.setInt(2, c.getId());
+			pstmt.setString(1, d.getDiplome());
+			pstmt.setInt(2, d.getId());
 			
 			pstmt.executeUpdate();
 			db.close();
@@ -62,9 +59,9 @@ public class DBCompetence extends MySql
 		
 	}
 	
-	public static ArrayList<Competence> lireCompetences()
+	public static ArrayList<Diplome> lireDiplomes()
 	{
-		ArrayList<Competence> Competences= new ArrayList<Competence>();
+		ArrayList<Diplome> Diplomes= new ArrayList<Diplome>();
 		
 		try
 		{
@@ -74,12 +71,12 @@ public class DBCompetence extends MySql
 			/* Création de l'objet gérant les requêtes */
 	        s = db.createStatement();
 	        /* Exécution d'une requête de lecture */
-	        r = s.executeQuery( "SELECT * FROM Competences;");
+	        r = s.executeQuery( "SELECT * FROM Diplome;");
 	 
 	        /* Récupération des données du résultat de la requête de lecture */
 	        while ( r.next() ) 
 	        {
-	        	Competences.add(new Competence(r.getInt("idC"), r.getString("NomC")));
+	        	Diplomes.add(new Diplome(r.getInt("idD"), r.getString("NomD")));
 	        } 
 	        r.close();
 	        s.close();
@@ -89,19 +86,20 @@ public class DBCompetence extends MySql
 		{
 			e.printStackTrace();
 		}
-		return Competences;
+		return Diplomes;
 	}
 	
-	public static boolean ajoutCompetenceUtilisateur (Competence c, Utilisateur u)
+	public static boolean ajoutDiplomeUtilisateur (Diplome d, Utilisateur u, int annee)
 	{
 		try
 		{
 			Connection db= MySql.connexion();
-			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Avoir (idC, idU )VALUES (?,?);");
+			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Obtenir (idD, idU, Annee )VALUES (?,?,?);");
 
 			// Parametres
-			pstmt.setInt(1, c.getId());
+			pstmt.setInt(1, d.getId());
 			pstmt.setInt(2, u.getId());
+			pstmt.setInt(3, annee);
 			
 			pstmt.executeUpdate();
 			db.close();
@@ -117,15 +115,15 @@ public class DBCompetence extends MySql
 		
 	}
 	
-	public static boolean supprimerCompetenceUtilisateur (Competence c, Utilisateur u)
+	public static boolean supprimerDiplomeUtilisateur (Diplome d, Utilisateur u)
 	{
 		try
 		{
 			Connection db= MySql.connexion();
-			PreparedStatement pstmt = db.prepareStatement("DELETE FROM Avoir WHERE idC=? AND idU=?;");
+			PreparedStatement pstmt = db.prepareStatement("DELETE FROM Obtenir WHERE idD=? AND idU=?;");
 
 			// Parametres
-			pstmt.setInt(1, c.getId());
+			pstmt.setInt(1, d.getId());
 			pstmt.setInt(2, u.getId());
 			
 			pstmt.executeUpdate();
@@ -138,7 +136,5 @@ public class DBCompetence extends MySql
 			e.printStackTrace();
 			return false;
 		}
-	
 	}
-
 }

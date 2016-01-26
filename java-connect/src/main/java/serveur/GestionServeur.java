@@ -90,11 +90,91 @@ public class GestionServeur
 				retour = proto.erreur("400", mess);
 			}
 		}else if (splitMess[0].equals(proto.getModifInfoString())){
+			// pour cette partie voir comment on gére les différent paramatre a mettre a jour.
 		}else if (splitMess[0].equals(proto.getAjoutDiplomeString())){
+			String mess;
+			if ( splitMess.length > 3){
+				String id = splitMess[1];
+				String idd = splitMess[2];
+				String annee = splitMess[3];
+				//requet d'ajout du diplome
+				if (true){ //retour de la bdd
+					mess = "ok";
+					retour = proto.reponse(mess);
+				}else{
+					mess = "erreur pendant l'ajout du diplome";
+					retour = proto.erreur("400", mess);
+				}
+			}else{
+				mess ="Erreur nombre de parametre invalide";
+				retour = proto.erreur("400", mess);
+			}
 		}else if (splitMess[0].equals(proto.getSuppDiplomeString())){
+			String mess;
+			if ( splitMess.length > 2){
+				String id = splitMess[1];
+				String idd = splitMess[2];
+				if (true){ //retour de la bdd
+					mess = "ok";
+					retour = proto.reponse(mess);
+				}else{
+					mess = "erreur pendant la supression du diplome";
+					retour = proto.erreur("400", mess);
+				}
+			}else{
+				mess ="Erreur nombre de parametre invalide";
+				retour = proto.erreur("400", mess);
+			}
 		}else if (splitMess[0].equals(proto.getAddCompString())){
+			String mess;
+			if ( splitMess.length > 2){
+				String id = splitMess[1];
+				String idc = splitMess[2];
+				if (true){ //retour de la bdd
+					mess = "ok";
+					retour = proto.reponse(mess);
+				}else{
+					mess = "erreur pendant l'ajout de compétence";
+					retour = proto.erreur("400", mess);
+				}
+			}else{
+				mess ="Erreur nombre de parametre invalide";
+				retour = proto.erreur("400", mess);
+			}
 		}else if (splitMess[0].equals(proto.getDelCompString())){
+			String mess;
+			if ( splitMess.length > 2){
+				String id = splitMess[1];
+				String idc = splitMess[2];
+				if (true){ //retour de la bdd
+					mess = "ok";
+					retour = proto.reponse(mess);
+				}else{
+					mess = "erreur pendant la supression de compétence";
+					retour = proto.erreur("400", mess);
+				}
+			}else{
+				mess ="Erreur nombre de parametre invalide";
+				retour = proto.erreur("400", mess);
+			}
 		}else if (splitMess[0].equals(proto.getConnectionString())){
+			String mess;
+			if ( splitMess.length > 3){
+				String pseudo = splitMess[1];
+				String mdp = splitMess[2];
+				//requet de connection retournant l'id de l'utilisateur
+				String id = "0";
+				if(true){
+					mess = id;
+					retour = proto.reponse(mess);
+				} else {
+					mess = "Erreur de connexion";
+					retour = proto.erreur("400", mess);
+				}
+			}else{
+				mess ="Erreur nombre de parametre invalide";
+				retour = proto.erreur("400", mess);
+			}
 		} else {
 			retour = "erreur message non reconnu";
 		}

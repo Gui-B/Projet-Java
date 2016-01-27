@@ -87,6 +87,18 @@ public class MysqlTest extends TestCase {
 		}
 	}
 	
+	public void testLireUtilisateur()
+	{
+		Utilisateur u= DBUtilisateur.lireUtilisateur(1);
+		if (u==null)
+		{
+			assertTrue(false);
+		}
+		
+		System.out.println(u.getNom());
+	}
+	
+	
 	public void testInsererCompetence()
 	{
 		Competence c= new Competence(1, "troll");
@@ -123,6 +135,23 @@ public class MysqlTest extends TestCase {
 		assertTrue(DBCompetence.supprimerCompetenceUtilisateur(c, u));
 	}
 	
+	public void testLireCompetenceUtilisateur()
+	{
+		Competence c1= new Competence(1, "lole");
+		Competence c2= new Competence(2, "lala");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		
+		DBCompetence.ajoutCompetenceUtilisateur(c1, u);
+		DBCompetence.ajoutCompetenceUtilisateur(c2, u);
+		
+		ArrayList<Competence> competences= DBCompetence.lireCompetencesUtilisateur(u);
+		
+		for(Competence c: competences)
+		{
+			System.out.println("COMPETENCE DE:"+u.getNom()+" "+c.getCompetence());
+		}
+	}
+		
 	public void testAjoutDiplome()
 	{
 		Diplome d= new Diplome(1, "bac");
@@ -158,6 +187,23 @@ public class MysqlTest extends TestCase {
 		Diplome d= new Diplome (1, "brevet");
 		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
 		assertTrue(DBDiplome.supprimerDiplomeUtilisateur(d, u));
+	}
+	
+	public void testDiplomesUtilisateur()
+	{
+		Diplome d1= new Diplome (1, "brevet");
+		Diplome d2= new Diplome(2, "bac");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		
+		DBDiplome.ajoutDiplomeUtilisateur(d1,u, 1992);
+		DBDiplome.ajoutDiplomeUtilisateur(d2, u, 2013);
+		
+		ArrayList<Diplome>diplomes= DBDiplome.lireDiplomesUtilisateur(u);
+		
+		for (Diplome d: diplomes)
+		{
+			System.out.println("DIPLOME DE "+u.getNom()+" "+d.getDiplome()+" "+d.getAnnee());
+		}
 	}
 	
 }

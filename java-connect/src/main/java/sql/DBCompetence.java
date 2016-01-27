@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.print.attribute.SetOfIntegerSyntax;
 
 import common.Competence;
+import common.Diplome;
 import common.Utilisateur;
 import common.Competence;
 
@@ -139,6 +140,49 @@ public class DBCompetence extends MySql
 			return false;
 		}
 	
+	}
+	
+	public static ArrayList<Competence> lireCompetencesUtilisateur (Utilisateur u)
+	{
+		ArrayList<Competence> competences= lireCompetences();
+		ArrayList<Competence> retour= new ArrayList<Competence>();
+ 		
+		try
+		{
+			Connection db= MySql.connexion();
+			PreparedStatement pstmt = db.prepareStatement("SELECT * FROM Avoir WHERE idU=?");
+			ResultSet r=null;
+
+			// Parametres
+			pstmt.setInt(1, u.getId());
+			r=pstmt.executeQuery();
+			
+			/* Récupération des données du résultat de la requête de lecture */
+	        while ( r.next() ) 
+	        {	        	
+	        	if(u.getId()==r.getInt("idU"))
+	        	{
+	        		for(Competence c: competences)
+	        		{
+	        			if(c.getId()==r.getInt("idC"))
+	        			{
+	        				retour.add(c);
+	        			}
+	        		}
+	        	}
+	        } 
+			
+			r.close();
+			pstmt.close();
+			db.close();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		
+		return retour;
 	}
 
 }

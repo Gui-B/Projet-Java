@@ -137,4 +137,47 @@ public class DBDiplome extends MySql
 			return false;
 		}
 	}
+	
+	public static ArrayList<Diplome> lireDiplomesUtilisateur (Utilisateur u)
+	{
+		ArrayList<Diplome>diplomes= lireDiplomes();
+		ArrayList<Diplome> retour= new ArrayList<Diplome>();
+ 		
+		try
+		{
+			Connection db= MySql.connexion();
+			PreparedStatement pstmt = db.prepareStatement("SELECT * FROM Obtenir WHERE idU=?");
+			ResultSet r=null;
+
+			// Parametres
+			pstmt.setInt(1, u.getId());
+			r=pstmt.executeQuery();
+			
+			/* Récupération des données du résultat de la requête de lecture */
+	        while ( r.next() ) 
+	        {	        	
+	        	if(u.getId()==r.getInt("idU"))
+	        	{
+	        		for(Diplome d: diplomes)
+	        		{
+	        			if(d.getId()==r.getInt("idD"))
+	        			{
+	        				retour.add(new Diplome(d.getId(), d.getDiplome(), r.getInt("Annee")));
+	        			}
+	        		}
+	        	}
+	        } 
+			
+			r.close();
+			pstmt.close();
+			db.close();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return null;
+		}
+		
+		return retour;
+	}
 }

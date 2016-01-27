@@ -1,9 +1,9 @@
 package common;
 
 public class Competence {
-	private String id;
+	private int id;
 	private String competence;
-	public Competence(String id, String competence) {
+	public Competence(int id, String competence) {
 		super();
 		this.id = id;
 		this.competence = competence;
@@ -11,7 +11,7 @@ public class Competence {
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 	/**

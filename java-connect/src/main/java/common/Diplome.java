@@ -1,23 +1,23 @@
 package common;
 
 public class Diplome {
-	private String id;
+	private int id;
 	private String diplome;
-	private String annee;
-	public Diplome(String id, String diplome, String annee) {
+	private int annee;
+	public Diplome(int id, String diplome, int annee) {
 		this.id = id;
 		this.diplome = diplome;
 		this.annee = annee;
 	}
-	public Diplome(String id, String diplome) {
+	public Diplome(int id, String diplome) {
 		this.id = id;
 		this.diplome = diplome;
-		this.annee ="0";
+		this.annee =0;
 	}
 	/**
 	 * @return the id
 	 */
-	public String getId() {
+	public int getId() {
 		return id;
 	}
 	/**
@@ -29,7 +29,7 @@ public class Diplome {
 	/**
 	 * @return the annee
 	 */
-	public String getAnnee() {
+	public int getAnnee() {
 		return annee;
 	}
 }

@@ -6,13 +6,19 @@ public class Utilisateur {
 	private String motDePasse;
 	private String mail;
 	private int id;
+	private int satuts;
 	
-	public Utilisateur(int id, String nom, String prenom, String mail, String motDePasse) {
+	public Utilisateur(int id, String nom, String prenom, String mail, String motDePasse, int status) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.motDePasse = motDePasse;
 		this.mail = mail;
 		this.id = id;
+		this.satuts = status;
+	}
+
+	public int getSatuts() {
+		return satuts;
 	}
 
 	/**

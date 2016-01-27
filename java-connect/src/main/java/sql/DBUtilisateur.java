@@ -101,4 +101,8 @@ public class DBUtilisateur extends MySql
 		}
 		return utilisateurs;
 	}
+	public static ArrayList<Utilisateur> lireUtilisateur(int id)
+	{
+		ArrayList<Utilisateur> utilisateur = lireUtilisateurs();
+	}
 }

@@ -135,6 +135,23 @@ public class MysqlTest extends TestCase {
 		assertTrue(DBCompetence.supprimerCompetenceUtilisateur(c, u));
 	}
 	
+	public void testLireCompetenceUtilisateur()
+	{
+		Competence c1= new Competence(1, "lole");
+		Competence c2= new Competence(2, "lala");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		
+		DBCompetence.ajoutCompetenceUtilisateur(c1, u);
+		DBCompetence.ajoutCompetenceUtilisateur(c2, u);
+		
+		ArrayList<Competence> competences= DBCompetence.lireCompetencesUtilisateur(u);
+		
+		for(Competence c: competences)
+		{
+			System.out.println("COMPETENCE DE:"+u.getNom()+" "+c.getCompetence());
+		}
+	}
+		
 	public void testAjoutDiplome()
 	{
 		Diplome d= new Diplome(1, "bac");

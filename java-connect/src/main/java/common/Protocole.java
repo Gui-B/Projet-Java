@@ -21,7 +21,7 @@ public class Protocole {
 	/**
 	 * @return the listComp
 	 */
-	public String getListComp() {
+	public String getListCompString() {
 		return listComp;
 	}
 

@@ -1,5 +1,7 @@
 package serveur;
 
+import java.util.ArrayList;
+
 import common.Competence;
 import common.Diplome;
 import common.Protocole;
@@ -35,7 +37,7 @@ public class GestionServeur
 			if ( splitMess.length > 1){
 				id = splitMess[1];
 			}
-			Utilisateur[] users = (Utilisateur[]) DBUtilisateur.lireUtilisateurs().toArray(); //ici apelle a la bdd pour récupérer la liste des utilisateurs
+			ArrayList<Utilisateur> users = DBUtilisateur.lireUtilisateurs(); //ici apelle a la bdd pour récupérer la liste des utilisateurs
 			//ajout de la gestion d'erreur.
 			String mess = "";
 			for (Utilisateur user : users) {
@@ -52,8 +54,8 @@ public class GestionServeur
 
 				Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(idc)); //Utilisateur dont on récupérer les détails
 				Utilisateur demandeur = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
-				Diplome[] dips = (Diplome[]) DBDiplome.lireDiplomesUtilisateur(user).toArray(); // tableau de string contenant les diplome de l'utilisateur
-				Competence[] comps = (Competence[]) DBCompetence.lireCompetencesUtilisateur(user).toArray(); //tableau de compétence de l'utilisateur
+				ArrayList<Diplome> dips = DBDiplome.lireDiplomesUtilisateur(user); // tableau de string contenant les diplome de l'utilisateur
+				ArrayList<Competence> comps = DBCompetence.lireCompetencesUtilisateur(user); //tableau de compétence de l'utilisateur
 				mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";
 				for (Diplome dip : dips) {
 					mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + "/";
@@ -155,34 +157,30 @@ public class GestionServeur
 			}
 		}else if (splitMess[0].equals(proto.getConnectionString())){
 			String mess;
-			if ( splitMess.length > 3){
+			if ( splitMess.length > 2){
 				String pseudo = splitMess[1];
 				String mdp = splitMess[2];
 				//requet de connection retournant l'id de l'utilisateur
 				Utilisateur user = DBUtilisateur.checkConnexion(new Utilisateur(0, "", "", pseudo, mdp, 0)); 
 				if( user != null){ //TO DO
-					mess = Double.toString(user.getId());
+					mess = Integer.toString(user.getId());
 					retour = proto.reponse(mess);
 				} else {
 					mess = "Erreur de connexion";
 					retour = proto.erreur("400", mess);
 				}
-			}else if (splitMess[0].equals(proto.getListComp())){
-				String mess ="";
-				String id = "0"; //contient l'id de l'utilisateur qui demande la liste des utilisateurs
-				if ( splitMess.length > 1){
-					id = splitMess[1];
-				}
-				Competence[] comps = (Competence[]) DBCompetence.lireCompetences().toArray(); //tableau de compétence de l'utilisateur
-				for (Competence comp : comps) {
-					mess = mess + comp.getId() + ";" + comp.getCompetence() + "|";
-				}
-				retour = proto.reponse(mess);
-			}else{
+			} else {
 				mess ="Erreur nombre de parametre invalide";
 				retour = proto.erreur("400", mess);
 			}
-		} else {
+		} else if (splitMess[0].equals(proto.getListCompString())){
+			String mess = "";
+			ArrayList<Competence> comps = DBCompetence.lireCompetences(); //tableau de compétence de l'utilisateur
+			for (Competence comp : comps) {
+				mess = mess + comp.getId() + ";" + comp.getCompetence() + "|";
+			}
+			retour = proto.reponse(mess);
+		} else { 
 			retour = "erreur message non reconnu";
 		}
 		return retour;

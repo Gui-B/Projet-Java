@@ -4,6 +4,7 @@ import common.Competence;
 import common.Diplome;
 import common.Protocole;
 import common.Utilisateur;
+import sql.DBUtilisateur;
 
 public class GestionServeur
 {	
@@ -32,9 +33,7 @@ public class GestionServeur
 			if ( splitMess.length > 1){
 				id = splitMess[1];
 			}
-			Utilisateur u1 = new Utilisateur(1, "blbl", "blblp", "blbl@", "mdp");
-			Utilisateur u2 = new Utilisateur(2, "2blbl", "2blblp", "2blbl@", "2mdp");
-			Utilisateur[] users = { u1, u2}; //ici apelle a la bdd pour récupérer la liste des utilisateurs
+			Utilisateur[] users = (Utilisateur[]) DBUtilisateur.lireUtilisateurs().toArray(); //ici apelle a la bdd pour récupérer la liste des utilisateurs
 			//ajout de la gestion d'erreur.
 			String mess = "";
 			for (Utilisateur user : users) {
@@ -48,14 +47,9 @@ public class GestionServeur
 			if ( splitMess.length > 2){
 				id = splitMess[1];
 				idc = splitMess[2];
-				/// DONNEES DE DEBUG
-				Utilisateur u1 = new Utilisateur(1, "blbl", "blblp", "blbl@", "mdp"); //Utilisateur dont on récupérer les détails
-				Diplome d1 = new Diplome("1", "diplome1", "2015");
-				Diplome d2 = new Diplome("2", "diplome2", "2016");
-				Competence c1 = new Competence("1", "comp1");
-				Competence c2 = new Competence("2", "comp2");
-				//FIN DES DONNEES DE DEBUG
-				Utilisateur user = u1; //Utilisateur dont on récupérer les détails
+
+				Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(idc)); //Utilisateur dont on récupérer les détails
+				Utilisateur demandeur = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
 				Diplome[] dips = {d1, d2}; // tableau de string contenant les diplome de l'utilisateur
 				Competence[] comps = { c1, c2}; //tableau de compétence de l'utilisateur
 				mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";

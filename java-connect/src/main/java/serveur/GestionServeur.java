@@ -4,6 +4,8 @@ import common.Competence;
 import common.Diplome;
 import common.Protocole;
 import common.Utilisateur;
+import sql.DBCompetence;
+import sql.DBDiplome;
 import sql.DBUtilisateur;
 
 public class GestionServeur
@@ -50,8 +52,8 @@ public class GestionServeur
 
 				Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(idc)); //Utilisateur dont on récupérer les détails
 				Utilisateur demandeur = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
-				Diplome[] dips = {d1, d2}; // tableau de string contenant les diplome de l'utilisateur
-				Competence[] comps = { c1, c2}; //tableau de compétence de l'utilisateur
+				Diplome[] dips = (Diplome[]) DBDiplome.lireDiplomesUtilisateur(user).toArray(); // tableau de string contenant les diplome de l'utilisateur
+				Competence[] comps = (Competence[]) DBCompetence.lireCompetencesUtilisateur(user).toArray(); //tableau de compétence de l'utilisateur
 				mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";
 				for (Diplome dip : dips) {
 					mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + "/";
@@ -71,8 +73,8 @@ public class GestionServeur
 				String nom = splitMess[2];
 				String prenom = splitMess[3];
 				String mdp = splitMess[4];
-				//EXECUTION DE LA REQUET D'AJOUT UTILISATEUR
-				if (true){ //replacer la condition par une vérification de la bonne execution de l'ajout user
+				String email = splitMess[5];
+				if (DBUtilisateur.insererUtilisateur(new Utilisateur(0, nom, prenom, email, mdp, 0))){ //replacer la condition par une vérification de la bonne execution de l'ajout user
 					mess = "OK";
 					retour = proto.reponse(mess);
 				}else{
@@ -92,7 +94,7 @@ public class GestionServeur
 				String idd = splitMess[2];
 				String annee = splitMess[3];
 				//requet d'ajout du diplome
-				if (true){ //retour de la bdd
+				if (DBDiplome.ajoutDiplomeUtilisateur(new Diplome(Integer.parseInt(idd), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0), Integer.parseInt(annee))){ //retour de la bdd
 					mess = "ok";
 					retour = proto.reponse(mess);
 				}else{
@@ -108,7 +110,7 @@ public class GestionServeur
 			if ( splitMess.length > 2){
 				String id = splitMess[1];
 				String idd = splitMess[2];
-				if (true){ //retour de la bdd
+				if (DBDiplome.supprimerDiplomeUtilisateur(new Diplome(Integer.parseInt(idd), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
 					mess = "ok";
 					retour = proto.reponse(mess);
 				}else{
@@ -124,7 +126,7 @@ public class GestionServeur
 			if ( splitMess.length > 2){
 				String id = splitMess[1];
 				String idc = splitMess[2];
-				if (true){ //retour de la bdd
+				if (DBCompetence.ajoutCompetenceUtilisateur(new Competence(Integer.parseInt(idc), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
 					mess = "ok";
 					retour = proto.reponse(mess);
 				}else{
@@ -140,7 +142,7 @@ public class GestionServeur
 			if ( splitMess.length > 2){
 				String id = splitMess[1];
 				String idc = splitMess[2];
-				if (true){ //retour de la bdd
+				if (DBCompetence.supprimerCompetenceUtilisateur(new Competence(Integer.parseInt(idc), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
 					mess = "ok";
 					retour = proto.reponse(mess);
 				}else{
@@ -157,9 +159,9 @@ public class GestionServeur
 				String pseudo = splitMess[1];
 				String mdp = splitMess[2];
 				//requet de connection retournant l'id de l'utilisateur
-				String id = "0";
-				if(true){
-					mess = id;
+				Utilisateur user = DBUtilisateur.checkConnexion(new Utilisateur(0, "", "", pseudo, mdp, 0)); 
+				if( user != null){ //TO DO
+					mess = Double.toString(user.getId());
 					retour = proto.reponse(mess);
 				} else {
 					mess = "Erreur de connexion";
@@ -171,11 +173,7 @@ public class GestionServeur
 				if ( splitMess.length > 1){
 					id = splitMess[1];
 				}
-				/// DONNEES DE DEBUG
-				Competence c1 = new Competence("1", "comp1");
-				Competence c2 = new Competence("2", "comp2");
-				//FIN DES DONNEES DE DEBUG
-				Competence[] comps = { c1, c2}; //tableau de compétence de l'utilisateur
+				Competence[] comps = (Competence[]) DBCompetence.lireCompetences().toArray(); //tableau de compétence de l'utilisateur
 				for (Competence comp : comps) {
 					mess = mess + comp.getId() + ";" + comp.getCompetence() + "|";
 				}

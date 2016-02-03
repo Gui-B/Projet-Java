@@ -116,4 +116,21 @@ public class DBUtilisateur extends MySql
 		}
 		return u;
 	}
+	
+	public static Utilisateur checkConnexion (Utilisateur pU)
+	{
+		
+		ArrayList<Utilisateur> utilisateurs = lireUtilisateurs();
+		Utilisateur u=null;
+		
+		for (Utilisateur util : utilisateurs)
+		{
+			if(util.getMail().equals(pU.getMail()) && util.getMotDePasse().equals(pU.getMotDePasse()))
+			{
+				u=util;
+			}
+		}
+		return u;
+	}
 }
+

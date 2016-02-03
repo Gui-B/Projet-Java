@@ -65,8 +65,8 @@ public class MysqlTest extends TestCase {
 
 	public void testInsertUtilisateur()
 	{
-		Utilisateur util= new Utilisateur(0, "dumbuldore","albus", "ad@sorcier.com", "baguette");
-		Utilisateur util2= new Utilisateur(0, "potter","harry", "hp@sorcier.com", "grifondor");
+		Utilisateur util= new Utilisateur(0, "dumbuldore","albus", "ad@sorcier.com", "baguette",1);
+		Utilisateur util2= new Utilisateur(0, "potter","harry", "hp@sorcier.com", "grifondor",0);
 		DBUtilisateur.insererUtilisateur(util);
 		assertTrue(DBUtilisateur.insererUtilisateur(util2));
 
@@ -74,7 +74,7 @@ public class MysqlTest extends TestCase {
 	
 	public void testModifierUtilisateur()
 	{
-		Utilisateur util= new Utilisateur(1, "dumbuldore","albus", "ad@baguette.com", "baguette");
+		Utilisateur util= new Utilisateur(1, "dumbuldore","albus", "ad@baguette.com", "baguette",0);
 		assertTrue(DBUtilisateur.modifierUtilisateur(util));
 
 	}
@@ -83,7 +83,7 @@ public class MysqlTest extends TestCase {
 	{
 		for (Utilisateur util : DBUtilisateur.lireUtilisateurs())
 		{
-			System.out.println(util.getNom());
+			System.out.println(util);
 		}
 	}
 	
@@ -95,7 +95,7 @@ public class MysqlTest extends TestCase {
 			assertTrue(false);
 		}
 		
-		System.out.println(u.getNom());
+		System.out.println(u);
 	}
 	
 	
@@ -124,14 +124,14 @@ public class MysqlTest extends TestCase {
 	public void testAjoutCompetenceUtilisateur() 
 	{
 		Competence c= new Competence(1, "lole");
-		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse",1);
 		assertTrue(DBCompetence.ajoutCompetenceUtilisateur(c, u));
 	}
 	
 	public void testSupprimerCompetenceUtilisateur() 
 	{
 		Competence c= new Competence(1, "lole");
-		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse",1);
 		assertTrue(DBCompetence.supprimerCompetenceUtilisateur(c, u));
 	}
 	
@@ -139,7 +139,7 @@ public class MysqlTest extends TestCase {
 	{
 		Competence c1= new Competence(1, "lole");
 		Competence c2= new Competence(2, "lala");
-		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse",1);
 		
 		DBCompetence.ajoutCompetenceUtilisateur(c1, u);
 		DBCompetence.ajoutCompetenceUtilisateur(c2, u);
@@ -177,7 +177,7 @@ public class MysqlTest extends TestCase {
 	public void testObtenirDiplome()
 	{
 		Diplome d= new Diplome (1, "brevet");
-		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse",1);
 		
 		assertTrue(DBDiplome.ajoutDiplomeUtilisateur(d, u, 2003));
 	}
@@ -185,7 +185,7 @@ public class MysqlTest extends TestCase {
 	public void testSupprimerDiplomeUtilisateur() 
 	{
 		Diplome d= new Diplome (1, "brevet");
-		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse",1);
 		assertTrue(DBDiplome.supprimerDiplomeUtilisateur(d, u));
 	}
 	
@@ -193,7 +193,7 @@ public class MysqlTest extends TestCase {
 	{
 		Diplome d1= new Diplome (1, "brevet");
 		Diplome d2= new Diplome(2, "bac");
-		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse");
+		Utilisateur u= new Utilisateur(1, "nom", "prenom", "mail", "motDePasse",1);
 		
 		DBDiplome.ajoutDiplomeUtilisateur(d1,u, 1992);
 		DBDiplome.ajoutDiplomeUtilisateur(d2, u, 2013);

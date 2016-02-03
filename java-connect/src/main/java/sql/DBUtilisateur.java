@@ -25,7 +25,7 @@ public class DBUtilisateur extends MySql
 			pstmt.setString(2, util.getNom());
 			pstmt.setString(3, util.getPrenom());
 			pstmt.setString(4, util.getMotDePasse());
-			pstmt.setInt(5, 1);
+			pstmt.setInt(5, util.getSatuts());
 			
 			pstmt.executeUpdate();
 			db.close();
@@ -45,14 +45,15 @@ public class DBUtilisateur extends MySql
 		try
 		{
 			Connection db= MySql.connexion();
-			PreparedStatement pstmt = db.prepareStatement("UPDATE Utilisateur SET Mail=?, Nom=?, Prenom=?, Mdp=?  WHERE IdU=?;");
+			PreparedStatement pstmt = db.prepareStatement("UPDATE Utilisateur SET Mail=?, Nom=?, Prenom=?, Mdp=?, Admin=?  WHERE IdU=?;");
 
 			// Parametres
 			pstmt.setString(1,util.getMail());
 			pstmt.setString(2, util.getNom());
 			pstmt.setString(3, util.getPrenom());
 			pstmt.setString(4, util.getMotDePasse());
-			pstmt.setInt(5, util.getId());
+			pstmt.setInt(5, util.getSatuts());
+			pstmt.setInt(6, util.getId());
 			
 			pstmt.executeUpdate();
 			db.close();
@@ -89,7 +90,7 @@ public class DBUtilisateur extends MySql
 	        /* Récupération des données du résultat de la requête de lecture */
 	        while ( r.next() ) 
 	        {
-	        	utilisateurs.add(new Utilisateur(r.getInt("IdU"), r.getString("Nom"), r.getString("Prenom"), r.getString("Mail"), r.getString("Mdp")));
+	        	utilisateurs.add(new Utilisateur(r.getInt("IdU"), r.getString("Nom"), r.getString("Prenom"), r.getString("Mail"), r.getString("Mdp"), r.getInt("Admin")));
 	        } 
 	        r.close();
 	        s.close();

@@ -56,4 +56,9 @@ public class Utilisateur {
 		return id;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.nom+" "+this.prenom+" "+this.satuts;
+	}
 }

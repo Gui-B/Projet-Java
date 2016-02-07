@@ -140,48 +140,62 @@ public class GestionServeur
 				retour = proto.erreur("400", mess);
 			}
 		}else if (splitMess[0].equals(proto.getDelCompString())){
-			String mess;
-			if ( splitMess.length > 2){
-				String id = splitMess[1];
-				String idc = splitMess[2];
-				if (DBCompetence.supprimerCompetenceUtilisateur(new Competence(Integer.parseInt(idc), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
-					mess = "ok";
-					retour = proto.reponse(mess);
-				}else{
-					mess = "erreur pendant la supression de compétence";
-					retour = proto.erreur("400", mess);
-				}
-			}else{
-				mess ="Erreur nombre de parametre invalide";
-				retour = proto.erreur("400", mess);
-			}
+			retour = delComp(splitMess);
 		}else if (splitMess[0].equals(proto.getConnectionString())){
-			String mess;
-			if ( splitMess.length > 2){
-				String pseudo = splitMess[1];
-				String mdp = splitMess[2];
-				//requet de connection retournant l'id de l'utilisateur
-				Utilisateur user = DBUtilisateur.checkConnexion(new Utilisateur(0, "", "", pseudo, mdp, 0)); 
-				if( user != null){ //TO DO
-					mess = Integer.toString(user.getId());
-					retour = proto.reponse(mess);
-				} else {
-					mess = "Erreur de connexion";
-					retour = proto.erreur("400", mess);
-				}
-			} else {
-				mess ="Erreur nombre de parametre invalide";
-				retour = proto.erreur("400", mess);
-			}
+			retour = connexion(splitMess);
 		} else if (splitMess[0].equals(proto.getListCompString())){
-			String mess = "";
-			ArrayList<Competence> comps = DBCompetence.lireCompetences(); //tableau de compétence de l'utilisateur
-			for (Competence comp : comps) {
-				mess = mess + comp.getId() + ";" + comp.getCompetence() + "|";
-			}
-			retour = proto.reponse(mess);
+			retour = listComp(splitMess);
 		} else { 
 			retour = "erreur message non reconnu";
+		}
+		return retour;
+	}
+	
+	private String listComp(String[] splitMess){
+		String mess = "";
+		ArrayList<Competence> comps = DBCompetence.lireCompetences(); //tableau de compétence de l'utilisateur
+		for (Competence comp : comps) {
+			mess = mess + comp.getId() + ";" + comp.getCompetence() + "|";
+		}
+		return proto.reponse(mess);
+	}
+	
+	private String connexion (String[] splitMess){
+		String mess, retour;
+		if ( splitMess.length > 2){
+			String pseudo = splitMess[1];
+			String mdp = splitMess[2];
+			//requet de connection retournant l'id de l'utilisateur
+			Utilisateur user = DBUtilisateur.checkConnexion(new Utilisateur(0, "", "", pseudo, mdp, 0)); 
+			if( user != null){ //TO DO
+				mess = Integer.toString(user.getId());
+				retour = proto.reponse(mess);
+			} else {
+				mess = "Erreur de connexion";
+				retour = proto.erreur("400", mess);
+			}
+		} else {
+			mess ="Erreur nombre de parametre invalide";
+			retour = proto.erreur("400", mess);
+		}
+		return retour;
+	}
+	
+	private String delComp(String[] splitMess){
+		String mess, retour;
+		if ( splitMess.length > 2){
+			String id = splitMess[1];
+			String idc = splitMess[2];
+			if (DBCompetence.supprimerCompetenceUtilisateur(new Competence(Integer.parseInt(idc), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
+				mess = "ok";
+				retour = proto.reponse(mess);
+			}else{
+				mess = "erreur pendant la supression de compétence";
+				retour = proto.erreur("400", mess);
+			}
+		}else{
+			mess ="Erreur nombre de parametre invalide";
+			retour = proto.erreur("400", mess);
 		}
 		return retour;
 	}

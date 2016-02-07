@@ -33,62 +33,13 @@ public class GestionServeur
 		String retour ="";
 		String[] splitMess = message.split("\\|");
 		if (splitMess[0].equals(proto.getListUserString())){
-			String id = "0"; //contient l'id de l'utilisateur qui demande la liste des utilisateurs
-			if ( splitMess.length > 1){
-				id = splitMess[1];
-			}
-			ArrayList<Utilisateur> users = DBUtilisateur.lireUtilisateurs(); //ici apelle a la bdd pour récupérer la liste des utilisateurs
-			//ajout de la gestion d'erreur.
-			String mess = "";
-			for (Utilisateur user : users) {
-				mess = mess + user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";
-			}
-			retour = proto.reponse(mess);
+			retour = listUsers(splitMess);
 		}else if (splitMess[0].equals(proto.getDetailUserString())){
-			String id = "0"; //contient l'id de l'utilisateur qui demande la liste des utilisateurs
-			String idc; // id de l'utilisateur dont on récupére les détails
-			String mess = "";
-			if ( splitMess.length > 2){
-				id = splitMess[1];
-				idc = splitMess[2];
-
-				Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(idc)); //Utilisateur dont on récupérer les détails
-				Utilisateur demandeur = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
-				ArrayList<Diplome> dips = DBDiplome.lireDiplomesUtilisateur(user); // tableau de string contenant les diplome de l'utilisateur
-				ArrayList<Competence> comps = DBCompetence.lireCompetencesUtilisateur(user); //tableau de compétence de l'utilisateur
-				mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";
-				for (Diplome dip : dips) {
-					mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + "/";
-				}
-				mess = mess  + "|";
-				for (Competence comp : comps) {
-					mess = mess + comp.getId() + ";" + comp.getCompetence() + "/";
-				}
-				retour = proto.reponse(mess);
-			}else{
-				mess ="Erreur nombre de parametre invalide";
-				retour = proto.erreur("400", mess);
-			}
+			retour = detailUser(splitMess);
 		}else if (splitMess[0].equals(proto.getCreerCompteString())){
-			String mess;
-			if ( splitMess.length > 4){
-				String nom = splitMess[2];
-				String prenom = splitMess[3];
-				String mdp = splitMess[4];
-				String email = splitMess[5];
-				if (DBUtilisateur.insererUtilisateur(new Utilisateur(0, nom, prenom, email, mdp, 0))){ //replacer la condition par une vérification de la bonne execution de l'ajout user
-					mess = "OK";
-					retour = proto.reponse(mess);
-				}else{
-					mess = "erreur de création de compte, déjà existant ?";
-					retour = proto.erreur("400", mess);
-				}
-			}else{
-				mess ="Erreur nombre de parametre invalide";
-				retour = proto.erreur("400", mess);
-			}
+			retour = creerCompte(splitMess);
 		}else if (splitMess[0].equals(proto.getModifInfoString())){
-			// pour cette partie voir comment on gére les différent paramatre a mettre a jour.
+			retour = modifInfo(splitMess);
 		}else if (splitMess[0].equals(proto.getAjoutDiplomeString())){
 			retour = addDip(splitMess);
 		}else if (splitMess[0].equals(proto.getSuppDiplomeString())){
@@ -107,22 +58,74 @@ public class GestionServeur
 		return retour;
 	}
 	
-	private String (String[] splitMess){
+	private String listUsers(String[] splitMess){
 		String retour;
+		String id = "0"; //contient l'id de l'utilisateur qui demande la liste des utilisateurs
+		if ( splitMess.length > 1){
+			id = splitMess[1];
+		}
+		ArrayList<Utilisateur> users = DBUtilisateur.lireUtilisateurs(); //ici apelle a la bdd pour récupérer la liste des utilisateurs
+		//ajout de la gestion d'erreur.
+		String mess = "";
+		for (Utilisateur user : users) {
+			mess = mess + user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";
+		}
+		retour = proto.reponse(mess);
 		return retour;
 	}
 	
-	private String (String[] splitMess){
+	private String detailUser(String[] splitMess){
 		String retour;
+		String id = "0"; //contient l'id de l'utilisateur qui demande la liste des utilisateurs
+		String idc; // id de l'utilisateur dont on récupére les détails
+		String mess = "";
+		if ( splitMess.length > 2){
+			id = splitMess[1];
+			idc = splitMess[2];
+
+			Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(idc)); //Utilisateur dont on récupérer les détails
+			Utilisateur demandeur = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
+			ArrayList<Diplome> dips = DBDiplome.lireDiplomesUtilisateur(user); // tableau de string contenant les diplome de l'utilisateur
+			ArrayList<Competence> comps = DBCompetence.lireCompetencesUtilisateur(user); //tableau de compétence de l'utilisateur
+			mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";
+			for (Diplome dip : dips) {
+				mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + "/";
+			}
+			mess = mess  + "|";
+			for (Competence comp : comps) {
+				mess = mess + comp.getId() + ";" + comp.getCompetence() + "/";
+			}
+			retour = proto.reponse(mess);
+		}else{
+			mess ="Erreur nombre de parametre invalide";
+			retour = proto.erreur("400", mess);
+		}
 		return retour;
 	}
 	
-	private String (String[] splitMess){
+	private String creerCompte(String[] splitMess){
 		String retour;
+		String mess;
+		if ( splitMess.length > 4){
+			String nom = splitMess[2];
+			String prenom = splitMess[3];
+			String mdp = splitMess[4];
+			String email = splitMess[5];
+			if (DBUtilisateur.insererUtilisateur(new Utilisateur(0, nom, prenom, email, mdp, 0))){ //replacer la condition par une vérification de la bonne execution de l'ajout user
+				mess = "OK";
+				retour = proto.reponse(mess);
+			}else{
+				mess = "erreur de création de compte, déjà existant ?";
+				retour = proto.erreur("400", mess);
+			}
+		}else{
+			mess ="Erreur nombre de parametre invalide";
+			retour = proto.erreur("400", mess);
+		}
 		return retour;
 	}
 	
-	private String (String[] splitMess){
+	private String modifInfo(String[] splitMess){
 		String retour;
 		return retour;
 	}

@@ -126,7 +126,7 @@ public class GestionServeur
 	}
 	
 	private String modifInfo(String[] splitMess){
-		String retour;
+		String retour ="";
 		return retour;
 	}
 	

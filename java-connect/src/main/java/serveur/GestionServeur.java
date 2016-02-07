@@ -90,55 +90,11 @@ public class GestionServeur
 		}else if (splitMess[0].equals(proto.getModifInfoString())){
 			// pour cette partie voir comment on gére les différent paramatre a mettre a jour.
 		}else if (splitMess[0].equals(proto.getAjoutDiplomeString())){
-			String mess;
-			if ( splitMess.length > 3){
-				String id = splitMess[1];
-				String idd = splitMess[2];
-				String annee = splitMess[3];
-				//requet d'ajout du diplome
-				if (DBDiplome.ajoutDiplomeUtilisateur(new Diplome(Integer.parseInt(idd), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0), Integer.parseInt(annee))){ //retour de la bdd
-					mess = "ok";
-					retour = proto.reponse(mess);
-				}else{
-					mess = "erreur pendant l'ajout du diplome";
-					retour = proto.erreur("400", mess);
-				}
-			}else{
-				mess ="Erreur nombre de parametre invalide";
-				retour = proto.erreur("400", mess);
-			}
+			retour = addDip(splitMess);
 		}else if (splitMess[0].equals(proto.getSuppDiplomeString())){
-			String mess;
-			if ( splitMess.length > 2){
-				String id = splitMess[1];
-				String idd = splitMess[2];
-				if (DBDiplome.supprimerDiplomeUtilisateur(new Diplome(Integer.parseInt(idd), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
-					mess = "ok";
-					retour = proto.reponse(mess);
-				}else{
-					mess = "erreur pendant la supression du diplome";
-					retour = proto.erreur("400", mess);
-				}
-			}else{
-				mess ="Erreur nombre de parametre invalide";
-				retour = proto.erreur("400", mess);
-			}
+			retour = delDip(splitMess);
 		}else if (splitMess[0].equals(proto.getAddCompString())){
-			String mess;
-			if ( splitMess.length > 2){
-				String id = splitMess[1];
-				String idc = splitMess[2];
-				if (DBCompetence.ajoutCompetenceUtilisateur(new Competence(Integer.parseInt(idc), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
-					mess = "ok";
-					retour = proto.reponse(mess);
-				}else{
-					mess = "erreur pendant l'ajout de compétence";
-					retour = proto.erreur("400", mess);
-				}
-			}else{
-				mess ="Erreur nombre de parametre invalide";
-				retour = proto.erreur("400", mess);
-			}
+			retour = addCompt(splitMess);
 		}else if (splitMess[0].equals(proto.getDelCompString())){
 			retour = delComp(splitMess);
 		}else if (splitMess[0].equals(proto.getConnectionString())){
@@ -147,6 +103,88 @@ public class GestionServeur
 			retour = listComp(splitMess);
 		} else { 
 			retour = "erreur message non reconnu";
+		}
+		return retour;
+	}
+	
+	private String (String[] splitMess){
+		String retour;
+		return retour;
+	}
+	
+	private String (String[] splitMess){
+		String retour;
+		return retour;
+	}
+	
+	private String (String[] splitMess){
+		String retour;
+		return retour;
+	}
+	
+	private String (String[] splitMess){
+		String retour;
+		return retour;
+	}
+	
+	private String addDip(String[] splitMess){
+		String retour;
+		String mess;
+		if ( splitMess.length > 3){
+			String id = splitMess[1];
+			String idd = splitMess[2];
+			String annee = splitMess[3];
+			//requet d'ajout du diplome
+			if (DBDiplome.ajoutDiplomeUtilisateur(new Diplome(Integer.parseInt(idd), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0), Integer.parseInt(annee))){ //retour de la bdd
+				mess = "ok";
+				retour = proto.reponse(mess);
+			}else{
+				mess = "erreur pendant l'ajout du diplome";
+				retour = proto.erreur("400", mess);
+			}
+		}else{
+			mess ="Erreur nombre de parametre invalide";
+			retour = proto.erreur("400", mess);
+		}
+		return retour;
+	}
+	
+	private String delDip(String[] splitMess){
+		String retour;
+		String mess;
+		if ( splitMess.length > 2){
+			String id = splitMess[1];
+			String idd = splitMess[2];
+			if (DBDiplome.supprimerDiplomeUtilisateur(new Diplome(Integer.parseInt(idd), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
+				mess = "ok";
+				retour = proto.reponse(mess);
+			}else{
+				mess = "erreur pendant la supression du diplome";
+				retour = proto.erreur("400", mess);
+			}
+		}else{
+			mess ="Erreur nombre de parametre invalide";
+			retour = proto.erreur("400", mess);
+		}
+		return retour;
+	}
+	
+	private String addCompt(String[] splitMess){
+		String retour;
+		String mess;
+		if ( splitMess.length > 2){
+			String id = splitMess[1];
+			String idc = splitMess[2];
+			if (DBCompetence.ajoutCompetenceUtilisateur(new Competence(Integer.parseInt(idc), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
+				mess = "ok";
+				retour = proto.reponse(mess);
+			}else{
+				mess = "erreur pendant l'ajout de compétence";
+				retour = proto.erreur("400", mess);
+			}
+		}else{
+			mess ="Erreur nombre de parametre invalide";
+			retour = proto.erreur("400", mess);
 		}
 		return retour;
 	}

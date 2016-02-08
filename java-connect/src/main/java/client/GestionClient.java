@@ -12,12 +12,16 @@ import sql.DBCompetence;
 import sql.DBDiplome;
 import sql.DBUtilisateur;
 
+/**
+ * @author robin
+ *
+ */
 public class GestionClient 
 {
 	private Protocole proto;
 	private Client c;
 	private Utilisateur u;
-	
+
 	public GestionClient() 
 	{
 		this.proto= new Protocole();
@@ -25,7 +29,7 @@ public class GestionClient
 		this.u= new Utilisateur(0, "Anonyme", "", "", "", 0);
 		this.c= new Client();
 	}
-	
+
 	public String traiter (String message)
 	{
 		String retour ="";
@@ -53,23 +57,32 @@ public class GestionClient
 		} else { 
 			retour = "erreur message non reconnu";
 		}
-		
-		
+
+
 		return retour;
 	}
-	
+
+	/**
+	 * Dit si un utilisateur est connecte
+	 * @return
+	 */
 	private boolean connecte ()
 	{
 		return this.u!=null;
 	}
-	
+
+	/**
+	 * Traite le listage des users
+	 * @param splitMess
+	 * @return
+	 */
 	private String listUsers(String[] splitMess){
 		String mess="lol", id;
 		Scanner sc= new Scanner(System.in);		
-		
-		
+
+
 		String commande="LIST_USERS|0|";
-		
+
 		try 
 		{
 			String[] retour=this.c.communiquer(commande).split("\\|");
@@ -88,29 +101,34 @@ public class GestionClient
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "lol";
 	}
-	
+
+	/**
+	 * Donne le detail d'un utilisateur
+	 * @param splitMess
+	 * @return
+	 */
 	private String detailUser(String[] splitMess){
 		String mess="lol", id;
 		Scanner sc= new Scanner(System.in);		
-		
-		
+
+
 		String commande="DETAIL_USER|"+this.u.getId()+"|";
-		
+
 		try 
 		{
-			
+
 			System.out.print("Id user:");
 			id= sc.nextLine();
-			
+
 			String[] retour=this.c.communiquer(commande+id).split("\\|");
 			int c=0;
-			
+
 			String[] s1= retour[1].split (";");
 			System.out.println("Id: "+s1[0]+", Nom: "+s1[1].toUpperCase()+", Prenom:"+s1[2]+", Mail:"+s1[3]);
-			
+
 			//Diplomes
 			System.out.print("Diplomes: ");
 			for(String s2: retour[2].split(";"))
@@ -118,32 +136,37 @@ public class GestionClient
 				System.out.print(s2+" ");
 			}
 			System.out.println("");
-			
+
 			//Competences
 			System.out.print("Competences: ");
 			for(String s2: retour[3].split(";"))
 			{
 				System.out.print(s2+" ");
 			}
-			
+
 			System.out.println("");
-			
+
 		} 
 		catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "lol";
 	}
-	
+
+	/**
+	 * Liste les competences de la base
+	 * @param splitMess
+	 * @return
+	 */
 	private String listComp(String[] splitMess){
 		String mess="lol", id;
 		Scanner sc= new Scanner(System.in);		
-		
-		
+
+
 		String commande="LIST_COMP|0";
-		
+
 		try 
 		{
 			String[] retour=this.c.communiquer(commande).split("\\|");
@@ -162,35 +185,40 @@ public class GestionClient
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return "lol";
 	}
-	
+
+	/**
+	 * Cree un compte utilisateur
+	 * @param splitMess
+	 * @return
+	 */
 	private String creerCompte(String[] splitMess){
 		String mess="lol", nom, prenom, mdp, mail;
 		Scanner sc= new Scanner(System.in);		
-		
-		
+
+
 		String commande="CREER_COMPTE|0|";
-		
+
 		try 
 		{
-			
+
 			System.out.print("Nom:");
 			nom= sc.nextLine();
-			
+
 			System.out.print("Prenom:");
 			prenom= sc.nextLine();
-			
+
 			System.out.print("Mail");
 			mail= sc.nextLine();
-			
+
 			System.out.print("Mot de passe:");
 			mdp= sc.nextLine();
-			
-			
+
+
 			String[] retour=this.c.communiquer(commande+nom+"|"+prenom+"|"+mdp+"|"+mail).split("\\|");
-			
+
 			for(String s: retour)
 			{
 				System.out.println(s);
@@ -202,7 +230,12 @@ public class GestionClient
 		}
 		return "lol";
 	}
-	
+
+	/**
+	 * Effectue une demande de connexion
+	 * @param splitMess
+	 * @return
+	 */
 	private String connexion (String[] splitMess){
 		String pseudo, mdp;
 		Scanner sc= new Scanner(System.in);
@@ -210,36 +243,36 @@ public class GestionClient
 		try 
 		{
 
-				System.out.print("pseudo:");
-				pseudo= sc.nextLine();
-				
-				System.out.print("mdp:");
-				mdp= sc.nextLine();
-				
-				String[] retour=this.c.communiquer(commande+pseudo+"|"+mdp).split("\\|");
-				
-				if(retour[0].equalsIgnoreCase("200"))
-				{
-					System.out.println("Connexion OK");
-					int id= Integer.parseInt(retour[1]);
-					
-					//Dire bonjour
-					commande="DETAIL_USER|"+this.u.getId()+"|"+id;
-					
-					retour=this.c.communiquer(commande).split("\\|");
+			System.out.print("pseudo:");
+			pseudo= sc.nextLine();
 
-					String[] s1= retour[1].split (";");
-					System.out.println("Bonjour "+s1[1].toUpperCase()+" "+s1[2].toLowerCase());
-					
-					this.u=new Utilisateur(Integer.parseInt(s1[0]), s1[1],s1[2], s1[3], "", 0);
-					
-					System.out.println("");
+			System.out.print("mdp:");
+			mdp= sc.nextLine();
 
-				}
-				else
-				{
-					System.out.println("Connection KO");
-				}
+			String[] retour=this.c.communiquer(commande+pseudo+"|"+mdp).split("\\|");
+
+			if(retour[0].equalsIgnoreCase("200"))
+			{
+				System.out.println("Connexion OK");
+				int id= Integer.parseInt(retour[1]);
+
+				//Dire bonjour
+				commande="DETAIL_USER|"+this.u.getId()+"|"+id;
+
+				retour=this.c.communiquer(commande).split("\\|");
+
+				String[] s1= retour[1].split (";");
+				System.out.println("Bonjour "+s1[1].toUpperCase()+" "+s1[2].toLowerCase());
+
+				this.u=new Utilisateur(Integer.parseInt(s1[0]), s1[1],s1[2], s1[3], "", 0);
+
+				System.out.println("");
+
+			}
+			else
+			{
+				System.out.println("Connection KO");
+			}
 		} 
 		catch (Exception e) 
 		{
@@ -249,35 +282,40 @@ public class GestionClient
 
 		return "lol";
 	}
-	
+
+	/**
+	 * Modifie les infos d'un utilisateur
+	 * @param splitMess
+	 * @return
+	 */
 	private String modifInfo(String[] splitMess){
 
 		String id, nom, prenom, mdp, mail;
 		Scanner sc= new Scanner(System.in);		
-		
-		
+
+
 		String commande="CREER_COMPTE|0|";
-		
+
 		try 
 		{
 			System.out.print("id:");
 			id= sc.nextLine();
-			
+
 			System.out.print("Nom:");
 			nom= sc.nextLine();
-			
+
 			System.out.print("Prenom:");
 			prenom= sc.nextLine();
-			
+
 			System.out.print("Mail");
 			mail= sc.nextLine();
-			
+
 			System.out.print("Mot de passe:");
 			mdp= sc.nextLine();
-			
-			
+
+
 			String[] retour=this.c.communiquer(commande+nom+"|"+prenom+"|"+mdp+"|"+mail).split("\\|");
-			
+
 			for(String s: retour)
 			{
 				System.out.println(s);
@@ -289,29 +327,34 @@ public class GestionClient
 		}
 		return "lol";
 	}
-	
+
+	/**
+	 * Ajoute un diplome a un utilisateur
+	 * @param splitMess
+	 * @return
+	 */
 	private String addDip(String[] splitMess){
 		String idU, idD, annee;
 		Scanner sc= new Scanner(System.in);		
-		
-		
+
+
 		String commande="AJOUT_DIPLOME|";
-		
+
 		try 
 		{
 			System.out.print("ID Utilisateur:");
 			idU= sc.nextLine();
-			
+
 			System.out.print("ID Diplome:");
 			idD= sc.nextLine();
-			
+
 			System.out.print("Annee d'obtention:");
 			annee= sc.nextLine();
 
-			
-			
+
+
 			String retour=this.c.communiquer(commande+idU+"|"+idD+"|"+annee);
-			
+
 			System.out.println(retour);
 		} 
 		catch (IOException e) {
@@ -320,22 +363,27 @@ public class GestionClient
 		}
 		return "lol";
 	}
-	
+
+	/**
+	 * Enleve un diplome a un utilisateur
+	 * @param splitMess
+	 * @return
+	 */
 	private String delDip(String[] splitMess){
 		String idU, idD;
 		Scanner sc= new Scanner(System.in);		
 		String commande="SUPP_DIPLOME|";
-		
+
 		try 
 		{
 			System.out.print("ID Utilisateur:");
 			idU= sc.nextLine();
-			
+
 			System.out.print("ID Diplome:");
 			idD= sc.nextLine();
-	
+
 			String retour=this.c.communiquer(commande+idU+"|"+idD);
-			
+
 			System.out.println(retour);
 		} 
 		catch (IOException e) {
@@ -344,22 +392,27 @@ public class GestionClient
 		}
 		return "lol";
 	}
-	
+
+	/**
+	 * Ajoute une competence a un utilisateur
+	 * @param splitMess
+	 * @return
+	 */
 	private String addCompt(String[] splitMess){
 		String idU, idC;
 		Scanner sc= new Scanner(System.in);		
 		String commande="AJOUT_COMP|";
-		
+
 		try 
 		{
 			System.out.print("ID Utilisateur:");
 			idU= sc.nextLine();
-			
+
 			System.out.print("ID Competence:");
 			idC= sc.nextLine();
-	
+
 			String retour=this.c.communiquer(commande+idU+"|"+idC);
-			
+
 			System.out.println(retour);
 		} 
 		catch (IOException e) {
@@ -368,22 +421,27 @@ public class GestionClient
 		}
 		return "lol";
 	}
-	
+
+	/**
+	 * Enleve une competence a un utilisateur
+	 * @param splitMess
+	 * @return
+	 */
 	private String delComp(String[] splitMess){
 		String idU, idC;
 		Scanner sc= new Scanner(System.in);		
 		String commande="DEL_COMP|";
-		
+
 		try 
 		{
 			System.out.print("ID Utilisateur:");
 			idU= sc.nextLine();
-			
+
 			System.out.print("ID Competence:");
 			idC= sc.nextLine();
-	
+
 			String retour=this.c.communiquer(commande+idU+"|"+idC);
-			
+
 			System.out.println(retour);
 		} 
 		catch (IOException e) {

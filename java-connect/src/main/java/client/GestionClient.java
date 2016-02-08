@@ -22,7 +22,7 @@ public class GestionClient
 	{
 		this.proto= new Protocole();
 		final String listUserString = proto.getListUserString();
-		this.u= null;
+		this.u= new Utilisateur(0, "Anonyme", "", "", "", 0);
 		this.c= new Client();
 	}
 	
@@ -97,7 +97,7 @@ public class GestionClient
 		Scanner sc= new Scanner(System.in);		
 		
 		
-		String commande="DETAIL_USER|0|";
+		String commande="DETAIL_USER|"+this.u.getId()+"|";
 		
 		try 
 		{
@@ -107,15 +107,27 @@ public class GestionClient
 			
 			String[] retour=this.c.communiquer(commande+id).split("\\|");
 			int c=0;
-			for(String s: retour)
+			
+			String[] s1= retour[1].split (";");
+			System.out.println("Id: "+s1[0]+", Nom: "+s1[1].toUpperCase()+", Prenom:"+s1[2]+", Mail:"+s1[3]);
+			
+			//Diplomes
+			System.out.print("Diplomes: ");
+			for(String s2: retour[2].split(";"))
 			{
-				String[] s1= s.split (";");
-				for(String s2: s1)
-				{
-					System.out.print(s2+" ");
-				}
-				System.out.println("");
+				System.out.print(s2+" ");
 			}
+			System.out.println("");
+			
+			//Competences
+			System.out.print("Competences: ");
+			for(String s2: retour[3].split(";"))
+			{
+				System.out.print(s2+" ");
+			}
+			
+			System.out.println("");
+			
 		} 
 		catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -123,30 +135,6 @@ public class GestionClient
 		}
 		
 		return "lol";
-	}
-	
-	private String connexion (String[] splitMess){
-		String pseudo, mdp, retour="lol";
-		Scanner sc= new Scanner(System.in);
-		
-		try 
-		{
-
-				System.out.print("pseudo:");
-				pseudo= sc.nextLine();
-				
-				System.out.print("mdp:");
-				mdp= sc.nextLine();
-				
-				System.out.println(pseudo+" "+mdp);
-		} 
-		catch (Exception e) 
-		{
-			System.err.println(e);
-			e.printStackTrace();
-		}
-
-		return retour;
 	}
 	
 	private String listComp(String[] splitMess){
@@ -215,9 +203,91 @@ public class GestionClient
 		return "lol";
 	}
 	
+	private String connexion (String[] splitMess){
+		String pseudo, mdp;
+		Scanner sc= new Scanner(System.in);
+		String commande="CONNECTION|";
+		try 
+		{
+
+				System.out.print("pseudo:");
+				pseudo= sc.nextLine();
+				
+				System.out.print("mdp:");
+				mdp= sc.nextLine();
+				
+				String[] retour=this.c.communiquer(commande+pseudo+"|"+mdp).split("\\|");
+				
+				if(retour[0].equalsIgnoreCase("200"))
+				{
+					System.out.println("Connexion OK");
+					int id= Integer.parseInt(retour[1]);
+					
+					//Dire bonjour
+					commande="DETAIL_USER|"+this.u.getId()+"|"+id;
+					
+					retour=this.c.communiquer(commande).split("\\|");
+
+					String[] s1= retour[1].split (";");
+					System.out.println("Bonjour "+s1[1].toUpperCase()+" "+s1[2].toLowerCase());
+					
+					this.u=new Utilisateur(Integer.parseInt(s1[0]), s1[1],s1[2], s1[3], "", 0);
+					
+					System.out.println("");
+
+				}
+				else
+				{
+					System.out.println("Connection KO");
+				}
+		} 
+		catch (Exception e) 
+		{
+			System.err.println(e);
+			e.printStackTrace();
+		}
+
+		return "lol";
+	}
+	
 	private String modifInfo(String[] splitMess){
-		String retour ="";
-		return retour;
+
+		String id, nom, prenom, mdp, mail;
+		Scanner sc= new Scanner(System.in);		
+		
+		
+		String commande="CREER_COMPTE|0|";
+		
+		try 
+		{
+			System.out.print("id:");
+			nom= sc.nextLine();
+			
+			System.out.print("Nom:");
+			nom= sc.nextLine();
+			
+			System.out.print("Prenom:");
+			prenom= sc.nextLine();
+			
+			System.out.print("Mail");
+			mail= sc.nextLine();
+			
+			System.out.print("Mot de passe:");
+			mdp= sc.nextLine();
+			
+			
+			String[] retour=this.c.communiquer(commande+nom+"|"+prenom+"|"+mdp+"|"+mail).split("\\|");
+			
+			for(String s: retour)
+			{
+				System.out.println(s);
+			}
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "lol";
 	}
 	
 	private String addDip(String[] splitMess){

@@ -20,7 +20,7 @@ public class mainClient {
 				
 				if (commande.equals("q")) break;
 				
-				gc.traiter(commande);
+				gc.traiter(commande.toUpperCase());
 			}while(true);
 			
 		} 

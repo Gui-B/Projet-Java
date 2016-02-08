@@ -261,7 +261,7 @@ public class GestionClient
 		try 
 		{
 			System.out.print("id:");
-			nom= sc.nextLine();
+			id= sc.nextLine();
 			
 			System.out.print("Nom:");
 			nom= sc.nextLine();
@@ -291,15 +291,58 @@ public class GestionClient
 	}
 	
 	private String addDip(String[] splitMess){
-		String retour="lol";
+		String idU, idD, annee;
+		Scanner sc= new Scanner(System.in);		
+		
+		
+		String commande="AJOUT_DIPLOME|";
+		
+		try 
+		{
+			System.out.print("ID Utilisateur:");
+			idU= sc.nextLine();
+			
+			System.out.print("ID Diplome:");
+			idD= sc.nextLine();
+			
+			System.out.print("Annee d'obtention:");
+			annee= sc.nextLine();
 
-		return retour;
+			
+			
+			String retour=this.c.communiquer(commande+idU+"|"+idD+"|"+annee);
+			
+			System.out.println(retour);
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "lol";
 	}
 	
 	private String delDip(String[] splitMess){
-		String retour;
+		String idU, idD;
+		Scanner sc= new Scanner(System.in);		
+		String commande="SUPP_DIPLOME|";
+		
+		try 
+		{
+			System.out.print("ID Utilisateur:");
+			idU= sc.nextLine();
+			
+			System.out.print("ID Diplome:");
+			idD= sc.nextLine();
 	
-		return retour="lol";
+			String retour=this.c.communiquer(commande+idU+"|"+idD);
+			
+			System.out.println(retour);
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "lol";
 	}
 	
 	private String addCompt(String[] splitMess){

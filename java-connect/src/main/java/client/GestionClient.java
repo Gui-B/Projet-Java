@@ -346,14 +346,50 @@ public class GestionClient
 	}
 	
 	private String addCompt(String[] splitMess){
-		String retour="lol";
+		String idU, idC;
+		Scanner sc= new Scanner(System.in);		
+		String commande="AJOUT_COMP|";
+		
+		try 
+		{
+			System.out.print("ID Utilisateur:");
+			idU= sc.nextLine();
+			
+			System.out.print("ID Competence:");
+			idC= sc.nextLine();
 	
-		return retour;
+			String retour=this.c.communiquer(commande+idU+"|"+idC);
+			
+			System.out.println(retour);
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "lol";
 	}
 	
 	private String delComp(String[] splitMess){
-		String mess, retour="lol";
+		String idU, idC;
+		Scanner sc= new Scanner(System.in);		
+		String commande="DEL_COMP|";
+		
+		try 
+		{
+			System.out.print("ID Utilisateur:");
+			idU= sc.nextLine();
+			
+			System.out.print("ID Competence:");
+			idC= sc.nextLine();
 	
-		return retour;
+			String retour=this.c.communiquer(commande+idU+"|"+idC);
+			
+			System.out.println(retour);
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "lol";
 	}
 }

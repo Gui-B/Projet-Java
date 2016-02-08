@@ -125,10 +125,94 @@ public class GestionClient
 		return "lol";
 	}
 	
-	private String creerCompte(String[] splitMess){
-		String retour;
+	private String connexion (String[] splitMess){
+		String pseudo, mdp, retour="lol";
+		Scanner sc= new Scanner(System.in);
+		
+		try 
+		{
 
-		return retour="lol";
+				System.out.print("pseudo:");
+				pseudo= sc.nextLine();
+				
+				System.out.print("mdp:");
+				mdp= sc.nextLine();
+				
+				System.out.println(pseudo+" "+mdp);
+		} 
+		catch (Exception e) 
+		{
+			System.err.println(e);
+			e.printStackTrace();
+		}
+
+		return retour;
+	}
+	
+	private String listComp(String[] splitMess){
+		String mess="lol", id;
+		Scanner sc= new Scanner(System.in);		
+		
+		
+		String commande="LIST_COMP|0";
+		
+		try 
+		{
+			String[] retour=this.c.communiquer(commande).split("\\|");
+			int c=0;
+			for(String s: retour)
+			{
+				String[] s1= s.split (";");
+				for(String s2: s1)
+				{
+					System.out.print(s2+" ");
+				}
+				System.out.println("");
+			}
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return "lol";
+	}
+	
+	private String creerCompte(String[] splitMess){
+		String mess="lol", nom, prenom, mdp, mail;
+		Scanner sc= new Scanner(System.in);		
+		
+		
+		String commande="CREER_COMPTE|0|";
+		
+		try 
+		{
+			
+			System.out.print("Nom:");
+			nom= sc.nextLine();
+			
+			System.out.print("Prenom:");
+			prenom= sc.nextLine();
+			
+			System.out.print("Mail");
+			mail= sc.nextLine();
+			
+			System.out.print("Mot de passe:");
+			mdp= sc.nextLine();
+			
+			
+			String[] retour=this.c.communiquer(commande+nom+"|"+prenom+"|"+mdp+"|"+mail).split("\\|");
+			
+			for(String s: retour)
+			{
+				System.out.println(s);
+			}
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "lol";
 	}
 	
 	private String modifInfo(String[] splitMess){
@@ -151,39 +235,6 @@ public class GestionClient
 	private String addCompt(String[] splitMess){
 		String retour="lol";
 	
-		return retour;
-	}
-	
-	private String listComp(String[] splitMess){
-		String mess = "";
-		ArrayList<Competence> comps = DBCompetence.lireCompetences(); //tableau de compétence de l'utilisateur
-		for (Competence comp : comps) {
-			mess = mess + comp.getId() + ";" + comp.getCompetence() + "|";
-		}
-		return proto.reponse(mess);
-	}
-	
-	private String connexion (String[] splitMess){
-		String pseudo, mdp, retour="lol";
-		Scanner sc= new Scanner(System.in);
-		
-		try 
-		{
-
-				System.out.print("pseudo:");
-				pseudo= sc.nextLine();
-				
-				System.out.print("mdp:");
-				mdp= sc.nextLine();
-				
-				System.out.println(pseudo+" "+mdp);
-		} 
-		catch (Exception e) 
-		{
-			System.err.println(e);
-			e.printStackTrace();
-		}
-
 		return retour;
 	}
 	

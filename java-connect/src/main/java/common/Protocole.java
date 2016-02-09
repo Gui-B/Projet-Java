@@ -245,11 +245,20 @@ public class Protocole {
 	public String ReqListDip(String id){
 		return listDip + "|" + id;
 	}
+	
 	/**
 	 * fonction générant la requet pour récevoir la liste des compétence
 	 * @return
 	 */
 	public String ReqListComp(){
 		return ReqListComp("0");
+	}
+
+	/**
+	 * fonction générant la requet pour récevoir la liste des diplomes
+	 * @return
+	 */
+	public String ReqListDip(){
+		return ReqListDip("0");
 	}
 }

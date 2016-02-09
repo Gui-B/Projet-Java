@@ -153,8 +153,8 @@ public class Protocole {
 	 * @param val la nouvelle valeur du paramettre
 	 * @return la req
 	 */
-	public String reqModifInfo(String id, String para, String val){
-		return modifInfo + "|" + id + "|" + para + "|" + val;
+	public String reqModifInfo(String id, String mail, String mdp, String nom, String prenom){
+		return modifInfo + "|" + id + "|" + mail + "|" + mdp + "|" + nom + "|" + prenom;
 	}
 	
 	/**

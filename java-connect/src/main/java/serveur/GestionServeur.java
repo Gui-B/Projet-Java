@@ -134,6 +134,12 @@ public class GestionServeur
 	
 	private String modifInfo(String[] splitMess){
 		String retour ="";
+		String id = splitMess[1];
+		Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
+		user.setMail(splitMess[2]);
+		user.setNom(splitMess[4]);
+		user.setPrenom(splitMess[5]);
+		DBUtilisateur.modifierUtilisateur(user);
 		return retour;
 	}
 	

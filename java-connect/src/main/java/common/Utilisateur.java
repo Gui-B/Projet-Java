@@ -7,7 +7,6 @@ public class Utilisateur {
 	private String mail;
 	private int id;
 	private int satuts;
-	private int vuTel;
 	private int vuMail;
 	private int vuComp;
 	private int vuDip;
@@ -25,7 +24,7 @@ public class Utilisateur {
 	 * @param vuComp
 	 * @param vuDip
 	 */
-	public Utilisateur(int id, String nom, String prenom, String motDePasse, String mail, int satuts, int vuTel,
+	public Utilisateur(int id, String nom, String prenom, String motDePasse, String mail, int satuts,
 			int vuMail, int vuComp, int vuDip) {
 		super();
 		this.nom = nom;
@@ -34,7 +33,6 @@ public class Utilisateur {
 		this.mail = mail;
 		this.id = id;
 		this.satuts = satuts;
-		this.vuTel = vuTel;
 		this.vuMail = vuMail;
 		this.vuComp = vuComp;
 		this.vuDip = vuDip;
@@ -60,7 +58,6 @@ public class Utilisateur {
 		this.mail = mail;
 		this.id = id;
 		this.satuts = satuts;
-		this.vuTel = 0;
 		this.vuMail = 0;
 		this.vuComp = 0;
 		this.vuDip = 0;

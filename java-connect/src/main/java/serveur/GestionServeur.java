@@ -55,7 +55,7 @@ public class GestionServeur
 		}else if (splitMess[0].equals(proto.getAjoutDiplomeString())){
 			retour = addDip(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getSuppDiplomeString())){
-			retour = delDip(splitMess);
+			retour = delDip(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getAddCompString())){
 			retour = addCompt(splitMess);
 		}else if (splitMess[0].equals(proto.getDelCompString())){
@@ -154,14 +154,11 @@ public class GestionServeur
 			
 			if ( splitMess.length > 3){
 				String id = splitMess[1];
-				
-				System.out.println(gc.getIdProprietaireSocket(idS));
-				
 				String idd = splitMess[2];
 				String annee = splitMess[3];
 				
 				//Verifier les droits sur la commande: user ou admin
-				gc.adminOuProprietaireException(idS, gc.getIdProprietaireSocket(idS));
+				gc.adminOuProprietaireException(idS, Integer.parseInt(id));
 				
 				//requet d'ajout du diplome
 				if (DBDiplome.ajoutDiplomeUtilisateur(new Diplome(Integer.parseInt(idd), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0), Integer.parseInt(annee)))
@@ -190,26 +187,42 @@ public class GestionServeur
 		return retour;
 	}
 	
-	private String delDip(String[] splitMess)
+	private String delDip(String[] splitMess, int idS)
 	{
 		String retour;
 		String mess;
-		if ( splitMess.length > 2){
-			String id = splitMess[1];
-			String idd = splitMess[2];
-			if (DBDiplome.supprimerDiplomeUtilisateur(new Diplome(Integer.parseInt(idd), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
-				mess = "ok";
-				retour = proto.reponse(mess);
-			}else{
-				mess = "erreur pendant la supression du diplome";
-				retour = proto.erreur("400", mess);
-			}
-		}
-		else
+		
+		try 
 		{
-			mess ="Erreur nombre de parametre invalide";
-			retour = proto.erreur("400", mess);
+			if ( splitMess.length > 2){
+				String id = splitMess[1];
+				String idd = splitMess[2];
+				
+				//Verifier les droits sur la commande: user ou admin
+				gc.adminOuProprietaireException(idS, Integer.parseInt(id));
+				
+				if (DBDiplome.supprimerDiplomeUtilisateur(new Diplome(Integer.parseInt(idd), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
+					mess = "ok";
+					retour = proto.reponse(mess);
+				}else{
+					mess = "erreur pendant la supression du diplome";
+					retour = proto.erreur("400", mess);
+				}
+			}
+			else
+			{
+				mess ="Erreur nombre de parametre invalide";
+				retour = proto.erreur("400", mess);
+				
+				throw new Exception(retour);
+			}
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			retour=e.getMessage();
 		}
+		
 		return retour;
 	}
 	

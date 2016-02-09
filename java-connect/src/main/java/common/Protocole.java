@@ -17,7 +17,15 @@ public class Protocole {
 	private final String delComp = "DEL_COMP";
 	private final String connection = "CONNECTION";
 	private final String listComp = "LIST_COMP";
+	private final String listDip = "LIST_DIP";
 	
+	/**
+	 * @return the listDip
+	 */
+	public String getListDipString() {
+		return listDip;
+	}
+
 	/**
 	 * @return the listComp
 	 */
@@ -227,6 +235,15 @@ public class Protocole {
 	 */
 	public String ReqListComp(String id){
 		return listComp + "|" + id;
+	}
+	
+	/** 
+	 * fonction générant la requet pour récevoir la liste des diplomes
+	 * @param id id de l'utilisateur
+	 * @return
+	 */
+	public String ReqListDip(String id){
+		return listDip + "|" + id;
 	}
 	/**
 	 * fonction générant la requet pour récevoir la liste des compétence

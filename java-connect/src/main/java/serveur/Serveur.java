@@ -44,40 +44,6 @@ public class Serveur
 			e.printStackTrace();
 		}
 	}
-
-//	public void communiquer(GestionServeur gs) throws IOException
-//	{	
-//		String entree;
-//		String sortie;
-//		Socket socketService;
-//		PrintStream fluxSortieSocket;
-//		BufferedReader fluxEntreeSocket;
-//		socketService= socketEcoute.accept();
-//		System.out.println("Nouvelle connexion: "+socketService);
-//
-//
-//		fluxEntreeSocket= new BufferedReader(new InputStreamReader(socketService.getInputStream()));
-//		fluxSortieSocket= new PrintStream(socketService.getOutputStream());
-//
-//		try 
-//		{
-//			//Recevoir
-//			entree= fluxEntreeSocket.readLine();
-//			System.out.println("Recu: "+entree);
-//
-//			//Envoyer
-//			sortie= gs.traiter(entree);
-//			fluxSortieSocket.println(sortie);
-//
-//			System.out.println("Fin de transfert");
-//			this.fermerService();
-//		} 
-//		catch (Exception e) 
-//		{
-//			System.err.println(e);
-//			e.printStackTrace();
-//		}
-//	}
 }
 
 class ServiceServer extends Thread

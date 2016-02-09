@@ -6,7 +6,8 @@ import java.net.ServerSocket;
 
 public class Serveur
 {
-	ServerSocket socketEcoute;
+	private ServerSocket socketEcoute;
+	private int idSocketClient;
 
 	public Serveur() 
 	{
@@ -15,6 +16,7 @@ public class Serveur
 			//Creation socket 12345
 			this.socketEcoute= new ServerSocket(12345);
 			System.out.println("Nouveau serveur: "+socketEcoute);
+			this.idSocketClient=0;
 		} 
 		catch (Exception e) 
 		{
@@ -27,8 +29,8 @@ public class Serveur
 	public void connectClient(GestionServeur gs) throws IOException
 	{
 		Socket socketService= socketEcoute.accept();
-		System.out.println("Nouvelle connexion: "+socketService);
-		ServiceServer client=new ServiceServer(socketService, gs);
+		System.out.println("Nouvelle connexion: "+socketService+" "+socketService.getInetAddress()+" "+socketService.getLocalAddress());
+		ServiceServer client=new ServiceServer(socketService, gs, this.idSocketClient++);
 		client.start();
 	}
 
@@ -44,40 +46,6 @@ public class Serveur
 			e.printStackTrace();
 		}
 	}
-
-//	public void communiquer(GestionServeur gs) throws IOException
-//	{	
-//		String entree;
-//		String sortie;
-//		Socket socketService;
-//		PrintStream fluxSortieSocket;
-//		BufferedReader fluxEntreeSocket;
-//		socketService= socketEcoute.accept();
-//		System.out.println("Nouvelle connexion: "+socketService);
-//
-//
-//		fluxEntreeSocket= new BufferedReader(new InputStreamReader(socketService.getInputStream()));
-//		fluxSortieSocket= new PrintStream(socketService.getOutputStream());
-//
-//		try 
-//		{
-//			//Recevoir
-//			entree= fluxEntreeSocket.readLine();
-//			System.out.println("Recu: "+entree);
-//
-//			//Envoyer
-//			sortie= gs.traiter(entree);
-//			fluxSortieSocket.println(sortie);
-//
-//			System.out.println("Fin de transfert");
-//			this.fermerService();
-//		} 
-//		catch (Exception e) 
-//		{
-//			System.err.println(e);
-//			e.printStackTrace();
-//		}
-//	}
 }
 
 class ServiceServer extends Thread
@@ -86,11 +54,13 @@ class ServiceServer extends Thread
 	BufferedReader fluxEntreeSocket;
 	Socket socketService;
 	GestionServeur gs;
+	int id;
 
-	public ServiceServer(Socket pSocket, GestionServeur pGestion)
+	public ServiceServer(Socket pSocket, GestionServeur pGestion, int idClient)
 	{
 		this.socketService=pSocket;
 		this.gs= pGestion;
+		this.id=idClient;
 	}
 
 
@@ -107,19 +77,19 @@ class ServiceServer extends Thread
 			{
 				//Recevoir
 				entree= fluxEntreeSocket.readLine();
-				System.out.println("Recu: "+entree);
+				System.out.println("Recu de "+this.id+": "+entree);
 				
 				if (entree==null) break;
 
 				
 				//Envoyer
-				sortie= gs.traiter(entree);
+				sortie= gs.traiter(this.id, this.fluxSortieSocket, entree);
 				fluxSortieSocket.println(sortie);
 
-				System.out.println("Fin de transfert");
+				System.out.println("Fin de transfert de:"+this.id);
 			}while(true);
 
-			System.out.println("Fermeture de connexion client");
+			System.out.println("Fermeture de connexion client "+this.id);
 			socketService.close();
 		} 
 		catch (Exception e) 

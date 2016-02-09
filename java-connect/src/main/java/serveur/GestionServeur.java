@@ -1,11 +1,14 @@
 package serveur;
 
+import java.io.PrintStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import common.Competence;
 import common.Diplome;
 import common.Protocole;
 import common.Utilisateur;
+import common.GestionConnexions;
 import sql.DBCompetence;
 import sql.DBDiplome;
 import sql.DBUtilisateur;
@@ -13,14 +16,13 @@ import sql.DBUtilisateur;
 public class GestionServeur
 {	
 	private Protocole proto;
-	//private static final String listUserString;
+	private GestionConnexions gc;
 	
 	public GestionServeur()
 	{
 		// TODO Auto-generated constructor stub
-		proto = new Protocole();
-		final String listUserString = proto.getListUserString();
-		
+		this.proto = new Protocole();
+		this.gc= new GestionConnexions();
 	}
 	
 	/**
@@ -28,8 +30,13 @@ public class GestionServeur
 	 * @param message le message reçu par le serveur
 	 * @return la réponse que le serveur envoie au client
 	 */
-	public String traiter (String message)
+	public String traiter (int id,PrintStream pC, String message)
 	{
+		if(!this.gc.streamExiste(id))
+		{
+			this.gc.nouveauClient(id, pC);
+		}
+			
 		String retour ="";
 		String[] splitMess = message.split("\\|");
 		if (splitMess[0].equals(proto.getListUserString())){
@@ -49,7 +56,7 @@ public class GestionServeur
 		}else if (splitMess[0].equals(proto.getDelCompString())){
 			retour = delComp(splitMess);
 		}else if (splitMess[0].equals(proto.getConnectionString())){
-			retour = connexion(splitMess);
+			retour = connexion(splitMess, id);
 		} else if (splitMess[0].equals(proto.getListCompString())){
 			retour = listComp(splitMess);
 		} else { 
@@ -201,21 +208,51 @@ public class GestionServeur
 		return proto.reponse(mess);
 	}
 	
-	private String connexion (String[] splitMess){
+	private String connexion (String[] splitMess, int idS){
 		String mess, retour;
-		if ( splitMess.length > 2){
+		if ( splitMess.length > 2)
+		{
 			String pseudo = splitMess[1];
 			String mdp = splitMess[2];
 			//requet de connection retournant l'id de l'utilisateur
 			Utilisateur user = DBUtilisateur.checkConnexion(new Utilisateur(0, "", "", pseudo, mdp, 0)); 
-			if( user != null){ //TO DO
-				mess = Integer.toString(user.getId());
-				retour = proto.reponse(mess);
-			} else {
-				mess = "Erreur de connexion";
+			if (!gc.streamUtilisateurExiste(idS))
+			{
+				if(!gc.estConnecte(user))
+				{
+					if( user != null)
+					{ 
+						//TO DO
+						mess = Integer.toString(user.getId());
+						retour = proto.reponse(mess);
+						
+						//Initialiser la co dans Gestion connexion
+						gc.identification(idS, user);
+						
+						//Dire bonjour
+						System.out.println("CONNECTE"+user);
+
+					} 
+					else 
+					{
+						mess = "Erreur de connexion";
+						retour = proto.erreur("400", mess);
+					}
+				}
+				else
+				{
+					mess = "Vous etes deja connecte ailleurs";
+					retour = proto.erreur("400", mess);
+				}
+			}
+			else
+			{
+				mess = "Vous etes deja connecte sous:"+user.getMail();
 				retour = proto.erreur("400", mess);
 			}
-		} else {
+		} 
+		else 
+		{
 			mess ="Erreur nombre de parametre invalide";
 			retour = proto.erreur("400", mess);
 		}

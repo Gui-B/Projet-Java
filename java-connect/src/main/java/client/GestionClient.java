@@ -271,7 +271,7 @@ public class GestionClient
 			}
 			else
 			{
-				System.out.println("Connection KO");
+				System.out.println(retour[0]+" "+retour[1]);
 			}
 		} 
 		catch (Exception e) 

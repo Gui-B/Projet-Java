@@ -166,6 +166,6 @@ public class Utilisateur {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return this.id+" "+this.nom+" "+this.prenom+" "+this.mail+" "+this.satuts;
+		return "Id: "+this.id+" Nom:"+this.nom+" Prenom:"+this.prenom+" Mail:"+this.mail+" Statut:"+this.satuts+" vuComp:"+this.vuComp+" vuDip:"+this.vuDip+" vuMail:"+this.vuMail;
 	}
 }

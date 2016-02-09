@@ -218,22 +218,30 @@ public class GestionServeur
 			Utilisateur user = DBUtilisateur.checkConnexion(new Utilisateur(0, "", "", pseudo, mdp, 0)); 
 			if (!gc.streamUtilisateurExiste(idS))
 			{
-				if( user != null)
-				{ 
-					//TO DO
-					mess = Integer.toString(user.getId());
-					retour = proto.reponse(mess);
-					
-					//Initialiser la co dans Gestion connexion
-					gc.identification(idS, user);
-					
-					//Dire bonjour
-					System.out.println("CONNECTE"+user);
-
-				} 
-				else 
+				if(!gc.estConnecte(user))
 				{
-					mess = "Erreur de connexion";
+					if( user != null)
+					{ 
+						//TO DO
+						mess = Integer.toString(user.getId());
+						retour = proto.reponse(mess);
+						
+						//Initialiser la co dans Gestion connexion
+						gc.identification(idS, user);
+						
+						//Dire bonjour
+						System.out.println("CONNECTE"+user);
+
+					} 
+					else 
+					{
+						mess = "Erreur de connexion";
+						retour = proto.erreur("400", mess);
+					}
+				}
+				else
+				{
+					mess = "Vous etes deja connecte ailleurs";
 					retour = proto.erreur("400", mess);
 				}
 			}

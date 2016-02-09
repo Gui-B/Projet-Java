@@ -7,14 +7,58 @@ public class Utilisateur {
 	private String mail;
 	private int id;
 	private int satuts;
+	private int vuMail;
+	private int vuComp;
+	private int vuDip;
 	
-	public Utilisateur(int id, String nom, String prenom, String mail, String motDePasse, int status) {
+
+	/**
+	 * @param nom
+	 * @param prenom
+	 * @param motDePasse
+	 * @param mail
+	 * @param id
+	 * @param satuts
+	 * @param vuMail
+	 * @param vuComp
+	 * @param vuDip
+	 */
+	public Utilisateur(int id, String nom, String prenom, String motDePasse, String mail, int satuts,
+			int vuMail, int vuComp, int vuDip) {
+		super();
 		this.nom = nom;
 		this.prenom = prenom;
 		this.motDePasse = motDePasse;
 		this.mail = mail;
 		this.id = id;
-		this.satuts = status;
+		this.satuts = satuts;
+		this.vuMail = vuMail;
+		this.vuComp = vuComp;
+		this.vuDip = vuDip;
+	}
+
+	/**
+	 * @param nom
+	 * @param prenom
+	 * @param motDePasse
+	 * @param mail
+	 * @param id
+	 * @param satuts
+	 * @param vuMail
+	 * @param vuComp
+	 * @param vuDip
+	 */
+	public Utilisateur(int id, String nom, String prenom, String motDePasse, String mail, int satuts) {
+		super();
+		this.nom = nom;
+		this.prenom = prenom;
+		this.motDePasse = motDePasse;
+		this.mail = mail;
+		this.id = id;
+		this.satuts = satuts;
+		this.vuMail = 0;
+		this.vuComp = 0;
+		this.vuDip = 0;
 	}
 
 	public int getSatuts() {
@@ -55,7 +99,28 @@ public class Utilisateur {
 	public int getId() {
 		return id;
 	}
-	
+
+	/**
+	 * @return the vuMail
+	 */
+	public int getVuMail() {
+		return vuMail;
+	}
+
+	/**
+	 * @return the vuComp
+	 */
+	public int getVuComp() {
+		return vuComp;
+	}
+
+	/**
+	 * @return the vuDip
+	 */
+	public int getVuDip() {
+		return vuDip;
+	}
+
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

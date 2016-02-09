@@ -102,13 +102,26 @@ public class GestionServeur
 			Utilisateur demandeur = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
 			ArrayList<Diplome> dips = DBDiplome.lireDiplomesUtilisateur(user); // tableau de string contenant les diplome de l'utilisateur
 			ArrayList<Competence> comps = DBCompetence.lireCompetencesUtilisateur(user); //tableau de compétence de l'utilisateur
-			mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";" + user.getMail() + "|";
-			for (Diplome dip : dips) {
-				mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + "/";
+			mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";";
+			if (user.getVuMail() > demandeur.getSatuts()){
+				mess = mess + "Caché" + "|";
+			} else {
+				mess = mess + user.getMail() + "|";
+			}
+			if (user.getVuDip() > demandeur.getSatuts()){
+				mess = mess + "0;Caché";
+			} else {
+				for (Diplome dip : dips) {
+					mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + "/";
+				}
 			}
 			mess = mess  + "|";
-			for (Competence comp : comps) {
-				mess = mess + comp.getId() + ";" + comp.getCompetence() + "/";
+			if (user.getVuComp() > demandeur.getSatuts()){
+				mess = mess + "0;Caché";
+			} else {
+				for (Competence comp : comps) {
+					mess = mess + comp.getId() + ";" + comp.getCompetence() + "/";
+				}
 			}
 			retour = proto.reponse(mess);
 		}

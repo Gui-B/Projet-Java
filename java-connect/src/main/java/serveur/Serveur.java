@@ -89,6 +89,9 @@ class ServiceServer extends Thread
 				System.out.println("Fin de transfert de:"+this.id);
 			}while(true);
 
+			this.gs.getGestionConnexions().deconnexion(id);
+			this.gs.getGestionConnexions().fermetureSocket(id);
+			
 			System.out.println("Fermeture de connexion client "+this.id);
 			socketService.close();
 		} 

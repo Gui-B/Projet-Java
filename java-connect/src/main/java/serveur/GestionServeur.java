@@ -57,7 +57,7 @@ public class GestionServeur
 		}else if (splitMess[0].equals(proto.getSuppDiplomeString())){
 			retour = delDip(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getAddCompString())){
-			retour = addCompt(splitMess);
+			retour = addCompt(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getDelCompString())){
 			retour = delComp(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getConnectionString())){
@@ -226,26 +226,45 @@ public class GestionServeur
 		return retour;
 	}
 	
-	private String addCompt(String[] splitMess)
+	private String addCompt(String[] splitMess, int idS)
 	{
 		String retour;
 		String mess;
-		if ( splitMess.length > 2){
-			String id = splitMess[1];
-			String idc = splitMess[2];
-			if (DBCompetence.ajoutCompetenceUtilisateur(new Competence(Integer.parseInt(idc), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
-				mess = "ok";
-				retour = proto.reponse(mess);
+		
+		try 
+		{
+			if ( splitMess.length > 2)
+			{
+				String id = splitMess[1];
+				String idc = splitMess[2];
+				
+				//Verifier les droits sur la commande: user ou admin
+				gc.adminOuProprietaireException(idS, Integer.parseInt(id));
+				
+				if (DBCompetence.ajoutCompetenceUtilisateur(new Competence(Integer.parseInt(idc), ""), new Utilisateur(Integer.parseInt(id), "", "", "", "", 0))){ //retour de la bdd
+					mess = "ok";
+					retour = proto.reponse(mess);
+				}
+				else
+				{
+					mess = "erreur pendant l'ajout de compétence";
+					retour = proto.erreur("400", mess);
+					throw new Exception(retour);
+				}
 			}
 			else
 			{
-				mess = "erreur pendant l'ajout de compétence";
+				mess ="Erreur nombre de parametre invalide";
 				retour = proto.erreur("400", mess);
+				throw new Exception(retour);
 			}
-		}else{
-			mess ="Erreur nombre de parametre invalide";
-			retour = proto.erreur("400", mess);
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			retour= e.getMessage();
 		}
+		
 		return retour;
 	}
 	

@@ -64,7 +64,9 @@ public class GestionServeur
 			retour = connexion(splitMess, idS);
 		} else if (splitMess[0].equals(proto.getListCompString())){
 			retour = listComp(splitMess);
-		} else { 
+		} if (splitMess[0].equals(proto.getListDipString())){
+			retour = listDip(splitMess);
+		}else { 
 			retour = "erreur message non reconnu";
 		}
 		return retour;
@@ -273,6 +275,15 @@ public class GestionServeur
 		ArrayList<Competence> comps = DBCompetence.lireCompetences(); //tableau de compétence de l'utilisateur
 		for (Competence comp : comps) {
 			mess = mess + comp.getId() + ";" + comp.getCompetence() + "|";
+		}
+		return proto.reponse(mess);
+	}
+	
+	private String listDip(String[] splitMess){
+		String mess = "";
+		ArrayList<Diplome> dips = DBDiplome.lireDiplomes(); //tableau de compétence de l'utilisateur
+		for (Diplome dip : dips) {
+			mess = mess + dip.getId() + ";" + dip.getDiplome() + "|";
 		}
 		return proto.reponse(mess);
 	}

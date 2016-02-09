@@ -65,8 +65,9 @@ public class GestionConnexions
 	
 	public int getIdProprietaireSocket(int idS)
 	{
-		if (this.usersConnectes.containsValue(idS))
+		if (this.usersConnectes.containsKey(idS))
 		{
+			System.out.println(this.usersConnectes.get(idS));
 			return this.usersConnectes.get(idS).getId();
 		}
 		return 0;
@@ -87,5 +88,35 @@ public class GestionConnexions
 	public PrintStream getPrintSteam (int idS)
 	{
 		return this.streamClients.get(idS);
+	}
+	
+	public void fullAdminAException(int idS) throws Exception
+	{
+		if(!this.usersConnectes.containsKey(idS))
+		{
+			throw new Exception("CONTROLE ADMIN:cet id n'est pas connecte");
+		}
+		else
+		{
+			if(this.usersConnectes.get(idS).getSatuts()!=1)
+			{
+				throw new Exception("CONTROLE ADMIN: cet utilisateur n'est pas admin");
+			}
+		}
+	}
+	
+	public void adminOuProprietaireException(int idS, int idU) throws Exception
+	{
+		if(!this.usersConnectes.containsKey(idS))
+		{
+			throw new Exception("CONTROLE adminOuProprietaire:cet id n'est pas connecte");
+		}
+		else
+		{
+			if((this.usersConnectes.get(idS).getId()!=idU)&&(this.usersConnectes.get(idS).getSatuts()!=1))
+			{
+				throw new Exception("CONTROLE adminOuProprietaire: "+this.usersConnectes.get(idS).getMail()+" "+this.usersConnectes.get(idS).getSatuts()+" "+"cet utilisateur n'est pas admin ou proprietaire!");
+			}
+		}
 	}
 }

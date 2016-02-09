@@ -19,7 +19,6 @@ public class Utilisateur {
 	 * @param mail
 	 * @param id
 	 * @param satuts
-	 * @param vuTel
 	 * @param vuMail
 	 * @param vuComp
 	 * @param vuDip
@@ -45,7 +44,6 @@ public class Utilisateur {
 	 * @param mail
 	 * @param id
 	 * @param satuts
-	 * @param vuTel
 	 * @param vuMail
 	 * @param vuComp
 	 * @param vuDip
@@ -100,13 +98,6 @@ public class Utilisateur {
 	 */
 	public int getId() {
 		return id;
-	}
-	
-	/**
-	 * @return the vuTel
-	 */
-	public int getVuTel() {
-		return vuTel;
 	}
 
 	/**

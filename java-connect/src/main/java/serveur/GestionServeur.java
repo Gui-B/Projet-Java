@@ -163,7 +163,7 @@ public class GestionServeur
 		user.setNom(splitMess[4]);
 		user.setPrenom(splitMess[5]);
 		DBUtilisateur.modifierUtilisateur(user);
-		return retour;
+		return proto.reponse("ok");
 	}
 	
 	private String addDip(String[] splitMess, int idS)

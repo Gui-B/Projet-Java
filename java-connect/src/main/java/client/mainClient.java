@@ -1,4 +1,4 @@
-package client;
+﻿package client;
 
 import java.util.Scanner;
 
@@ -25,17 +25,17 @@ public class mainClient {
 				if (commande.equals("q")) break;
 				
 				if (commande.equals("?")){
-					System.out.println(proto.getListUserString() +" récuperer la liste des utilisateur");
-					System.out.println(proto.getDetailUserString() + " récupérer les détail d'un utilisateur");
+					System.out.println(proto.getListUserString() +" récuperer la liste des utilisateurs");
+					System.out.println(proto.getDetailUserString() + " récupérer les détails d'un utilisateur");
 					System.out.println(proto.getCreerCompteString() + " créer un compte");
-					System.out.println(proto.getModifInfoString() + " modifier vos information");
+					System.out.println(proto.getModifInfoString() + " modifier vos informations");
 					System.out.println(proto.getAjoutDiplomeString() + " Ajouter un diplome");
 					System.out.println(proto.getSuppDiplomeString() + " suprimer un diplome");
 					System.out.println(proto.getAddCompString() + " Ajouter une compétence");
 					System.out.println(proto.getDelCompString() + " Suprimer une compétence");
-					System.out.println(proto.getConnectionString() + " Ce connecter");
-					System.out.println(proto.getListCompString() + " lister toute les compétence disponible");
-					System.out.println(proto.getListDipString() + " lister tout les diplome disponible");
+					System.out.println(proto.getConnectionString() + " Se connecter");
+					System.out.println(proto.getListCompString() + " lister toutes les compétences dispo");
+					System.out.println(proto.getListDipString() + " lister l'ensemble des diplomes dispo");
 					
 				}else {
 					gc.traiter(commande.toUpperCase());

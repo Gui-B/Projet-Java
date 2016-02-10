@@ -122,30 +122,35 @@ public class GestionClient
 
 			System.out.print("Id user:");
 			id= sc.nextLine();
-
+			
 			String[] retour=this.c.communiquer(commande+id).split("\\|");
-			int c=0;
-
+			
 			String[] s1= retour[1].split (";");
 			System.out.println("Id: "+s1[0]+", Nom: "+s1[1].toUpperCase()+", Prenom:"+s1[2]+", Mail:"+s1[3]);
 
-			//Diplomes
-			System.out.print("Diplomes: ");
-			for(String s2: retour[2].split(";"))
+			if(retour.length>2)
 			{
-				System.out.print(s2+" ");
-			}
-			System.out.println("");
-
-			//Competences
-			System.out.print("Competences: ");
-			for(String s2: retour[3].split(";"))
-			{
-				System.out.print(s2+" ");
+				//Diplomes
+				System.out.print("Diplomes: ");
+				for(String s2: retour[2].split(";"))
+				{
+					System.out.print(s2+" ");
+				}
+				System.out.println("");
 			}
 
-			System.out.println("");
+			if(retour.length>3)
+			{
+				//Competences
+				System.out.print("Competences: ");
+				for(String s2: retour[3].split(";"))
+				{
+					System.out.print(s2+" ");
+				}
 
+				System.out.println("");
+
+			}
 		} 
 		catch (IOException e) {
 			// TODO Auto-generated catch block

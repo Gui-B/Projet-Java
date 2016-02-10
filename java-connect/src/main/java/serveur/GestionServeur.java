@@ -47,7 +47,7 @@ public class GestionServeur
 		if (splitMess[0].equals(proto.getListUserString())){
 			retour = listUsers(splitMess);
 		}else if (splitMess[0].equals(proto.getDetailUserString())){
-			retour = detailUser(splitMess);
+			retour = detailUser(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getCreerCompteString())){
 			retour = creerCompte(splitMess);
 		}else if (splitMess[0].equals(proto.getModifInfoString())){
@@ -62,9 +62,9 @@ public class GestionServeur
 			retour = delComp(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getConnectionString())){
 			retour = connexion(splitMess, idS);
-		} else if (splitMess[0].equals(proto.getListCompString())){
+		}else if (splitMess[0].equals(proto.getListCompString())){
 			retour = listComp(splitMess);
-		} if (splitMess[0].equals(proto.getListDipString())){
+		}else if (splitMess[0].equals(proto.getListDipString())){
 			retour = listDip(splitMess);
 		}else { 
 			retour = "erreur message non reconnu";
@@ -88,7 +88,7 @@ public class GestionServeur
 		return retour;
 	}
 	
-	private String detailUser(String[] splitMess){
+	private String detailUser(String[] splitMess, int idS){
 		String retour;
 		String id = "0"; //contient l'id de l'utilisateur qui demande la liste des utilisateurs
 		String idc; // id de l'utilisateur dont on récupére les détails
@@ -99,30 +99,43 @@ public class GestionServeur
 			idc = splitMess[2];
 
 			Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(idc)); //Utilisateur dont on récupérer les détails
-			Utilisateur demandeur = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
+			Utilisateur demandeur = DBUtilisateur.lireUtilisateur(gc.getIdProprietaireSocket(idS));
 			ArrayList<Diplome> dips = DBDiplome.lireDiplomesUtilisateur(user); // tableau de string contenant les diplome de l'utilisateur
 			ArrayList<Competence> comps = DBCompetence.lireCompetencesUtilisateur(user); //tableau de compétence de l'utilisateur
 			mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";";
-			if (user.getVuMail() > demandeur.getSatuts()){
+			
+			if (demandeur.getSatuts()<user.getVuMail())
+			{
 				mess = mess + "Caché" + "|";
-			} else {
+			} 
+			else 
+			{
 				mess = mess + user.getMail() + "|";
 			}
-			if (user.getVuDip() > demandeur.getSatuts()){
+			
+			if (demandeur.getSatuts()<user.getVuDip())
+			{
 				mess = mess + "0;Caché";
-			} else {
+			} 
+			else 
+			{
 				for (Diplome dip : dips) {
 					mess = mess + dip.getId() + ";" + dip.getDiplome() + ";" + dip.getAnnee() + ";" + "/";
 				}
 			}
 			mess = mess  + "|";
-			if (user.getVuComp() > demandeur.getSatuts()){
+			
+			if (demandeur.getSatuts()<user.getVuComp())
+			{
 				mess = mess + "0;Caché";
-			} else {
+			} 
+			else 
+			{
 				for (Competence comp : comps) {
 					mess = mess + comp.getId() + ";" + comp.getCompetence() + "/";
 				}
 			}
+			System.out.println(mess);
 			retour = proto.reponse(mess);
 		}
 		else
@@ -307,7 +320,8 @@ public class GestionServeur
 		return proto.reponse(mess);
 	}
 	
-	private String connexion (String[] splitMess, int idS){
+	private String connexion (String[] splitMess, int idS)
+	{
 		String mess, retour;
 		if ( splitMess.length > 2)
 		{

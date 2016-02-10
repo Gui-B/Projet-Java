@@ -111,7 +111,7 @@ public class DBUtilisateur extends MySql
 	public static Utilisateur lireUtilisateur(int id)
 	{
 		ArrayList<Utilisateur> utilisateurs = lireUtilisateurs();
-		Utilisateur u=null;
+		Utilisateur u=new Utilisateur(0, "", "", "", "", 0);
 		
 		for (Utilisateur util : utilisateurs)
 		{
@@ -120,6 +120,7 @@ public class DBUtilisateur extends MySql
 				u=util;
 			}
 		}
+		
 		return u;
 	}
 	

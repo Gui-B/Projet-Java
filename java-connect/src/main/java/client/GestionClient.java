@@ -305,12 +305,8 @@ public class GestionClient
 	 */
 	private String modifInfo(String[] splitMess){
 
-		String id, nom, prenom, mdp, mail;
+		String id, nom, prenom, mdp, mail, vuMail, vuComp, vuDip;
 		Scanner sc= new Scanner(System.in);		
-
-
-		String commande="CREER_COMPTE|0|";
-
 		try 
 		{
 			System.out.print("id:");
@@ -328,8 +324,17 @@ public class GestionClient
 			System.out.print("Mot de passe:");
 			mdp= sc.nextLine();
 
+			System.out.print("Niveau visibilite mail:");
+			vuMail= sc.nextLine();
+			
+			System.out.print("Niveau visibilite competences:");
+			vuComp= sc.nextLine();
+			
+			System.out.print("Niveau visibiité diplomes");
+			vuDip= sc.nextLine();
 
-			String[] retour=this.c.communiquer(commande+nom+"|"+prenom+"|"+mdp+"|"+mail).split("\\|");
+
+			String[] retour=this.c.communiquer(proto.reqModifInfo(id, mail, mdp, nom, prenom, vuMail, vuComp, vuDip)).split("\\|");
 
 			for(String s: retour)
 			{

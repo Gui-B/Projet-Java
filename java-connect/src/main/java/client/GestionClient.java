@@ -54,7 +54,9 @@ public class GestionClient
 			retour = connexion(splitMess);
 		} else if (splitMess[0].equals(proto.getListCompString())){
 			retour = listComp(splitMess);
-		} else { 
+		} if (splitMess[0].equals(proto.getListDipString())){
+			retour = listDip(splitMess);
+		}else { 
 			retour = "erreur message non reconnu";
 		}
 
@@ -461,6 +463,11 @@ public class GestionClient
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "lol";
+	}
+	
+	private String listDip(String[] splitMess)
+	{
 		return "lol";
 	}
 }

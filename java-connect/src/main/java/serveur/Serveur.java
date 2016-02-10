@@ -84,8 +84,9 @@ class ServiceServer extends Thread
 				
 				//Envoyer
 				sortie= gs.traiter(this.id, this.fluxSortieSocket, entree);
+				
 				fluxSortieSocket.println(sortie);
-
+				System.out.println("Envoye a: "+this.id+": "+sortie);
 				System.out.println("Fin de transfert de:"+this.id);
 			}while(true);
 

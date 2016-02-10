@@ -23,7 +23,7 @@ public class Utilisateur {
 	 * @param vuComp
 	 * @param vuDip
 	 */
-	public Utilisateur(int id, String nom, String prenom, String motDePasse, String mail, int satuts,
+	public Utilisateur(int id, String nom, String prenom, String mail, String motDePasse, int satuts,
 			int vuMail, int vuComp, int vuDip) {
 		super();
 		this.nom = nom;
@@ -48,7 +48,7 @@ public class Utilisateur {
 	 * @param vuComp
 	 * @param vuDip
 	 */
-	public Utilisateur(int id, String nom, String prenom, String motDePasse, String mail, int satuts) {
+	public Utilisateur(int id, String nom, String prenom, String mail, String motDePasse,  int satuts) {
 		super();
 		this.nom = nom;
 		this.prenom = prenom;
@@ -166,6 +166,6 @@ public class Utilisateur {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return this.id+" "+this.nom+" "+this.prenom+" "+this.mail+" "+this.satuts;
+		return "Id: "+this.id+" Nom:"+this.nom+" Prenom:"+this.prenom+" Mail:"+this.mail+" Statut:"+this.satuts+" vuComp:"+this.vuComp+" vuDip:"+this.vuDip+" vuMail:"+this.vuMail;
 	}
 }

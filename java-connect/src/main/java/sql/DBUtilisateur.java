@@ -19,7 +19,7 @@ public class DBUtilisateur extends MySql
 		{
 			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
-			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Utilisateur (Mail,Nom,Prenom,Mdp,Admin) VALUES (?,?,?,?,?);");
+			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Utilisateur (Mail,Nom,Prenom,Mdp,Admin,vuMail, vuComp, vuDip) VALUES (?,?,?,?,?,?,?,?);");
 
 			// Parametres
 			pstmt.setString(1,util.getMail());
@@ -27,6 +27,9 @@ public class DBUtilisateur extends MySql
 			pstmt.setString(3, util.getPrenom());
 			pstmt.setString(4, util.getMotDePasse());
 			pstmt.setInt(5, util.getSatuts());
+			pstmt.setInt(6, util.getVuMail());
+			pstmt.setInt(7, util.getVuComp());
+			pstmt.setInt(8, util.getVuDip());
 			
 			pstmt.executeUpdate();
 			db.close();
@@ -47,7 +50,7 @@ public class DBUtilisateur extends MySql
 		{
 			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
-			PreparedStatement pstmt = db.prepareStatement("UPDATE Utilisateur SET Mail=?, Nom=?, Prenom=?, Mdp=?, Admin=?  WHERE IdU=?;");
+			PreparedStatement pstmt = db.prepareStatement("UPDATE Utilisateur SET Mail=?, Nom=?, Prenom=?, Mdp=?, Admin=?, vuMail=?, vuComp=?, vuDip=?  WHERE IdU=?;");
 
 			// Parametres
 			pstmt.setString(1,util.getMail());
@@ -55,7 +58,10 @@ public class DBUtilisateur extends MySql
 			pstmt.setString(3, util.getPrenom());
 			pstmt.setString(4, util.getMotDePasse());
 			pstmt.setInt(5, util.getSatuts());
-			pstmt.setInt(6, util.getId());
+			pstmt.setInt(6, util.getVuMail());
+			pstmt.setInt(7, util.getVuComp());
+			pstmt.setInt(8, util.getVuDip());
+			pstmt.setInt(9, util.getId());
 			
 			pstmt.executeUpdate();
 			db.close();
@@ -92,7 +98,7 @@ public class DBUtilisateur extends MySql
 	        /* Récupération des données du résultat de la requête de lecture */
 	        while ( r.next() ) 
 	        {
-	        	utilisateurs.add(new Utilisateur(r.getInt("IdU"), r.getString("Nom"), r.getString("Prenom"), r.getString("Mail"), r.getString("Mdp"), r.getInt("Admin")));
+	        	utilisateurs.add(new Utilisateur(r.getInt("IdU"), r.getString("Nom"), r.getString("Prenom"), r.getString("Mail"), r.getString("Mdp"), r.getInt("Admin"), r.getInt("vuMail"),r.getInt("vuComp"), r.getInt("vuDip")));
 	        } 
 	        r.close();
 	        s.close();
@@ -107,7 +113,7 @@ public class DBUtilisateur extends MySql
 	public static Utilisateur lireUtilisateur(int id)
 	{
 		ArrayList<Utilisateur> utilisateurs = lireUtilisateurs();
-		Utilisateur u=null;
+		Utilisateur u=new Utilisateur(0, "", "", "", "", 0);
 		
 		for (Utilisateur util : utilisateurs)
 		{
@@ -116,6 +122,7 @@ public class DBUtilisateur extends MySql
 				u=util;
 			}
 		}
+		
 		return u;
 	}
 	

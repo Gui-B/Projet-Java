@@ -11,7 +11,10 @@ CREATE TABLE IF NOT EXISTS Utilisateur (
   Nom varchar(256) NOT NULL,
   Prenom varchar(256) NOT NULL,
   Mdp varchar(256) NOT NULL,
-  Admin tinyint(1) NOT NULL
+  Admin tinyint(1) NOT NULL,
+  vuMail int(6) DEFAULT 0,
+  vuComp int(6) DEFAULT 0,
+  vuDip int(6) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

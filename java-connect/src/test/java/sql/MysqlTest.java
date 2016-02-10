@@ -65,8 +65,8 @@ public class MysqlTest extends TestCase {
 
 	public void testInsertUtilisateur()
 	{
-		Utilisateur util= new Utilisateur(0, "dumbuldore","albus", "ad@sorcier.com", "baguette",1);
-		Utilisateur util2= new Utilisateur(0, "potter","harry", "hp@sorcier.com", "grifondor",0);
+		Utilisateur util= new Utilisateur(0, "dumbuldore","albus","ad@sorcier.com","baguette", 1,1,1,1);
+		Utilisateur util2= new Utilisateur(0, "potter","harry", "hp@sorcier.com","grifondor", 0,0,0,0);
 		DBUtilisateur.insererUtilisateur(util);
 		assertTrue(DBUtilisateur.insererUtilisateur(util2));
 
@@ -74,7 +74,7 @@ public class MysqlTest extends TestCase {
 	
 	public void testModifierUtilisateur()
 	{
-		Utilisateur util= new Utilisateur(1, "dumbuldore","albus", "ad@baguette.com", "baguette",0);
+		Utilisateur util= new Utilisateur(1, "dumbuldore","albus", "ad@baguette.com", "baguette",1,0,1,0);
 		assertTrue(DBUtilisateur.modifierUtilisateur(util));
 
 	}

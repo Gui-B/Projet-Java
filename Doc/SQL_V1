@@ -1,0 +1,69 @@
+#------------------------------------------------------------
+#        Script MySQL.
+#------------------------------------------------------------
+
+
+#------------------------------------------------------------
+# Table: Utilisateur
+#------------------------------------------------------------
+
+CREATE TABLE Utilisateur(
+        idU    Int NOT NULL ,
+        Mail   Varchar (128) NOT NULL ,
+        Nom    Varchar (256) NOT NULL ,
+        Prenom Varchar (256) NOT NULL ,
+        Mdp    Varchar (256) NOT NULL ,
+        Admin  TinyINT NOT NULL ,
+        PRIMARY KEY (idU ) ,
+        UNIQUE (Mail )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Compétence
+#------------------------------------------------------------
+
+CREATE TABLE Competence(
+        idC  Int NOT NULL ,
+        NomC Varchar (256) ,
+        PRIMARY KEY (idC )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Diplôme
+#------------------------------------------------------------
+
+CREATE TABLE Diplume(
+        idD  Int NOT NULL ,
+        NomD Varchar (256) ,
+        PRIMARY KEY (idD )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Obtenir
+#------------------------------------------------------------
+
+CREATE TABLE Obtenir(
+        Annee Int NOT NULL ,
+        idU   Int NOT NULL ,
+        idD   Int NOT NULL ,
+        PRIMARY KEY (idU ,idD )
+)ENGINE=InnoDB;
+
+
+#------------------------------------------------------------
+# Table: Avoir
+#------------------------------------------------------------
+
+CREATE TABLE Avoir(
+        idU Int NOT NULL ,
+        idC Int NOT NULL ,
+        PRIMARY KEY (idU ,idC )
+)ENGINE=InnoDB;
+
+ALTER TABLE Obtenir ADD CONSTRAINT FK_Obtenir_idU FOREIGN KEY (idU) REFERENCES Utilisateur(idU);
+ALTER TABLE Obtenir ADD CONSTRAINT FK_Obtenir_idD FOREIGN KEY (idD) REFERENCES Diplume(idD);
+ALTER TABLE Avoir ADD CONSTRAINT FK_Avoir_idU FOREIGN KEY (idU) REFERENCES Utilisateur(idU);
+ALTER TABLE Avoir ADD CONSTRAINT FK_Avoir_idC FOREIGN KEY (idC) REFERENCES Competence(idC);

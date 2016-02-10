@@ -1,4 +1,4 @@
-package sql;
+﻿package sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,10 +16,13 @@ import common.Competence;
 
 public class DBCompetence extends MySql
 {
+	// Insertion d'une competence 
 	public static boolean insererCompetence(Competence c)
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
+			// Insertion d'une competence requete SQL 
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Competences (NomC) VALUES(?);");
 
@@ -43,6 +46,7 @@ public class DBCompetence extends MySql
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("UPDATE Competences SET NomC=? WHERE idC=?;");
 
@@ -97,6 +101,7 @@ public class DBCompetence extends MySql
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Avoir (idC, idU )VALUES (?,?);");
 
@@ -122,6 +127,7 @@ public class DBCompetence extends MySql
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("DELETE FROM Avoir WHERE idC=? AND idU=?;");
 
@@ -149,6 +155,7 @@ public class DBCompetence extends MySql
  		
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("SELECT * FROM Avoir WHERE idU=?");
 			ResultSet r=null;

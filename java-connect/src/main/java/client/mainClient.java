@@ -38,6 +38,7 @@ public class mainClient {
 					System.out.println(proto.getListDipString() + " lister l'ensemble des diplomes dispo");
 					
 				}else {
+					//met la commande en majuscule
 					gc.traiter(commande.toUpperCase());
 				}
 			}while(true);

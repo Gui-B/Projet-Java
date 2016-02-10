@@ -1,4 +1,4 @@
-package sql;
+﻿package sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -16,6 +16,7 @@ public class DBDiplome extends MySql
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Diplome (NomD) VALUES(?);");
 
@@ -39,6 +40,7 @@ public class DBDiplome extends MySql
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("UPDATE Diplome SET NomD=? WHERE idD=?;");
 
@@ -93,6 +95,7 @@ public class DBDiplome extends MySql
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Obtenir (idD, idU, Annee )VALUES (?,?,?);");
 
@@ -119,6 +122,7 @@ public class DBDiplome extends MySql
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("DELETE FROM Obtenir WHERE idD=? AND idU=?;");
 
@@ -145,6 +149,7 @@ public class DBDiplome extends MySql
  		
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("SELECT * FROM Obtenir WHERE idU=?");
 			ResultSet r=null;

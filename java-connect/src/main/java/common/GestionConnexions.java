@@ -1,4 +1,4 @@
-package common;
+﻿package common;
 
 import java.io.PrintStream;
 import java.security.IdentityScope;
@@ -9,7 +9,7 @@ import common.Utilisateur;
 
 public class GestionConnexions 
 {
-	//Regroupe les socket en cours
+	//Regroupe les sockets en cours
 	private HashMap<Integer,PrintStream> streamClients;
 	//Regroupe les socket identifiés (utilisateurs connectés)
 	private HashMap<Integer,Utilisateur> usersConnectes;

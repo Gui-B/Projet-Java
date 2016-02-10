@@ -29,7 +29,7 @@ public class GestionClient
 		this.u= new Utilisateur(0, "Anonyme", "", "", "", 0);
 		this.c= new Client();
 	}
-
+	//traitement des message pour analyser et deduire le motif de la requete ainsi que les erreurs
 	public String traiter (String message)
 	{
 		String retour ="";

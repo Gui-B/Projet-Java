@@ -1,4 +1,4 @@
-package sql;
+﻿package sql;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +17,7 @@ public class DBUtilisateur extends MySql
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("INSERT INTO Utilisateur (Mail,Nom,Prenom,Mdp,Admin) VALUES (?,?,?,?,?);");
 
@@ -44,6 +45,7 @@ public class DBUtilisateur extends MySql
 	{
 		try
 		{
+			// Connexion a la base de donnees avec la classe MySQL
 			Connection db= MySql.connexion();
 			PreparedStatement pstmt = db.prepareStatement("UPDATE Utilisateur SET Mail=?, Nom=?, Prenom=?, Mdp=?, Admin=?  WHERE IdU=?;");
 

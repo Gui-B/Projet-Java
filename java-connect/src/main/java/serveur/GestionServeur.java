@@ -180,7 +180,11 @@ public class GestionServeur
 		user.setMail(splitMess[2]);
 		user.setNom(splitMess[4]);
 		user.setPrenom(splitMess[5]);
+		user.setVuMail(Integer.parseInt(splitMess[6]));
+		user.setVuComp(Integer.parseInt(splitMess[7]));
+		user.setVuDip(Integer.parseInt(splitMess[8]));
 		DBUtilisateur.modifierUtilisateur(user);
+		retour = proto.reponse("OK");
 		return retour;
 	}
 	

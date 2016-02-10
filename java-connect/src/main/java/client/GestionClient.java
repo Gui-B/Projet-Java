@@ -468,6 +468,31 @@ public class GestionClient
 	
 	private String listDip(String[] splitMess)
 	{
+		String mess="lol", id;
+		Scanner sc= new Scanner(System.in);		
+
+
+		String commande="LIST_DIP|0";
+
+		try 
+		{
+			String[] retour=this.c.communiquer(commande).split("\\|");
+			int c=0;
+			for(String s: retour)
+			{
+				String[] s1= s.split (";");
+				for(String s2: s1)
+				{
+					System.out.print(s2+" ");
+				}
+				System.out.println("");
+			}
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return "lol";
 	}
 }

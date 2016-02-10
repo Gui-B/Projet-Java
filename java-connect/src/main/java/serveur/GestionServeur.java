@@ -104,6 +104,7 @@ public class GestionServeur
 			ArrayList<Competence> comps = DBCompetence.lireCompetencesUtilisateur(user); //tableau de compétence de l'utilisateur
 			mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";";
 			
+			System.out.println(demandeur.getSatuts()+" "+user.getVuMail());
 			if (demandeur.getSatuts()<user.getVuMail())
 			{
 				mess = mess + "Caché" + "|";
@@ -154,7 +155,11 @@ public class GestionServeur
 			String prenom = splitMess[3];
 			String mdp = splitMess[4];
 			String email = splitMess[5];
-			if (DBUtilisateur.insererUtilisateur(new Utilisateur(0, nom, prenom, email, mdp, 0))){ //replacer la condition par une vérification de la bonne execution de l'ajout user
+			String vuMail = splitMess[6];
+			String vuComp = splitMess[7];
+			String vuDip= splitMess[8];
+			
+			if (DBUtilisateur.insererUtilisateur(new Utilisateur(0, nom, prenom, email, mdp, 0, Integer.parseInt(vuMail), Integer.parseInt(vuComp), Integer.parseInt(vuDip)))){ //replacer la condition par une vérification de la bonne execution de l'ajout user
 				mess = "OK";
 				retour = proto.reponse(mess);
 			}else{

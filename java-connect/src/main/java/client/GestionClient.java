@@ -200,7 +200,7 @@ public class GestionClient
 	 * @return
 	 */
 	private String creerCompte(String[] splitMess){
-		String mess="lol", nom, prenom, mdp, mail;
+		String mess="lol", nom, prenom, mdp, mail, vuMail, vuComp,vuDip;
 		Scanner sc= new Scanner(System.in);		
 
 
@@ -217,12 +217,20 @@ public class GestionClient
 
 			System.out.print("Mail");
 			mail= sc.nextLine();
-
-			System.out.print("Mot de passe:");
+			
+			System.out.print("Mot de passe");
 			mdp= sc.nextLine();
 
+			System.out.print("Niveau visibilite mail:");
+			vuMail= sc.nextLine();
+			
+			System.out.print("Niveau visibilite competences:");
+			vuComp= sc.nextLine();
+			
+			System.out.print("Niveau visibiité diplomes");
+			vuDip= sc.nextLine();
 
-			String[] retour=this.c.communiquer(commande+nom+"|"+prenom+"|"+mdp+"|"+mail).split("\\|");
+			String[] retour=this.c.communiquer(commande+nom+"|"+prenom+"|"+mdp+"|"+mail+"|"+vuMail+"|"+vuComp+"|"+vuDip).split("\\|");
 
 			for(String s: retour)
 			{

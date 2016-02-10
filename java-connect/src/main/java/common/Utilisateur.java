@@ -2,6 +2,18 @@ package common;
 
 public class Utilisateur {
 	private String nom;
+	public void setVuMail(int vuMail) {
+		this.vuMail = vuMail;
+	}
+
+	public void setVuComp(int vuComp) {
+		this.vuComp = vuComp;
+	}
+
+	public void setVuDip(int vuDip) {
+		this.vuDip = vuDip;
+	}
+
 	private String prenom;
 	private String motDePasse;
 	private String mail;

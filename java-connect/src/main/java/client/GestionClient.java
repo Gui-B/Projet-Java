@@ -54,7 +54,9 @@ public class GestionClient
 			retour = connexion(splitMess);
 		} else if (splitMess[0].equals(proto.getListCompString())){
 			retour = listComp(splitMess);
-		} else { 
+		} if (splitMess[0].equals(proto.getListDipString())){
+			retour = listDip(splitMess);
+		}else { 
 			retour = "erreur message non reconnu";
 		}
 
@@ -303,12 +305,8 @@ public class GestionClient
 	 */
 	private String modifInfo(String[] splitMess){
 
-		String id, nom, prenom, mdp, mail;
+		String id, nom, prenom, mdp, mail ="", vuMail, vuComp, vuDip;
 		Scanner sc= new Scanner(System.in);		
-
-
-		String commande="CREER_COMPTE|0|";
-
 		try 
 		{
 			System.out.print("id:");
@@ -320,14 +318,20 @@ public class GestionClient
 			System.out.print("Prenom:");
 			prenom= sc.nextLine();
 
-			System.out.print("Mail");
-			mail= sc.nextLine();
-
 			System.out.print("Mot de passe:");
 			mdp= sc.nextLine();
 
+			System.out.print("Niveau visibilite mail:");
+			vuMail= sc.nextLine();
+			
+			System.out.print("Niveau visibilite competences:");
+			vuComp= sc.nextLine();
+			
+			System.out.print("Niveau visibiité diplomes:");
+			vuDip= sc.nextLine();
 
-			String[] retour=this.c.communiquer(commande+nom+"|"+prenom+"|"+mdp+"|"+mail).split("\\|");
+
+			String[] retour=this.c.communiquer(proto.reqModifInfo(id, mail, mdp, nom, prenom, vuMail, vuComp, vuDip)).split("\\|");
 
 			for(String s: retour)
 			{
@@ -461,6 +465,36 @@ public class GestionClient
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return "lol";
+	}
+	
+	private String listDip(String[] splitMess)
+	{
+		String mess="lol", id;
+		Scanner sc= new Scanner(System.in);		
+
+
+		String commande="LIST_DIP|0";
+
+		try 
+		{
+			String[] retour=this.c.communiquer(commande).split("\\|");
+			int c=0;
+			for(String s: retour)
+			{
+				String[] s1= s.split (";");
+				for(String s2: s1)
+				{
+					System.out.print(s2+" ");
+				}
+				System.out.println("");
+			}
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		return "lol";
 	}
 }

@@ -51,7 +51,7 @@ public class GestionServeur
 		}else if (splitMess[0].equals(proto.getCreerCompteString())){
 			retour = creerCompte(splitMess);
 		}else if (splitMess[0].equals(proto.getModifInfoString())){
-			retour = modifInfo(splitMess);
+			retour = modifInfo(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getAjoutDiplomeString())){
 			retour = addDip(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getSuppDiplomeString())){
@@ -173,15 +173,25 @@ public class GestionServeur
 		return retour;
 	}
 	
-	private String modifInfo(String[] splitMess){
+	private String modifInfo(String[] splitMess, int idS){
 		String retour ="";
 		String id = splitMess[1];
-		Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
-		user.setMail(splitMess[2]);
-		user.setNom(splitMess[4]);
-		user.setPrenom(splitMess[5]);
-		DBUtilisateur.modifierUtilisateur(user);
-		return proto.reponse("ok");
+		try {
+			gc.adminOuProprietaireException(idS, Integer.parseInt(id));
+			Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
+			user.setMotDePasse(splitMess[3]);
+			user.setNom(splitMess[4]);
+			user.setPrenom(splitMess[5]);
+			user.setVuMail(Integer.parseInt(splitMess[6]));
+			user.setVuComp(Integer.parseInt(splitMess[7]));
+			user.setVuDip(Integer.parseInt(splitMess[8]));
+			DBUtilisateur.modifierUtilisateur(user);
+			retour = proto.reponse("OK");
+		}
+		catch (Exception e){
+			retour = e.getMessage();
+		}
+		return retour;
 	}
 	
 	private String addDip(String[] splitMess, int idS)

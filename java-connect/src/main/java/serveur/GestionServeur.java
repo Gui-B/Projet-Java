@@ -177,7 +177,7 @@ public class GestionServeur
 		String retour ="";
 		String id = splitMess[1];
 		Utilisateur user = DBUtilisateur.lireUtilisateur(Integer.parseInt(id));
-		user.setMail(splitMess[2]);
+		user.setMotDePasse(splitMess[3]);
 		user.setNom(splitMess[4]);
 		user.setPrenom(splitMess[5]);
 		user.setVuMail(Integer.parseInt(splitMess[6]));

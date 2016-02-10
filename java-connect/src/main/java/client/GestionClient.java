@@ -305,7 +305,7 @@ public class GestionClient
 	 */
 	private String modifInfo(String[] splitMess){
 
-		String id, nom, prenom, mdp, mail, vuMail, vuComp, vuDip;
+		String id, nom, prenom, mdp, mail ="", vuMail, vuComp, vuDip;
 		Scanner sc= new Scanner(System.in);		
 		try 
 		{
@@ -318,9 +318,6 @@ public class GestionClient
 			System.out.print("Prenom:");
 			prenom= sc.nextLine();
 
-			System.out.print("Mail");
-			mail= sc.nextLine();
-
 			System.out.print("Mot de passe:");
 			mdp= sc.nextLine();
 
@@ -330,7 +327,7 @@ public class GestionClient
 			System.out.print("Niveau visibilite competences:");
 			vuComp= sc.nextLine();
 			
-			System.out.print("Niveau visibiité diplomes");
+			System.out.print("Niveau visibiité diplomes:");
 			vuDip= sc.nextLine();
 
 

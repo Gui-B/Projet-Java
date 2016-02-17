@@ -141,8 +141,8 @@ public class GestionConnexions
 		this.ipMessagerieUtilisateur.remove(idS);
 	}
 	
-	public boolean estConnecteMessagerie(int idU)
+	public boolean estConnecteMessagerie(Utilisateur u)
 	{
-		return this.ipMessagerieUtilisateur.containsKey(this.getIdSocketUtilisateur(new Utilisateur(idU, "", "", "", "", 0))) ;
+		return this.ipMessagerieUtilisateur.containsKey(this.getIdSocketUtilisateur(u)) ;
 	}
 }

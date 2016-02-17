@@ -105,7 +105,7 @@ public class GestionServeur
 			mess = user.getId() + ";" + user.getNom() + ";" + user.getPrenom() + ";";
 			
 			System.out.println(demandeur.getSatuts()+" "+user.getVuMail());
-			if (demandeur.getSatuts()<user.getVuMail())
+			if (demandeur.getSatuts()<user.getVuMail() && demandeur.getId() != user.getId())
 			{
 				mess = mess + "Caché" + "|";
 			} 
@@ -114,7 +114,7 @@ public class GestionServeur
 				mess = mess + user.getMail() + "|";
 			}
 			
-			if (demandeur.getSatuts()<user.getVuDip())
+			if (demandeur.getSatuts()<user.getVuDip() && demandeur.getId() != user.getId())
 			{
 				mess = mess + "0;Caché";
 			} 
@@ -126,7 +126,7 @@ public class GestionServeur
 			}
 			mess = mess  + "|";
 			
-			if (demandeur.getSatuts()<user.getVuComp())
+			if (demandeur.getSatuts()<user.getVuComp() && demandeur.getId() != user.getId())
 			{
 				mess = mess + "0;Caché";
 			} 

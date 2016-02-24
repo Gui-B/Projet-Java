@@ -48,6 +48,14 @@ public class Serveur
 		ServiceServer client=new ServiceServer(socketService, gs, this.idSocketClient++);
 		client.start();
 	}
+	
+	public void connectClient(Gestion) throws IOException
+	{
+		Socket socketService= socketEcoute.accept();
+		System.out.println("Nouvelle connexion: "+socketService+" "+socketService.getInetAddress()+" "+socketService.getLocalAddress());
+		ServiceServer client=new ServiceServer(socketService, gs, this.idSocketClient++);
+		client.start();
+	}
 
 	public void fermerServeur ()
 	{

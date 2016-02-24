@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import common.Competence;
 import common.Diplome;
+import common.GestionMessageriInstant;
 import common.Protocole;
 import common.Utilisateur;
 import sql.DBCompetence;

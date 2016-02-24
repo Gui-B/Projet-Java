@@ -9,6 +9,7 @@ import java.util.*;
 
 import common.Competence;
 import common.Diplome;
+import common.Message;
 import common.Utilisateur;
 import sql.MySql;
 import sql.DBUtilisateur;
@@ -211,7 +212,8 @@ public class MysqlTest extends TestCase {
 		Utilisateur u1= new Utilisateur (1, "nom", "prenom", "mail", "motDePasse",1);
 		Utilisateur u2= new Utilisateur (2, "nom", "prenom", "mail", "motDePasse",1);
 		
-		assertTrue(DBMessages.insererMessage(u1, u2, "glglglgl2"));
+		Message message= new Message(u1, u2, "lol");
+		assertTrue(DBMessages.insererMessage(message));
 	}
 	
 }

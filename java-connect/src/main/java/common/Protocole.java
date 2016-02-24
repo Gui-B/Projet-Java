@@ -18,6 +18,10 @@ public class Protocole {
 	private final String connection = "CONNECTION";
 	private final String listComp = "LIST_COMP";
 	private final String listDip = "LIST_DIP";
+	private final String mail = "ECRIRE_MAIL";
+	private final String listUserCo ="LIST_USER_CO";
+	private final String parler ="PARLER";
+	
 	
 	/**
 	 * @return the listDip
@@ -97,6 +101,22 @@ public class Protocole {
 	 */
 	public String getConnectionString() {
 		return connection;
+	}
+	
+	/**
+	 * @return the mail string req
+	 */
+	public String getMail() {
+		return mail;
+	}
+	
+	
+	public String getListUserCo() {
+		return listUserCo;
+	}
+	
+	public String getParler() {
+		return parler;
 	}
 
 	/** 
@@ -260,5 +280,5 @@ public class Protocole {
 	 */
 	public String ReqListDip(){
 		return ReqListDip("0");
-	}
+	} 
 }

@@ -103,6 +103,34 @@ public class Protocole {
 		return connection;
 	}
 
+	/**
+	 * @return the startEcoute
+	 */
+	public String getStartEcoute() {
+		return startEcoute;
+	}
+
+	/**
+	 * @return the stopEcoute
+	 */
+	public String getStopEcoute() {
+		return stopEcoute;
+	}
+
+	/**
+	 * @return the demandeConnexion
+	 */
+	public String getDemandeConnexion() {
+		return demandeConnexion;
+	}
+
+	/**
+	 * @return the sendInstanteMessage
+	 */
+	public String getSendInstanteMessage() {
+		return sendInstanteMessage;
+	}
+
 	/** 
 	 * génére une requette pour la liste des utilisateur pour un utilisateur non connecté
 	 * @return requette liste des utilisateurs
@@ -265,4 +293,22 @@ public class Protocole {
 	public String ReqListDip(){
 		return ReqListDip("0");
 	}
+	
+	public String ReqStartEcoute(String port){
+		return startEcoute + "|" + port;
+	}
+	
+	public String ReqStopEcoute(){
+		return stopEcoute;
+	}
+	
+	public String RegConnectTo(String id){
+		return demandeConnexion + "|" + id;
+	}
+	
+	public String SendInstanteMessage(String idd, String idc, String message){
+		return sendInstanteMessage + "|" + idd + "|" + idc + "|" + message;
+	}
+	
+	
 }

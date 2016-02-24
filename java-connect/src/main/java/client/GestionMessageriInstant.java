@@ -21,6 +21,7 @@ public class GestionMessageriInstant {
 	}
 	
 	private String InitialisationSock(){
+		return "blbl";
 	}
 	
 	private int StopSock(){

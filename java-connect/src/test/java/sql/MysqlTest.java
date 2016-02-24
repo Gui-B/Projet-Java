@@ -206,14 +206,24 @@ public class MysqlTest extends TestCase {
 //			System.out.println("DIPLOME DE "+u.getNom()+" "+d.getDiplome()+" "+d.getAnnee());
 //		}
 //	}
+//	
+//	public void testInsererMessage()
+//	{
+//		Utilisateur u1= new Utilisateur (1, "nom", "prenom", "mail", "motDePasse",1);
+//		Utilisateur u2= new Utilisateur (2, "nom", "prenom", "mail", "motDePasse",1);
+//		
+//		Message message= new Message(u1, u2, "lol");
+//		assertTrue(DBMessages.insererMessage(message));
+//	}
 	
-	public void testDBMessage()
+	public void testLireMessagesNonLus()
 	{
-		Utilisateur u1= new Utilisateur (1, "nom", "prenom", "mail", "motDePasse",1);
 		Utilisateur u2= new Utilisateur (2, "nom", "prenom", "mail", "motDePasse",1);
 		
-		Message message= new Message(u1, u2, "lol");
-		assertTrue(DBMessages.insererMessage(message));
+		for (Message message: DBMessages.lireMessagesNonLus(u2))
+		{
+			System.out.println(message);
+		}
 	}
 	
 }

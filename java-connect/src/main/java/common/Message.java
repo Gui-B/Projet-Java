@@ -3,14 +3,17 @@ package common;
 import java.util.Date;
 
 public class Message {
+	private int idMessage;
 	private Utilisateur envoyeur;
 	private Utilisateur destinataire;
 	private String message;
 	private Date date;
+	private int lu;
 	
-	public Message(Utilisateur env, Utilisateur dest, String m, long d ) {
+	public Message(int id, Utilisateur env, Utilisateur dest, String m, long d, int lu) {
 		// TODO Auto-generated constructor stub
 		try {
+			this.idMessage= id;
 			this.envoyeur = env;
 			this.destinataire = dest;
 			this.message = m;
@@ -51,6 +54,10 @@ public class Message {
 		return message;
 	}
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return "Id:"+this.idMessage+" Envoyeur:"+this.envoyeur.getId()+" Dest:"+this.getDestinataire().getId()+" Date:"+this.date.getTime()+" Message:"+this.getMessage();
+	}
 	
 }

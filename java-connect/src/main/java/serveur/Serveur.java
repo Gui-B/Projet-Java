@@ -24,8 +24,23 @@ public class Serveur
 			e.printStackTrace();
 		}
 	}
-
-
+	
+	public Serveur(int port) 
+	{
+		try 
+		{
+			//Creation socket port
+			this.socketEcoute= new ServerSocket(port);
+			System.out.println("Nouveau serveur: "+socketEcoute);
+			this.idSocketClient=0;
+		} 
+		catch (Exception e) 
+		{
+			System.err.println(e);
+			e.printStackTrace();
+		}
+	}
+	
 	public void connectClient(GestionServeur gs) throws IOException
 	{
 		Socket socketService= socketEcoute.accept();

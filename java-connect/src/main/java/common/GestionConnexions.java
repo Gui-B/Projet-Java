@@ -9,21 +9,24 @@ import common.Utilisateur;
 
 public class GestionConnexions 
 {
-	//Regroupe les sockets en cours
+	//Socket en cours / idSocket
 	private HashMap<Integer,PrintStream> streamClients;
-	//Regroupe les socket identifiés (utilisateurs connectés)
+	//Socket en cours / utilisateurUnique
 	private HashMap<Integer,Utilisateur> usersConnectes;
+	//port ecoute messagerie/utilisateur unique
+	private HashMap<Integer, String> ipMessagerieUtilisateur;
 	
 	public GestionConnexions() 
 	{
 		// TODO Auto-generated constructor stub
 		this.streamClients=new HashMap<Integer, PrintStream>();
 		this.usersConnectes= new HashMap<Integer, Utilisateur>();
+		this.ipMessagerieUtilisateur= new HashMap<Integer, String>();
 	}
 
 	public void nouveauClient(int id, PrintStream sortie) 
 	{
-		this.streamClients.put(id,sortie);	
+		this.streamClients.put(id,sortie);
 	}
 	
 	public void identification(int idSocket, Utilisateur u)
@@ -118,5 +121,28 @@ public class GestionConnexions
 				throw new Exception("CONTROLE adminOuProprietaire: "+this.usersConnectes.get(idS).getMail()+" "+this.usersConnectes.get(idS).getSatuts()+" "+"cet utilisateur n'est pas admin ou proprietaire!");
 			}
 		}
+	}
+	
+	//Methodes messagrie
+	public void initialiseMessagerie(int idS, String ip) throws Exception
+	{
+		if(this.ipMessagerieUtilisateur.containsKey(idS))
+		{
+			throw new Exception ("INITIALISE MESSAGERIE: cet utilisateur est deja connecte a la messagerie");
+		}
+		else
+		{
+			this.ipMessagerieUtilisateur.put(idS, ip);
+		}
+	}
+	
+	public void detruireMessagerie (int idS) throws Exception
+	{
+		this.ipMessagerieUtilisateur.remove(idS);
+	}
+	
+	public boolean estConnecteMessagerie(Utilisateur u)
+	{
+		return this.ipMessagerieUtilisateur.containsKey(this.getIdSocketUtilisateur(u)) ;
 	}
 }

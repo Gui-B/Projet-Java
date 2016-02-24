@@ -18,7 +18,6 @@ public class mainServeur {
 		{
 			System.err.println(e);
 			e.printStackTrace();
-		}
+		};
 	}
-
 }

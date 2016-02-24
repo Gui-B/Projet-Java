@@ -6,7 +6,7 @@ package client;
 import java.io.IOException;
 
 import common.Protocole;
-import common.Utilisateur;
+import serveur.Serveur;
 
 /**
  * @author kriss
@@ -15,6 +15,7 @@ import common.Utilisateur;
 public class GestionMessageriInstant {
 	private Protocole proto;
 	private Client c;
+	private Serveur srv;
 
 	/**
 	 * 
@@ -23,14 +24,16 @@ public class GestionMessageriInstant {
 		// TODO Auto-generated constructor stub
 		this.proto= new Protocole();
 		this.c= new Client();
+		this.srv = new Serveur();
 	}
 	
 	public String traiter (){
 		System.out.println("Mode méssagerie instantané");
-		String port = this.InitialisationSock();
+		
 		Boolean OK = false;
 		try 
 		{
+			String port = this.InitialisationSock();
 			String[] retour=this.c.communiquer(proto.ReqStartEcoute(port)).split("\\|");
 			int c=0;
 			if (retour[0].equals("200")){

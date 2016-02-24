@@ -4,6 +4,8 @@ import java.net.*;
 
 import java.net.ServerSocket;
 
+import common.GestionMessageriInstant;
+
 public class Serveur
 {
 	private ServerSocket socketEcoute;
@@ -49,11 +51,11 @@ public class Serveur
 		client.start();
 	}
 	
-	public void connectClient(Gestion) throws IOException
+	public void connectClient(GestionMessageriInstant gmi) throws IOException
 	{
 		Socket socketService= socketEcoute.accept();
 		System.out.println("Nouvelle connexion: "+socketService+" "+socketService.getInetAddress()+" "+socketService.getLocalAddress());
-		ServiceServer client=new ServiceServer(socketService, gs, this.idSocketClient++);
+		ServiceServer client=new ServiceServer(socketService, gmi, this.idSocketClient++);
 		client.start();
 	}
 

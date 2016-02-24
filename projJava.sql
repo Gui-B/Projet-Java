@@ -1,4 +1,5 @@
 
+DROP TABLE IF EXISTS Messages;
 DROP TABLE IF EXISTS Obtenir;
 DROP TABLE IF EXISTS Avoir;
 DROP TABLE IF EXISTS Diplome;
@@ -55,3 +56,15 @@ ALTER TABLE Obtenir
  ADD PRIMARY KEY (IdU,idD),
  ADD CONSTRAINT FK_Obtenir_idD FOREIGN KEY (idD) REFERENCES Diplome (idD),
  ADD CONSTRAINT FK_Obtenir_IdU FOREIGN KEY (IdU) REFERENCES Utilisateur (IdU);
+
+CREATE TABLE IF NOT EXISTS Messages(
+  idM int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
+  idEnvoyeur int(6) NOT NULL,
+  idDestinataire int(6) NOT NULL,
+  dateM int(12) NOT NULL,
+  message varchar(1024) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE Messages
+ ADD CONSTRAINT FK_messages_u1 FOREIGN KEY (idEnvoyeur) REFERENCES Utilisateur(IdU),
+ ADD CONSTRAINT FK_messages_u2 FOREIGN KEY (IdDestinataire) REFERENCES Utilisateur(IdU);

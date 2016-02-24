@@ -62,7 +62,8 @@ CREATE TABLE IF NOT EXISTS Messages(
   idEnvoyeur int(6) NOT NULL,
   idDestinataire int(6) NOT NULL,
   dateM int(12) NOT NULL,
-  message varchar(1024) NOT NULL
+  message varchar(1024) NOT NULL,
+  lu int(6) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE Messages

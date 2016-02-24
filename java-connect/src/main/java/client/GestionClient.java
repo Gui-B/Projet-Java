@@ -18,16 +18,18 @@ import sql.DBUtilisateur;
  */
 public class GestionClient 
 {
+	private final String instantane = "INSTANTANE";
 	private Protocole proto;
 	private Client c;
 	private Utilisateur u;
+	private GestionMessageriInstant gmi;
 
 	public GestionClient() 
 	{
 		this.proto= new Protocole();
-		final String listUserString = proto.getListUserString();
 		this.u= new Utilisateur(0, "Anonyme", "", "", "", 0);
 		this.c= new Client();
+		this.gmi = new GestionMessageriInstant();
 	}
 	//traitement des message pour analyser et deduire le motif de la requete ainsi que les erreurs
 	public String traiter (String message)
@@ -54,8 +56,11 @@ public class GestionClient
 			retour = connexion(splitMess);
 		} else if (splitMess[0].equals(proto.getListCompString())){
 			retour = listComp(splitMess);
-		} if (splitMess[0].equals(proto.getListDipString())){
+		} else if (splitMess[0].equals(proto.getListDipString())){
 			retour = listDip(splitMess);
+		}else if (splitMess[0].equals(instantane)){
+			//penser a rajouter une vérifivation qu'il est connecté
+			retour = gmi.traiter();
 		}else { 
 			retour = "erreur message non reconnu";
 		}

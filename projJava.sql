@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS Messages(
   idM int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   idEnvoyeur int(6) NOT NULL,
   idDestinataire int(6) NOT NULL,
-  dateM int(12) NOT NULL,
+  dateM bigint NOT NULL,
   message varchar(1024) NOT NULL,
   lu int(6) DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

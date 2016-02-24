@@ -2,6 +2,8 @@ package common;
 
 import java.util.Date;
 
+import sql.DBMessages;
+
 public class Message {
 	private int idMessage;
 	private Utilisateur envoyeur;
@@ -18,6 +20,7 @@ public class Message {
 			this.destinataire = dest;
 			this.message = m;
 			this.date = new Date (d);
+			this.lu=lu;
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -54,10 +57,14 @@ public class Message {
 		return message;
 	}
 	
+	public int getLu() {
+		return lu;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return "Id:"+this.idMessage+" Envoyeur:"+this.envoyeur.getId()+" Dest:"+this.getDestinataire().getId()+" Date:"+this.date.getTime()+" Message:"+this.getMessage();
+		return "Id:"+this.idMessage+" Envoyeur:"+this.envoyeur.getId()+" Dest:"+this.getDestinataire().getId()+" Date:"+this.date.getTime()+" Message:"+this.getMessage()+" Lu:"+this.getLu();
 	}
 	
 }

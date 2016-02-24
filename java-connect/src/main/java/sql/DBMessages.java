@@ -149,4 +149,71 @@ public class DBMessages extends MySql{
 		}
 		return messages;
 	}
+	
+	public static boolean passerMessageLu(int idMessage)
+	{
+		try
+		{
+			// Connexion a la base de donnees avec la classe MySQL
+			Connection db= MySql.connexion();
+			PreparedStatement pstmt = db.prepareStatement("UPDATE Messages SET lu=? WHERE idM=?;");
+
+			// Parametres
+			pstmt.setInt(1, 1);
+			pstmt.setInt(2, idMessage);
+			
+			pstmt.executeUpdate();
+			db.close();
+			
+			return true;
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	public static Message consulterMessage (int idMessage)
+	{
+		Message message=null;
+		try
+		{
+			Connection db= connexion();
+			Statement s = null;
+		    ResultSet r = null; 
+			/* Création de l'objet gérant les requêtes */
+	        s = db.createStatement();
+	        /* Exécution d'une requête de lecture */
+	        
+	        PreparedStatement pstmt =db.prepareStatement( "SELECT * FROM Messages WHERE idM=?;");
+	        pstmt.setInt(1, idMessage);
+	        r=pstmt.executeQuery();
+	        
+	        /* Récupération des données du résultat de la requête de lecture */
+	        while ( r.next() ) 
+	        {
+	        	Utilisateur env= DBUtilisateur.lireUtilisateur(r.getInt("idEnvoyeur"));
+	        	Utilisateur dest= DBUtilisateur.lireUtilisateur(r.getInt("idDestinataire"));
+	        	message=new Message(r.getInt("idM"), env, dest, r.getString("message"), r.getLong("dateM"), r.getInt("lu"));
+	        }
+	        
+//	        //Passage le message en lu
+//	        pstmt = db.prepareStatement("UPDATE Messages SET lu=1 WHERE idM=?;");
+
+			// Parametres
+			pstmt.setInt(1, idMessage);
+			
+			pstmt.executeUpdate();
+	        
+	        r.close();
+	        s.close();
+	        db.close();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+		return message;
+	}
 }

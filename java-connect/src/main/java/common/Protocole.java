@@ -18,6 +18,10 @@ public class Protocole {
 	private final String connection = "CONNECTION";
 	private final String listComp = "LIST_COMP";
 	private final String listDip = "LIST_DIP";
+	private final String startEcoute = "SOK_ECT";
+	private final String stopEcoute = "STOP_ECOUTE";
+	private final String demandeConnexion ="CONNECT_TO";
+	private final String sendInstanteMessage = "MESS";
 	
 	/**
 	 * @return the listDip

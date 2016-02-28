@@ -70,6 +70,10 @@ public class GestionServeur
 			retour = listDip(splitMess);
 		}else if (splitMess[0].equals(proto.getEcrireMail())){
 			retour = ecrireMail(splitMess, idS);
+		}else if (splitMess[0].equals(proto.getReleverMessages())){
+			retour = releverMessages(splitMess, idS);
+		}else if (splitMess[0].equals(proto.getLireMessage())){
+			retour = lireMessage(splitMess, idS);
 		}else{ 
 			retour = "erreur message non reconnu";
 		}
@@ -463,6 +467,75 @@ public class GestionServeur
 			else
 			{
 				throw new Exception ("ecrireMail: le nombre de parametres de la requete est incorrect "+splitMess.length);
+			}
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			retour= e.getMessage();
+		}
+		
+		return retour;
+	}
+	
+	public String releverMessages(String[] splitMess,int idS)
+	{
+		String retour= "lol", mess="default mess";
+		try 
+		{
+			if (splitMess.length==2)
+			{	
+				//TODO
+				//Modifier pour eco gestion de co
+				Utilisateur demandeur= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[1]));
+				
+				ArrayList<Message> messages= DBMessages.lireMessagesNonLus(demandeur);
+				mess="";
+				
+				for (Message message: messages)
+				{
+					mess+=message.getIdMessage()+";"+message.getEnvoyeur().getId()+";"+message.getDestinataire().getId()+";"+message.getDate().getTime()+";"+message.getMessage()+"/";
+				}
+				
+				retour=proto.reponse(mess);
+			}
+			else
+			{
+				throw new Exception ("releverMesages: le nombre de parametres de la requete est incorrect "+splitMess.length);
+			}
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			retour= e.getMessage();
+		}
+		
+		return retour;
+	}
+	
+	public String lireMessage(String[] splitMess,int idS)
+	{
+		String retour= "lol", mess="default mess";
+		try 
+		{
+			if (splitMess.length==3)
+			{	
+				//TODO 	
+				//Modifier pour eco gestion de co
+				
+
+				//Traitement
+				Message message= DBMessages.consulterMessage(Integer.parseInt(splitMess[2]));
+				mess=message.getIdMessage()+";"+message.getEnvoyeur().getId()+";"+message.getDestinataire().getId()+";"+message.getDate()+";"+message.getLu()+";"+message.getMessage();
+				
+				//Passer le message en lu
+				DBMessages.passerMessageLu(Integer.parseInt(splitMess[2]));
+				
+				retour=proto.reponse(mess);
+			}
+			else
+			{
+				throw new Exception ("releverMesages: le nombre de parametres de la requete est incorrect "+splitMess.length);
 			}
 		} 
 		catch (Exception e) 

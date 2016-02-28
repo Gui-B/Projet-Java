@@ -1,5 +1,7 @@
 package common;
 
+import java.util.ArrayList;
+
 /**
  * Classe permettant de générer toute les requette de communication entre le client et le serveur.
  * @author kriss
@@ -22,6 +24,7 @@ public class Protocole {
 	private final String listUserCo ="LIST_USER_CO";
 	private final String parler ="PARLER";
 	private final String releverMessages= "RELEVER_MESSAGES";
+	private final String lireMessage="LIRE_MESSAGE";
 	
 	
 	/**
@@ -120,6 +123,16 @@ public class Protocole {
 	public String getEcrireMail()
 	{
 		return this.ecrireMail;
+	}
+	
+	public String getReleverMessages()
+	{
+		return this.releverMessages;
+	}
+	
+	public String getLireMessage()
+	{
+		return this.lireMessage;
 	}
 
 	/** 
@@ -284,13 +297,13 @@ public class Protocole {
 	public String ReqListDip(){
 		return ReqListDip("0");
 	}
-	
+		
 //	public String ReqEcrireMail(){
 //		return this.mail;
 //	}
 //	
-//	public String ReqReleverMessages(){
-//		return this.releverMessages;
+//	public String repReleverMessages(ArrayList<Message> messages){
+//		return "lol";
 //	}
 	
 }

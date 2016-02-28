@@ -200,11 +200,8 @@ public class DBMessages extends MySql{
 	        
 //	        //Passage le message en lu
 //	        pstmt = db.prepareStatement("UPDATE Messages SET lu=1 WHERE idM=?;");
-
-			// Parametres
-			pstmt.setInt(1, idMessage);
-			
-			pstmt.executeUpdate();
+//			pstmt.setInt(1, idMessage);
+//			pstmt.executeUpdate();
 	        
 	        r.close();
 	        s.close();

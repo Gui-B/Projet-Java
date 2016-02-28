@@ -61,6 +61,10 @@ public class Message {
 		return lu;
 	}
 	
+	public int getIdMessage() {
+		return idMessage;
+	}
+	
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub

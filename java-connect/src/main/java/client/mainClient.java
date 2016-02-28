@@ -37,15 +37,16 @@ public class mainClient {
 					System.out.println(proto.getListCompString() + " lister toutes les compétences dispo");
 					System.out.println(proto.getListDipString() + " lister l'ensemble des diplomes dispo");
 					System.out.println(proto.getEcrireMail() + " Envoyer un mail à un utilisateur");
-					System.out.println(proto.getReleverMessages() + "Relever les messages non lus");
+					System.out.println(proto.getReleverMessages() + " Relever les messages non lus");
+					System.out.println(proto.getLireMessage() + " Lire un message en detail");
 					System.out.println(proto.getListUserCo() + " Lister les utilisateurs qui sont connectés");
 					System.out.println(proto.getParler() + " Parler avec un utilisateur connecté");
 					
 					
 				}else {
 					//met la commande en majuscule
-					gc.traiter(commande.toUpperCase());
-//					System.out.println(gc.traiter(commande.toUpperCase()));
+//					gc.traiter(commande.toUpperCase());
+					System.out.println(gc.traiter(commande.toUpperCase()));
 				}
 			}while(true);
 			

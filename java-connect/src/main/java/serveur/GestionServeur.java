@@ -448,7 +448,19 @@ public class GestionServeur
 			{	
 				//TODO: Gerer le groupware utilisateur
 				//Modifier pour eco gestion de co
-				Utilisateur env= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[1]));
+				
+				//Interdire aux anonymes
+				if(gc.getIdProprietaireSocket(idS)==0)
+				{
+					throw new Exception ("SERVEUR: ECRIRE_MAIL: Interdit aux anonymes");
+				}
+				
+				//Retrouver l'id du proprietaire du socket
+				Utilisateur env= DBUtilisateur.lireUtilisateur(gc.getIdProprietaireSocket(idS));
+				
+				
+//				Utilisateur env= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[1]));
+				
 				Utilisateur dest= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[2]));
 				Message message= new Message(env, dest, splitMess[3]);
 				
@@ -486,8 +498,13 @@ public class GestionServeur
 			if (splitMess.length==2)
 			{	
 				//TODO: GERER LE GROUPWARE UTILISATEUR
-				//Modifier pour eco gestion de co
-				Utilisateur demandeur= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[1]));
+				
+				//Retrouver l'id du proprietaire du socket
+				Utilisateur demandeur= DBUtilisateur.lireUtilisateur(gc.getIdProprietaireSocket(idS));
+				
+				gc.adminOuProprietaireException(idS, demandeur.getId());
+//				//Modifier pour eco gestion de co
+//				Utilisateur demandeur= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[1]));
 				
 				ArrayList<Message> messages= DBMessages.lireMessagesNonLus(demandeur);
 				mess="";

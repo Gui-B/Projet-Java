@@ -484,7 +484,7 @@ public class GestionServeur
 		catch (Exception e) 
 		{
 			// TODO: handle exception
-			retour= e.getMessage();
+			retour= proto.erreur("400", e.getMessage());
 		}
 		
 		return retour;
@@ -524,7 +524,7 @@ public class GestionServeur
 		catch (Exception e) 
 		{
 			// TODO: handle exception
-			retour= e.getMessage();
+			retour= proto.erreur("400", e.getMessage());
 		}
 		
 		return retour;

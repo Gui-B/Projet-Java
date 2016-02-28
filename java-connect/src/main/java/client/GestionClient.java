@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import common.Competence;
 import common.Diplome;
+import common.Message;
 import common.Protocole;
 import common.Utilisateur;
 import sql.DBCompetence;
@@ -54,9 +55,14 @@ public class GestionClient
 			retour = connexion(splitMess);
 		} else if (splitMess[0].equals(proto.getListCompString())){
 			retour = listComp(splitMess);
-		} if (splitMess[0].equals(proto.getListDipString())){
+		} else if (splitMess[0].equals(proto.getListDipString())){
 			retour = listDip(splitMess);
-		}else { 
+		}else if (splitMess[0].equals(proto.getEcrireMail())){
+			retour = ecrireMail(splitMess);
+		}else if (splitMess[0].equals(proto.getReleverMessages())){
+			retour = releverMessages(splitMess);
+//			retour="test_debug";
+		}else{ 
 			retour = "erreur message non reconnu";
 		}
 
@@ -496,5 +502,73 @@ public class GestionClient
 		}
 
 		return "lol";
+	}
+	
+	private String ecrireMail(String[] splitMess)
+	{
+		Scanner sc= new Scanner(System.in);		
+		String commande=proto.getEcrireMail()+"|", idDest, message;
+		
+		try 
+		{
+			System.out.print("ID Destinataire:");
+			idDest= sc.nextLine();
+			
+			System.out.print("Message:");
+			message= sc.nextLine();
+			
+			commande+="1"+"|"+idDest+"|"+message;
+			String retour= this.c.communiquer(commande);
+			
+			System.out.println(retour);
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+		}
+		return "lol";
+	}
+
+	private String lireMessage(String[] splitMess)
+	{
+		//TODO
+		return "lol";
+	}
+	
+	private String releverMessages(String[] splitMess)
+	{		
+		String commande=proto.getReleverMessages();
+		
+		try 
+		{	
+			commande+="|2";
+			
+			String retour[]= this.c.communiquer(commande).split("\\|");
+			
+			if(Integer.parseInt(retour[0])==200)
+			{
+				for(String s: retour)
+				{
+					String[] s1= s.split (";");
+					for(String s2: s1)
+					{
+						System.out.print(s2+" ");
+					}
+					System.out.println("");
+				}
+			}
+			else
+			{
+				throw new Exception(retour[1]);
+			}
+			
+			System.out.println(retour);
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return "lol relever messages";
 	}
 }

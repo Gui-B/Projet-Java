@@ -446,7 +446,7 @@ public class GestionServeur
 		{
 			if (splitMess.length==4)
 			{	
-				//TODO
+				//TODO: Gerer le groupware utilisateur
 				//Modifier pour eco gestion de co
 				Utilisateur env= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[1]));
 				Utilisateur dest= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[2]));
@@ -485,7 +485,7 @@ public class GestionServeur
 		{
 			if (splitMess.length==2)
 			{	
-				//TODO
+				//TODO: GERER LE GROUPWARE UTILISATEUR
 				//Modifier pour eco gestion de co
 				Utilisateur demandeur= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[1]));
 				
@@ -494,7 +494,7 @@ public class GestionServeur
 				
 				for (Message message: messages)
 				{
-					mess+=message.getIdMessage()+";"+message.getEnvoyeur().getId()+";"+message.getDestinataire().getId()+";"+message.getDate().getTime()+";"+message.getMessage()+"/";
+					mess+=message.getIdMessage()+";"+message.getEnvoyeur().getId()+";"+message.getDestinataire().getId()+";"+message.getDate().getTime()+";"+message.getMessage()+"|";
 				}
 				
 				retour=proto.reponse(mess);
@@ -520,7 +520,7 @@ public class GestionServeur
 		{
 			if (splitMess.length==3)
 			{	
-				//TODO 	
+				//TODO: GERER LE GROUPWARE UTILISATEUR
 				//Modifier pour eco gestion de co
 				
 
@@ -535,7 +535,7 @@ public class GestionServeur
 			}
 			else
 			{
-				throw new Exception ("releverMesages: le nombre de parametres de la requete est incorrect "+splitMess.length);
+				throw new Exception ("releverMessages: le nombre de parametres de la requete est incorrect "+splitMess.length);
 			}
 		} 
 		catch (Exception e) 

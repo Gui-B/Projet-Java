@@ -18,9 +18,10 @@ public class Protocole {
 	private final String connection = "CONNECTION";
 	private final String listComp = "LIST_COMP";
 	private final String listDip = "LIST_DIP";
-	private final String mail = "ECRIRE_MAIL";
+	private final String ecrireMail = "ECRIRE_MAIL";
 	private final String listUserCo ="LIST_USER_CO";
 	private final String parler ="PARLER";
+	private final String releverMessages= "RELEVER_MESSAGES";
 	
 	
 	/**
@@ -106,9 +107,6 @@ public class Protocole {
 	/**
 	 * @return the mail string req
 	 */
-	public String getMail() {
-		return mail;
-	}
 	
 	
 	public String getListUserCo() {
@@ -117,6 +115,11 @@ public class Protocole {
 	
 	public String getParler() {
 		return parler;
+	}
+	
+	public String getEcrireMail()
+	{
+		return this.ecrireMail;
 	}
 
 	/** 
@@ -280,5 +283,14 @@ public class Protocole {
 	 */
 	public String ReqListDip(){
 		return ReqListDip("0");
-	} 
+	}
+	
+//	public String ReqEcrireMail(){
+//		return this.mail;
+//	}
+//	
+//	public String ReqReleverMessages(){
+//		return this.releverMessages;
+//	}
+	
 }

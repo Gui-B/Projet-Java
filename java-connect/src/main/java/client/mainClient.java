@@ -36,7 +36,7 @@ public class mainClient {
 					System.out.println(proto.getConnectionString() + " Se connecter");
 					System.out.println(proto.getListCompString() + " lister toutes les compétences dispo");
 					System.out.println(proto.getListDipString() + " lister l'ensemble des diplomes dispo");
-					System.out.println(proto.getMail() + "Envoyer un mail à un utilisateur");
+					System.out.println(proto.getEcrireMail() + "Envoyer un mail à un utilisateur");
 					System.out.println(proto.getListUserCo() + "Lister les utilisateurs qui sont connectés");
 					System.out.println(proto.getParler() + "Parler avec un utilisateur connecté");
 					

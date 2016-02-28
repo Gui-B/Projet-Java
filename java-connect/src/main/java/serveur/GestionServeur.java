@@ -9,8 +9,10 @@ import common.Diplome;
 import common.Protocole;
 import common.Utilisateur;
 import common.GestionConnexions;
+import common.Message;
 import sql.DBCompetence;
 import sql.DBDiplome;
+import sql.DBMessages;
 import sql.DBUtilisateur;
 
 public class GestionServeur
@@ -66,7 +68,9 @@ public class GestionServeur
 			retour = listComp(splitMess);
 		}else if (splitMess[0].equals(proto.getListDipString())){
 			retour = listDip(splitMess);
-		}else { 
+		}else if (splitMess[0].equals(proto.getEcrireMail())){
+			retour = ecrireMail(splitMess, idS);
+		}else{ 
 			retour = "erreur message non reconnu";
 		}
 		return retour;
@@ -426,6 +430,45 @@ public class GestionServeur
 		catch (Exception e)
 		{
 			retour=e.getMessage();
+		}
+		
+		return retour;
+	}
+	
+	private String ecrireMail(String[] splitMess,int idS)
+	{
+		String retour= "lol", mess="default mess";
+		try 
+		{
+			if (splitMess.length==4)
+			{	
+				//TODO
+				//Modifier pour eco gestion de co
+				Utilisateur env= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[1]));
+				Utilisateur dest= DBUtilisateur.lireUtilisateur(Integer.parseInt(splitMess[2]));
+				Message message= new Message(env, dest, splitMess[3]);
+				
+				if(DBMessages.insererMessage(message))
+				{
+					mess="ok";
+					retour=proto.reponse(mess);
+				}
+				else
+				{
+					retour="ecrireMail: la requete DB s'est mal passee";
+					mess= proto.erreur("400", retour);
+					throw new Exception (mess);
+				}
+			}
+			else
+			{
+				throw new Exception ("ecrireMail: le nombre de parametres de la requete est incorrect "+splitMess.length);
+			}
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			retour= e.getMessage();
 		}
 		
 		return retour;

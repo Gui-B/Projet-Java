@@ -539,7 +539,8 @@ public class GestionServeur
 			{	
 				//TODO: GERER LE GROUPWARE UTILISATEUR
 				//Modifier pour eco gestion de co
-				
+				//Retrouver l'id du proprietaire du socket
+				Utilisateur demandeur= DBUtilisateur.lireUtilisateur(gc.getIdProprietaireSocket(idS));				
 
 				//Traitement
 				Message message= DBMessages.consulterMessage(Integer.parseInt(splitMess[2]));
@@ -558,7 +559,7 @@ public class GestionServeur
 		catch (Exception e) 
 		{
 			// TODO: handle exception
-			retour= e.getMessage();
+			retour= proto.erreur("400",e.getMessage());
 		}
 		
 		return retour;

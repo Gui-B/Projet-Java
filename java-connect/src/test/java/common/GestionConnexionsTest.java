@@ -82,7 +82,7 @@ public class GestionConnexionsTest extends TestCase {
 		}
 	}
 	
-	public void testGetUtilisateursEnEcoute ()
+	public void testGetIdUtilisateursEnEcoute ()
 	{
 		GestionConnexions gc = new GestionConnexions();
 		try 
@@ -148,7 +148,27 @@ public class GestionConnexionsTest extends TestCase {
 			assertTrue(false);
 		}
 	}
-
 	
-	
+	public void testGetUtilisateursEnEcoute ()
+	{
+		GestionConnexions gc = new GestionConnexions();
+		try 
+		{
+			gc.initialiseEcouteMessagerieInstantannee(2, "127.0.0.1", "12345");
+			gc.initialiseEcouteMessagerieInstantannee(3, "127.0.0.1", "12345");
+			gc.initialiseEcouteMessagerieInstantannee(4, "127.0.0.1", "12345");
+			
+			ArrayList<Utilisateur> users= gc.getUtilisateursEnEcoute();
+			for (Utilisateur u : users)
+			{
+				System.out.println(u);
+			}
+		} 
+		catch (Exception e) 
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			assertTrue(false);
+		}
+	}
 }

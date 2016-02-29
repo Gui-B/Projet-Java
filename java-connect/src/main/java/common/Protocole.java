@@ -21,7 +21,8 @@ public class Protocole {
 	private final String listComp = "LIST_COMP";
 	private final String listDip = "LIST_DIP";
 	private final String ecrireMail = "ECRIRE_MAIL";
-	private final String listUserCo ="LIST_USER_CO";
+	private final String listUserCo ="LIST_USER_ECOUTE";
+	private final String passerEnEcoute= "PASSER_EN_ECOUTE";
 	private final String parler ="PARLER";
 	private final String releverMessages= "RELEVER_MESSAGES";
 	private final String lireMessage="LIRE_MESSAGE";
@@ -133,6 +134,11 @@ public class Protocole {
 	public String getLireMessage()
 	{
 		return this.lireMessage;
+	}
+	
+	public String getPasserEnEcoute()
+	{
+		return this.passerEnEcoute;
 	}
 
 	/** 

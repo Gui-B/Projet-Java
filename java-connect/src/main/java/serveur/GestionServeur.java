@@ -76,6 +76,8 @@ public class GestionServeur
 			retour = lireMessage(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getListUserCo())){
 			retour = listerEcoutesMessagerie(splitMess, idS);
+		}else if (splitMess[0].equals(proto.getPasserEnEcoute())){
+			retour = passerEnEcoute(splitMess, idS);
 		}else{ 
 			retour = "erreur message non reconnu";
 		}
@@ -561,7 +563,6 @@ public class GestionServeur
 		} 
 		catch (Exception e) 
 		{
-			// TODO: handle exception
 			retour= proto.erreur("400",e.getMessage());
 		}
 		
@@ -574,7 +575,7 @@ public class GestionServeur
 		String retour= "lol";
 		try 
 		{	
-			ArrayList<Utilisateur> users = gc.getUtilisateursEnEcoute();//ajout de la gestion d'erreur.
+			ArrayList<Utilisateur> users = gc.getUtilisateursEnEcoute();
 			String mess = "";
 			for (Utilisateur user : users) {
 				mess = mess + user.getId() + ";" + user.getMail() + ";"+ gc.getIpUtilisateursEnEcoute(user)+";"+gc.getPortUtilisateursEnEcoute(user)+"|";
@@ -584,6 +585,38 @@ public class GestionServeur
 		catch (Exception e) 
 		{
 			// TODO: handle exception
+		}
+		return retour;
+	}
+	
+	private String passerEnEcoute (String[] splitMess,int idS)
+	{
+		String retour="default passerModeEcoute", ip="127.0.0.1", port="port";
+		try 
+		{	
+			//0=COMMANDE
+			//1=ID DEMANDEUR MAIS USELESS
+			//2=PORT
+			if(splitMess.length==3)
+			{
+				//Interdire aux anonymes
+				if(gc.getIdProprietaireSocket(idS)==0)
+				{
+					throw new Exception ("SERVEUR: passerEnEcoute: Interdit aux anonymes");
+				}
+				
+				gc.initialiseEcouteMessagerieInstantannee(gc.getIdProprietaireSocket(idS), "127.0.0.1", port);
+				port=splitMess[2];
+				retour="200|"+ip+";20";
+			}
+			else
+			{
+				throw new Exception ("passerEnEcoute: le nombre de parametres de la requete est incorrect "+splitMess.length);	
+			}
+		} 
+		catch (Exception e) 
+		{
+			retour= proto.erreur("400",e.getMessage());
 		}
 		return retour;
 	}

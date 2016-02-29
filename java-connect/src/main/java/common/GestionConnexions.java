@@ -19,6 +19,7 @@ public class GestionConnexions
 	private HashMap<Integer,Utilisateur> usersConnectes;
 	//port ecoute messagerie/utilisateur unique
 	private HashMap<Integer, String> ipMessagerieUtilisateur;
+	private int portEcouteMessagerie;
 	
 	public GestionConnexions() 
 	{
@@ -26,6 +27,7 @@ public class GestionConnexions
 		this.streamClients=new HashMap<Integer, PrintStream>();
 		this.usersConnectes= new HashMap<Integer, Utilisateur>();
 		this.ipMessagerieUtilisateur= new HashMap<Integer, String>();
+		this.portEcouteMessagerie=1500;
 	}
 
 	public void nouveauClient(int id, PrintStream sortie) 
@@ -200,5 +202,10 @@ public class GestionConnexions
 		}
 		
 		return this.ipMessagerieUtilisateur.get(u.getId()).split(":")[0];
+	}
+	
+	public int getPortEcouteMessagerie() throws Exception
+	{
+		return this.portEcouteMessagerie++;
 	}
 }

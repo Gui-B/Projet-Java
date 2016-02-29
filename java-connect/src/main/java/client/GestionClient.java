@@ -63,6 +63,10 @@ public class GestionClient
 			retour = releverMessages(splitMess);
 		}else if (splitMess[0].equals(proto.getLireMessage())){
 			retour = lireMessage(splitMess);
+		}else if (splitMess[0].equals(proto.getListUserCo())){
+			retour = listUserCo(splitMess);
+		}else if (splitMess[0].equals(proto.getPasserEnEcoute())){
+			retour = passerEnEcoute(splitMess);
 		}else{ 
 			retour = "CLIENT: Erreur message non reconnu";
 		}
@@ -608,5 +612,68 @@ public class GestionClient
 		return "lol relever messages";
 	}
 //MESSAGERIE INSTATANNEE --------------------------------------------------------------------------------------
-
+	private String listUserCo(String[] splitMess)
+	{
+		String commande= new String(proto.getListUserCo());
+		try 
+		{	
+			String retour[]= this.c.communiquer(commande).split("\\|");
+			
+			if(Integer.parseInt(retour[0])==200)
+			{
+				for(String s: retour)
+				{
+					String[] s1= s.split (";");
+					for(String s2: s1)
+					{
+						System.out.print(s2+" ");
+					}
+					System.out.println("");
+				}
+			}
+			else
+			{
+				throw new Exception(retour[1]);
+			}
+			
+			System.out.println(retour);
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return "fin listUserCo";
+	}
+	
+	private String passerEnEcoute(String[] splitMess)
+	{
+		String commande= new String(proto.getPasserEnEcoute()+"|0|20");
+		try 
+		{	
+			String retour[]= this.c.communiquer(commande).split("\\|");
+			
+			if(Integer.parseInt(retour[0])==200)
+			{
+				for(String s: retour)
+				{
+					for(String s1: s.split(";"))
+					{
+						System.out.print(s1+" ");
+					}
+					System.out.println();
+				}
+			}
+			else
+			{
+				throw new Exception(retour[1]);
+			}
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return "fin listUserCo";
+	}
 }

@@ -42,7 +42,9 @@ public class ServiceServerMessagerie extends Thread
 			{
 				//Recevoir
 				entree= fluxEntreeSocket.readLine();
+				System.out.println(" ");
 				System.out.println("Recu de "+this.id+": "+entree);
+				System.out.print("Dire:");
 				
 				if (entree.equals("q") || entree.equals(null)) break;
 

@@ -94,7 +94,9 @@ public class Client extends Thread
 			{
 				//Recevoir
 				entree= this.recevoir();
+				System.out.println("");
 				System.out.println("Recu :"+ entree);
+				System.out.print("Dire: ");
 				
 				if (entree.equals("q") || entree.equals(null)) break;
 

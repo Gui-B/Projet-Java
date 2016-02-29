@@ -1,6 +1,7 @@
 package client;
 
 import java.io.IOException;
+import java.rmi.server.SocketSecurityException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,6 +10,8 @@ import common.Diplome;
 import common.Message;
 import common.Protocole;
 import common.Utilisateur;
+import serveur.Serveur;
+import serveur.ServiceServerMessagerie;
 import sql.DBCompetence;
 import sql.DBDiplome;
 import sql.DBUtilisateur;
@@ -67,7 +70,9 @@ public class GestionClient
 			retour = listUserCo(splitMess);
 		}else if (splitMess[0].equals(proto.getPasserEnEcoute())){
 			retour = passerEnEcoute(splitMess);
-		}else{ 
+		}else if (splitMess[0].equals(proto.getParler())){
+			retour = parler(splitMess);
+		}{ 
 			retour = "CLIENT: Erreur message non reconnu";
 		}
 
@@ -652,15 +657,32 @@ public class GestionClient
 			String retour[]= this.c.communiquer(commande).split("\\|");
 			
 			if(Integer.parseInt(retour[0])==200)
-			{
-				for(String s: retour)
-				{
-					for(String s1: s.split(";"))
-					{
-						System.out.print(s1+" ");
-					}
-					System.out.println();
-				}
+			{	
+			 String ip=retour[1].split(";")[0];
+			 String port=retour[1].split(";")[1];
+			 System.out.println(retour[0]);
+			 System.out.println("IP LOCALE: "+ip+" PORT: "+port);
+			 
+			 //A PARTIR D'ICI ON GERE LE SOCKET SERVEUR MESSAGERIE
+			 Serveur serveur= new Serveur(Integer.parseInt(port));
+			 ServiceServerMessagerie client= serveur.connectClientMessagerie();
+			 
+			 String parole;
+			 Scanner sc= new Scanner(System.in);
+			 
+			 do{
+				
+				System.out.print("Dire: ");
+				parole= sc.nextLine(); 
+				
+				//Quitter si on a envie
+				if (parole.equals("q")) break;
+				
+				client.envoyer(parole);
+			 }while (true);
+			 
+			 client.quit();
+			 client.stop();
 			}
 			else
 			{
@@ -672,6 +694,49 @@ public class GestionClient
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		return "fin listUserCo";
+		return "fin passerEnEcoute";
+	}
+	
+	private String parler(String[] splitMess)
+	{
+		
+		try 
+		{
+			String ip, port, parole;
+			Scanner sc= new Scanner(System.in);
+			System.out.print("IP: ");
+			ip= sc.nextLine();
+			
+			System.out.print("PORT: ");
+			port= sc.nextLine();
+			Client client= new Client(ip, Integer.parseInt(port));
+			
+			//Lancer la reception auto
+			//UNIQUEMENT SI RECEVOIR DESACTIVE PLUS BAS
+			client.start();
+			do
+			{
+				//Scanner ce qu'on veut dire
+				System.out.print("Dire: ");
+				parole= sc.nextLine();
+				
+				//Quitter si on a envie
+				if (parole.equals("q")) break;
+				
+				//Envoyer
+				client.envoyer(parole);
+
+//				//Recevoir
+//				System.out.println(client.recevoir());				
+			}while(true);
+			//Fermer le socket
+			client.fermer();
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return "finParler";
 	}
 }

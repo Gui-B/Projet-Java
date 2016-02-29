@@ -3,6 +3,7 @@ import java.io.*;
 import java.net.*;
 
 import java.net.ServerSocket;
+import java.util.Scanner;
 
 public class Serveur
 {
@@ -47,6 +48,15 @@ public class Serveur
 		System.out.println("Nouvelle connexion: "+socketService+" "+socketService.getInetAddress()+" "+socketService.getLocalAddress());
 		ServiceServer client=new ServiceServer(socketService, gs, this.idSocketClient++);
 		client.start();
+	}
+	
+	public ServiceServerMessagerie connectClientMessagerie() throws IOException
+	{
+		Socket socketService= socketEcoute.accept();
+		System.out.println("Nouvelle connexion: "+socketService+" "+socketService.getInetAddress()+" "+socketService.getLocalAddress());
+		ServiceServerMessagerie client=new ServiceServerMessagerie(socketService, this.idSocketClient++);
+		client.start();
+		return client;
 	}
 
 	public void fermerServeur ()
@@ -119,6 +129,7 @@ class ServiceServer extends Thread
 			e.printStackTrace();
 		}
 	}
-
 }
+
+
 

@@ -41,7 +41,7 @@ public class mainClient {
 					System.out.println(proto.getLireMessage() + " Lire un message en detail");
 					System.out.println(proto.getListUserCo() + " Lister les utilisateurs qui sont connectés");
 					System.out.println(proto.getPasserEnEcoute()+ " Passer en mode ecoute");
-//					System.out.println(proto.getParler() + " Parler avec un utilisateur connecté");
+					System.out.println(proto.getParler() + " Parler avec un utilisateur connecté");
 					
 					
 				}else {

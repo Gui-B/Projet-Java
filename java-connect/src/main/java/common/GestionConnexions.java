@@ -2,8 +2,11 @@
 
 import java.io.PrintStream;
 import java.security.IdentityScope;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
+
+import com.mysql.fabric.xmlrpc.base.Array;
 
 import serveur.Serveur;
 import common.Utilisateur;
@@ -160,9 +163,23 @@ public class GestionConnexions
 		return this.ipMessagerieUtilisateur.containsKey(u.getId()) ;
 	}
 	
-	public Set<Integer> getUtilisateursEnEcoute()
+	public Set<Integer> getIdUtilisateursEnEcoute()
 	{
 		return (this.ipMessagerieUtilisateur.keySet());
+	}
+	
+	public ArrayList<Utilisateur> getUtilisateursEnEcoute()
+	{
+		ArrayList<Utilisateur> list= new ArrayList<Utilisateur>();
+		for(Utilisateur u: this.usersConnectes.values())
+		{
+			if(ecouteMessagerieInstantannee(u))
+			{
+				list.add(u);
+			}
+		}
+		
+		return list;
 	}
 	
 	public String getPortUtilisateursEnEcoute(Utilisateur u) throws Exception

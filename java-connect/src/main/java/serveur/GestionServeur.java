@@ -74,6 +74,8 @@ public class GestionServeur
 			retour = releverMessages(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getLireMessage())){
 			retour = lireMessage(splitMess, idS);
+		}else if (splitMess[0].equals(proto.getListUserCo())){
+			retour = listerEcoutesMessagerie(splitMess, idS);
 		}else{ 
 			retour = "erreur message non reconnu";
 		}
@@ -569,7 +571,20 @@ public class GestionServeur
 //MESSAGERIE INSTATANNEE --------------------------------------------------------------------------------------
 	public String listerEcoutesMessagerie(String[] splitMess,int idS)
 	{
-		return "listerEcoutesMessagerie default";
+		String retour= "lol";
+		try 
+		{	
+			ArrayList<Utilisateur> users = gc.getUtilisateursEnEcoute();//ajout de la gestion d'erreur.
+			String mess = "";
+			for (Utilisateur user : users) {
+				mess = mess + user.getId() + ";" + user.getMail() + ";"+ gc.getIpUtilisateursEnEcoute(user)+";"+gc.getPortUtilisateursEnEcoute(user)+"|";
+			}
+			retour = proto.reponse(mess);
+		} 
+		catch (Exception e) 
+		{
+			// TODO: handle exception
+		}
+		return retour;
 	}
-	
 }

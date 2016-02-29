@@ -91,7 +91,7 @@ public class GestionConnexionsTest extends TestCase {
 			gc.initialiseEcouteMessagerieInstantannee(3, "127.0.0.1", "12345");
 			gc.initialiseEcouteMessagerieInstantannee(4, "127.0.0.1", "12345");
 			
-			Set<Integer> liste= gc.getUtilisateursEnEcoute();
+			Set<Integer> liste= gc.getIdUtilisateursEnEcoute();
 			for (int i : liste)
 			{
 				System.out.println(i);

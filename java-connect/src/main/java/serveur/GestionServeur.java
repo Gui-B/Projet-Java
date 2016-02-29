@@ -591,12 +591,14 @@ public class GestionServeur
 	
 	private String passerEnEcoute (String[] splitMess,int idS)
 	{
-		String retour="default passerModeEcoute", ip="127.0.0.1", port="port";
+		String retour="default passerModeEcoute", ip="127.0.0.1", port_1="port";
+		
 		try 
 		{	
 			//0=COMMANDE
 			//1=ID DEMANDEUR MAIS USELESS
-			//2=PORT
+			//2=PORT USELESS VU QUE CEST LE SERVEUR QUI DONNE
+			int port=gc.getPortEcouteMessagerie();
 			if(splitMess.length==3)
 			{
 				//Interdire aux anonymes
@@ -605,9 +607,8 @@ public class GestionServeur
 					throw new Exception ("SERVEUR: passerEnEcoute: Interdit aux anonymes");
 				}
 				
-				gc.initialiseEcouteMessagerieInstantannee(gc.getIdProprietaireSocket(idS), "127.0.0.1", port);
-				port=splitMess[2];
-				retour="200|"+ip+";20";
+				gc.initialiseEcouteMessagerieInstantannee(gc.getIdProprietaireSocket(idS), "127.0.0.1", Integer.toString(port));
+				retour="200|"+ip+";"+port;
 			}
 			else
 			{

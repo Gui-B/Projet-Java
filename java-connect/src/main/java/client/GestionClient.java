@@ -635,8 +635,6 @@ public class GestionClient
 			{
 				throw new Exception(retour[1]);
 			}
-			
-			System.out.println(retour);
 		} 
 		catch (Exception e) 
 		{

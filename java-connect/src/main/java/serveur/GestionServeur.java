@@ -439,6 +439,7 @@ public class GestionServeur
 		return retour;
 	}
 	
+//MESSAGERIE DIFFEREE ----------------------------------------------------------------------------------------
 	private String ecrireMail(String[] splitMess,int idS)
 	{
 		String retour= "lol", mess="default mess";
@@ -564,4 +565,6 @@ public class GestionServeur
 		
 		return retour;
 	}
+	
+//MESSAGERIE INSTATANNEE --------------------------------------------------------------------------------------
 }

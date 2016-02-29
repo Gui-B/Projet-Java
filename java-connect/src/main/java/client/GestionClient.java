@@ -505,6 +505,7 @@ public class GestionClient
 		return "lol";
 	}
 	
+//MESSAGERIE DIFFEREE --------------------------------------------------------------------------------------
 	private String ecrireMail(String[] splitMess)
 	{
 		Scanner sc= new Scanner(System.in);		
@@ -606,4 +607,6 @@ public class GestionClient
 		}
 		return "lol relever messages";
 	}
+//MESSAGERIE INSTATANNEE --------------------------------------------------------------------------------------
+
 }

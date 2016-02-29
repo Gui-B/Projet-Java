@@ -1,8 +1,9 @@
-﻿package common;
+﻿ package common;
 
 import java.io.PrintStream;
 import java.security.IdentityScope;
 import java.util.HashMap;
+import java.util.Set;
 
 import serveur.Serveur;
 import common.Utilisateur;
@@ -49,6 +50,18 @@ public class GestionConnexions
 		for(Utilisateur u: this.usersConnectes.values())
 		{
 			if(u.getMail().equals(pU.getMail()))
+			{
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean estConnecte(int idU)
+	{
+		for(Utilisateur u: this.usersConnectes.values())
+		{
+			if(u.getId()==idU)
 			{
 				return true;
 			}
@@ -123,26 +136,52 @@ public class GestionConnexions
 		}
 	}
 	
-	//Methodes messagrie
-	public void initialiseMessagerie(int idS, String ip) throws Exception
+//METHODES MESSAGERIE INSTANTANNEE -----------------------------------------------------------------------------
+	
+	public void initialiseEcouteMessagerieInstantannee(int idU, String ip, String port) throws Exception
 	{
-		if(this.ipMessagerieUtilisateur.containsKey(idS))
+		if(this.ipMessagerieUtilisateur.containsKey(idU))
 		{
 			throw new Exception ("INITIALISE MESSAGERIE: cet utilisateur est deja connecte a la messagerie");
 		}
 		else
 		{
-			this.ipMessagerieUtilisateur.put(idS, ip);
+			this.ipMessagerieUtilisateur.put(idU, ip+":"+port);
 		}
 	}
 	
-	public void detruireMessagerie (int idS) throws Exception
+	public void detruireEcouteMessagerieInstantannee (int idU) throws Exception
 	{
-		this.ipMessagerieUtilisateur.remove(idS);
+		this.ipMessagerieUtilisateur.remove(idU);
 	}
 	
-	public boolean estConnecteMessagerie(Utilisateur u)
+	public boolean ecouteMessagerieInstantannee(Utilisateur u)
 	{
-		return this.ipMessagerieUtilisateur.containsKey(this.getIdSocketUtilisateur(u)) ;
+		return this.ipMessagerieUtilisateur.containsKey(u.getId()) ;
+	}
+	
+	public Set<Integer> getUtilisateursEnEcoute()
+	{
+		return (this.ipMessagerieUtilisateur.keySet());
+	}
+	
+	public String getPortUtilisateursEnEcoute(Utilisateur u) throws Exception
+	{
+		if (!ecouteMessagerieInstantannee(u))
+		{
+			throw new Exception("getPortUtilisateursEnEcoute: Cet utilisateur "+u.getId()+" n'est pas en ecoute");
+		}
+		
+		return this.ipMessagerieUtilisateur.get(u.getId()).split(":")[1];
+	}
+	
+	public String getIpUtilisateursEnEcoute(Utilisateur u) throws Exception
+	{
+		if (!ecouteMessagerieInstantannee(u))
+		{
+			throw new Exception("getIpUtilisateursEnEcoute: Cet utilisateur "+u.getId()+" n'est pas en ecoute");
+		}
+		
+		return this.ipMessagerieUtilisateur.get(u.getId()).split(":")[0];
 	}
 }

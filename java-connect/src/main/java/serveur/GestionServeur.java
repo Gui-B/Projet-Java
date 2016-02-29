@@ -567,4 +567,9 @@ public class GestionServeur
 	}
 	
 //MESSAGERIE INSTATANNEE --------------------------------------------------------------------------------------
+	public String listerEcoutesMessagerie(String[] splitMess,int idS)
+	{
+		return "listerEcoutesMessagerie default";
+	}
+	
 }

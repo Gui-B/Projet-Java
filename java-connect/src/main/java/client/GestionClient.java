@@ -72,7 +72,7 @@ public class GestionClient
 			retour = passerEnEcoute(splitMess);
 		}else if (splitMess[0].equals(proto.getParler())){
 			retour = parler(splitMess);
-		}{ 
+		}else{ 
 			retour = "CLIENT: Erreur message non reconnu";
 		}
 

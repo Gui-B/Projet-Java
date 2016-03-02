@@ -675,10 +675,9 @@ public class GestionClient
 				System.out.print("Dire: ");
 				parole= sc.nextLine(); 
 				
-				//Quitter si on a envie
-				if (parole.equals("q")) break;
-				
 				client.envoyer(parole);
+				//Quitter si on a envie
+				if (parole.equals("q")|| parole==null || parole.equals(null)) break;
 			 }while (true);
 			 
 			 client.quit();
@@ -720,12 +719,11 @@ public class GestionClient
 				System.out.print("Dire: ");
 				parole= sc.nextLine();
 				
-				//Quitter si on a envie
-				if (parole.equals("q")) break;
-				
 				//Envoyer
 				client.envoyer(parole);
 
+				//Quitter si on a envie
+				if (parole.equals("q")) break;
 //				//Recevoir
 //				System.out.println(client.recevoir());				
 			}while(true);

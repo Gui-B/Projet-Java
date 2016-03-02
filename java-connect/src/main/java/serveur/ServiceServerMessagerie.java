@@ -46,7 +46,7 @@ public class ServiceServerMessagerie extends Thread
 				System.out.println("Recu de "+this.id+": "+entree);
 				System.out.print("Dire:");
 				
-				if (entree.equals("q") || entree.equals(null)) break;
+				if (entree.equals("q") || entree==null || entree.equals(null)) break;
 
 			}while(true);
 			

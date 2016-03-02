@@ -503,6 +503,11 @@ public class GestionServeur
 			if (splitMess.length==2)
 			{	
 				//TODO: GERER LE GROUPWARE UTILISATEUR
+				//Interdire aux anonymes
+				if(gc.getIdProprietaireSocket(idS)==0)
+				{
+					throw new Exception ("SERVEUR: ECRIRE_MAIL: Interdit aux anonymes");
+				}
 				
 				//Retrouver l'id du proprietaire du socket
 				Utilisateur demandeur= DBUtilisateur.lireUtilisateur(gc.getIdProprietaireSocket(idS));
@@ -516,7 +521,7 @@ public class GestionServeur
 				
 				for (Message message: messages)
 				{
-					mess+=message.getIdMessage()+";"+message.getEnvoyeur().getId()+";"+message.getDestinataire().getId()+";"+message.getDate().getTime()+";"+message.getMessage()+"|";
+					mess+=message.getIdMessage()+";"+message.getEnvoyeur().getId()+";"+message.getDestinataire().getId()+";"+message.getDate()+";"+message.getMessage()+"|";
 				}
 				
 				retour=proto.reponse(mess);
@@ -542,13 +547,25 @@ public class GestionServeur
 		{
 			if (splitMess.length==3)
 			{	
-				//TODO: GERER LE GROUPWARE UTILISATEUR
+				//GERER LE GROUPWARE UTILISATEUR
+				//Interdire aux anonymes
+				if(gc.getIdProprietaireSocket(idS)==0)
+				{
+					throw new Exception ("SERVEUR: ECRIRE_MAIL: Interdit aux anonymes");
+				}
 				//Modifier pour eco gestion de co
 				//Retrouver l'id du proprietaire du socket
 				Utilisateur demandeur= DBUtilisateur.lireUtilisateur(gc.getIdProprietaireSocket(idS));				
 
 				//Traitement
 				Message message= DBMessages.consulterMessage(Integer.parseInt(splitMess[2]));
+				
+				//Interdire de lire le msg de qqun d'autre
+				if (demandeur.getId() != message.getDestinataire().getId())
+				{
+					throw new Exception("SERVEUR: lireMessage: ce message n'est pas a vous");
+				}
+				
 				mess=message.getIdMessage()+";"+message.getEnvoyeur().getId()+";"+message.getDestinataire().getId()+";"+message.getDate()+";"+message.getLu()+";"+message.getMessage();
 				
 				//Passer le message en lu

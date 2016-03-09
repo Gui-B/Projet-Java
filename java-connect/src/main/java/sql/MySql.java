@@ -79,6 +79,9 @@ public class MySql
 			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Messages(idM int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, idEnvoyeur int(6) NOT NULL, idDestinataire int(6) NOT NULL, dateM bigint NOT NULL, message varchar(1024) NOT NULL, lu int(6) DEFAULT 0 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
 			db.createStatement().execute("ALTER TABLE Messages ADD CONSTRAINT FK_messages_u1 FOREIGN KEY (idEnvoyeur) REFERENCES Utilisateur(IdU), ADD CONSTRAINT FK_messages_u2 FOREIGN KEY (IdDestinataire) REFERENCES Utilisateur(IdU);");
 			
+			//Table Recommander
+			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Recommander (idR int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, likeC bool(6), idU_Recommandeur int(6) NOT NULL, idU_Recommande int(6) NOT NULL, idC int(6) NOT NULL DEFAULT 0 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			db.createStatement().execute("ALTER TABLE Recommander ADD CONSTRAINT FK_recommander_u1 FOREIGN KEY (idU_Recommandeur) REFERENCES Utilisateur(IdU), ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (IdU_Recommande) REFERENCES Utilisateur(IdU), ADD CONSTRAINT FK_Avoir_idC FOREIGN KEY (idC) REFERENCES Competences (idC);");
 			
 			db.close();
 		}
@@ -107,6 +110,7 @@ public class MySql
 			db.createStatement().execute("DROP TABLE IF EXISTS Diplome;");
 			db.createStatement().execute("DROP TABLE IF EXISTS Competences;");
 			db.createStatement().execute("DROP TABLE IF EXISTS Utilisateur;");
+			db.createStatement().execute("DROP TABLE IF EXISTS Recommander;");
 			db.close();
 
 		}

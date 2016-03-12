@@ -145,7 +145,7 @@ public class GestionServeur
 			else 
 			{
 				for (Competence comp : comps) {
-					mess = mess + comp.getId() + ";" + comp.getCompetence() + ";" + comp.getLike() + "/";
+					mess = mess + comp.getId() + ";" + comp.getCompetence() + ";" + comp.getLike() + " recomendation(s)/";
 				}
 			}
 			System.out.println(mess);

@@ -5,6 +5,7 @@ public class Competence {
 	private String competence;
 	private int like;
 	
+
 	public Competence(int id, String competence) {
 		super();
 		this.id = id;
@@ -36,6 +37,13 @@ public class Competence {
 	 */
 	public String getCompetence() {
 		return competence;
+	}
+	
+	/**
+	 * @param like the like to set
+	 */
+	public void setLike(int like) {
+		this.like = like;
 	}
 	
 }

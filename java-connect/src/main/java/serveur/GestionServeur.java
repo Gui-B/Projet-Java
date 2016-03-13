@@ -13,6 +13,7 @@ import common.Message;
 import sql.DBCompetence;
 import sql.DBDiplome;
 import sql.DBMessages;
+import sql.DBRecommander;
 import sql.DBUtilisateur;
 
 public class GestionServeur
@@ -145,6 +146,11 @@ public class GestionServeur
 			else 
 			{
 				for (Competence comp : comps) {
+					int i = 0;
+					for (Utilisateur ut : DBRecommander.getRecommandeurs(user, comp)) {
+						i++;
+					}
+					comp.setLike(i);
 					mess = mess + comp.getId() + ";" + comp.getCompetence() + ";" + comp.getLike() + " recomendation(s)/";
 				}
 			}

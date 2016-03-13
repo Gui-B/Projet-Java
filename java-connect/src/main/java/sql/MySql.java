@@ -80,8 +80,8 @@ public class MySql
 			db.createStatement().execute("ALTER TABLE Messages ADD CONSTRAINT FK_messages_u1 FOREIGN KEY (idEnvoyeur) REFERENCES Utilisateur(IdU), ADD CONSTRAINT FK_messages_u2 FOREIGN KEY (IdDestinataire) REFERENCES Utilisateur(IdU);");
 			
 			//Table Recommander
-			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Recommander (idR int(6) NOT NULL PRIMARY KEY AUTO_INCREMENT, likeC bool(6), idU_Recommandeur int(6) NOT NULL, idU_Recommande int(6) NOT NULL, idC int(6) NOT NULL DEFAULT 0 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-			db.createStatement().execute("ALTER TABLE Recommander ADD CONSTRAINT FK_recommander_u1 FOREIGN KEY (idU_Recommandeur) REFERENCES Utilisateur(IdU), ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (IdU_Recommande) REFERENCES Utilisateur(IdU), ADD CONSTRAINT FK_Avoir_idC FOREIGN KEY (idC) REFERENCES Competences (idC);");
+			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Recommander(idCompetence int(6) NOT NULL, idConseilleur int(6) NOT NULL, idRecommande int(6) NOT NULL, note int(6) NOT NULL DEFAULT 0 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
+			db.createStatement().execute("ALTER TABLE Recommander ADD CONSTRAINT FK_recommander_competence FOREIGN KEY (idCompetence) REFERENCES Competences(idC), ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (idConseilleur) REFERENCES Utilisateur(IdU), ADD CONSTRAINT FK_recommander_u3 FOREIGN KEY (idRecommande) REFERENCES Utilisateur(IdU);");
 			
 			db.close();
 		}
@@ -104,13 +104,13 @@ public class MySql
 		try
 		{
 			Connection db = connexion();
+			db.createStatement().execute("DROP TABLE IF EXISTS Recommander;");
 			db.createStatement().execute("DROP TABLE IF EXISTS Messages;");
 			db.createStatement().execute("DROP TABLE IF EXISTS Obtenir;");
 			db.createStatement().execute("DROP TABLE IF EXISTS Avoir;");
 			db.createStatement().execute("DROP TABLE IF EXISTS Diplome;");
 			db.createStatement().execute("DROP TABLE IF EXISTS Competences;");
 			db.createStatement().execute("DROP TABLE IF EXISTS Utilisateur;");
-			db.createStatement().execute("DROP TABLE IF EXISTS Recommander;");
 			db.close();
 
 		}

@@ -72,9 +72,9 @@ public class GestionClient
 			retour = passerEnEcoute(splitMess);
 		}else if (splitMess[0].equals(proto.getParler())){
 			retour = parler(splitMess);
-		}else if (splitMess[0].equals(proto.getAddRecomendationString()())){
+		}else if (splitMess[0].equals(proto.getAddRecomendationString())){
 			retour = addRecomendation(splitMess);
-		}else if (splitMess[0].equals(proto.getDelRecomendationString()())){
+		}else if (splitMess[0].equals(proto.getDelRecomendationString())){
 			retour = delRecommendation(splitMess);
 		}else{ 
 			retour = "CLIENT: Erreur message non reconnu";
@@ -230,7 +230,7 @@ public class GestionClient
 			
 			String[] retour=this.c.communiquer(commande+id+"|"+comp).split("\\|");
 			if(retour[0].equalsIgnoreCase("200")){
-				System.out.println("Recommendation Ajouté");
+				System.out.println("Recommendation supprimé");
 			}else{
 				System.out.println(retour[0]+" "+retour[1]);
 			}

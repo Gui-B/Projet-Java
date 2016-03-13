@@ -233,4 +233,20 @@ public class MysqlTest extends TestCase {
 		assertTrue(true);
 	}
 	
+	public void testRecommander()
+	{
+		Utilisateur u1= new Utilisateur (1, "nom", "prenom", "mail", "motDePasse",1);
+		Utilisateur u2= new Utilisateur (2, "nom", "prenom", "mail", "motDePasse",1);
+		Competence c= new Competence(1, "blblbl");
+		assertTrue(DBRecommander.recommander(u2, u1, c));
+	}
+	
+	public void testSupprimeRecommandation()
+	{
+		Utilisateur u1= new Utilisateur (1, "nom", "prenom", "mail", "motDePasse",1);
+		Utilisateur u2= new Utilisateur (2, "nom", "prenom", "mail", "motDePasse",1);
+		Competence c= new Competence(1, "blblbl");
+		assertTrue(DBRecommander.supprimerRecommandation(u2, u1, c));
+	}
+	
 }

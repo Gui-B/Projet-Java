@@ -81,7 +81,7 @@ public class MySql
 			
 			//Table Recommander
 			db.createStatement().execute("CREATE TABLE IF NOT EXISTS Recommander(idCompetence int(6) NOT NULL, idConseilleur int(6) NOT NULL, idRecommande int(6) NOT NULL, note int(6) NOT NULL DEFAULT 0 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;");
-			db.createStatement().execute("ALTER TABLE Recommander ADD CONSTRAINT FK_recommander_competence FOREIGN KEY (idCompetence) REFERENCES Competences(idC), ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (idConseilleur) REFERENCES Utilisateur(IdU), ADD CONSTRAINT FK_recommander_u3 FOREIGN KEY (idRecommande) REFERENCES Utilisateur(IdU);");
+			db.createStatement().execute("ALTER TABLE Recommander ADD CONSTRAINT PK_RECOMMANDER PRIMARY KEY (idCompetence,idConseilleur, idRecommande), ADD CONSTRAINT FK_recommander_competence FOREIGN KEY (idCompetence) REFERENCES Competences(idC), ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (idConseilleur) REFERENCES Utilisateur(IdU), ADD CONSTRAINT FK_recommander_u3 FOREIGN KEY (idRecommande) REFERENCES Utilisateur(IdU);");
 			
 			db.close();
 		}

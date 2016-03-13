@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS Recommander(
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 ALTER TABLE Recommander
+ ADD CONSTRAINT PK_RECOMMANDER PRIMARY KEY (idCompetence,idConseilleur, idRecommande),
  ADD CONSTRAINT FK_recommander_competence FOREIGN KEY (idCompetence) REFERENCES Competences(idC),
  ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (idConseilleur) REFERENCES Utilisateur(IdU),
  ADD CONSTRAINT FK_recommander_u3 FOREIGN KEY (idRecommande) REFERENCES Utilisateur(IdU);

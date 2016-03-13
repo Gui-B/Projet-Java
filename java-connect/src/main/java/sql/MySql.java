@@ -19,7 +19,7 @@ public class MySql
 	public static Connection connexion ()
 	{
 		 
-		String url="jdbc:mysql://127.0.0.1:3306/projJava";
+		String url="jdbc:mysql://kriissss.fr:3306/projJava";
 		String username="projJava";
 		String password="TNYVxtXuYAmvYeaC";
 		Connection db=null;

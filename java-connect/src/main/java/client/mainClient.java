@@ -42,6 +42,9 @@ public class mainClient {
 					System.out.println(proto.getListUserCo() + " Lister les utilisateurs qui sont connectés");
 					System.out.println(proto.getPasserEnEcoute()+ " Passer en mode ecoute");
 					System.out.println(proto.getParler() + " Parler avec un utilisateur connecté");
+					System.out.println(proto.getAddRecomendationString()+ " Recommander la compétence d'un utilisateur");
+					System.out.println(proto.getDelRecomendationString() + " Annuler la recommendation d'une compétence");
+					
 					
 					
 				}else {

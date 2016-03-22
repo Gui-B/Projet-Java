@@ -72,6 +72,18 @@ public class Utilisateur {
 		this.vuComp = 0;
 		this.vuDip = 0;
 	}
+	public Utilisateur(int id) {
+		super();
+		this.nom = "";
+		this.prenom = "";
+		this.motDePasse = "";
+		this.mail = "";
+		this.id = id;
+		this.satuts = 0;
+		this.vuMail = 0;
+		this.vuComp = 0;
+		this.vuDip = 0;
+	}
 
 	/**
 	 * @param nom the nom to set

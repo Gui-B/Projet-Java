@@ -26,6 +26,21 @@ public class Protocole {
 	private final String parler ="PARLER";
 	private final String releverMessages= "RELEVER_MESSAGES";
 	private final String lireMessage="LIRE_MESSAGE";
+	private final String addRecomendation = "AJOUTER_RECOMMENDATION";
+	private final String delRecomendation = "SUPPRIMER_RECOMENDATION";
+	/**
+	 * @return the addRecomendation
+	 */
+	public String getAddRecomendationString() {
+		return addRecomendation;
+	}
+
+	/**
+	 * @return the delRecomendation
+	 */
+	public String getDelRecomendationString() {
+		return delRecomendation;
+	}
 	
 	
 	/**

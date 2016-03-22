@@ -72,6 +72,10 @@ public class GestionClient
 			retour = passerEnEcoute(splitMess);
 		}else if (splitMess[0].equals(proto.getParler())){
 			retour = parler(splitMess);
+		}else if (splitMess[0].equals(proto.getAddRecomendationString())){
+			retour = addRecomendation(splitMess);
+		}else if (splitMess[0].equals(proto.getDelRecomendationString())){
+			retour = delRecommendation(splitMess);
 		}else{ 
 			retour = "CLIENT: Erreur message non reconnu";
 		}
@@ -176,6 +180,67 @@ public class GestionClient
 		}
 
 		return "lol";
+	}
+	
+	private String addRecomendation(String[] splitMess){
+		String mess=" ", id, comp;
+		Scanner sc= new Scanner(System.in);		
+
+
+		String commande= proto.getAddRecomendationString() + "|"+this.u.getId()+"|";
+
+		try 
+		{
+
+			System.out.print("Id user:");
+			id= sc.nextLine();
+
+			System.out.print("Id compétence:");
+			comp= sc.nextLine();
+			
+			String[] retour=this.c.communiquer(commande+id+"|"+comp).split("\\|");
+			if(retour[0].equalsIgnoreCase("200")){
+				System.out.println("Recommendation Ajouté");
+			}else{
+				System.out.println(retour[0]+" "+retour[1]);
+			}
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return " ";
+	}
+	private String delRecommendation(String[] splitMess){
+		String mess=" ", id, comp;
+		Scanner sc= new Scanner(System.in);		
+
+
+		String commande= proto.getDelRecomendationString() + "|"+this.u.getId()+"|";
+
+		try 
+		{
+
+			System.out.print("Id user:");
+			id= sc.nextLine();
+
+			System.out.print("Id compétence:");
+			comp= sc.nextLine();
+			
+			String[] retour=this.c.communiquer(commande+id+"|"+comp).split("\\|");
+			if(retour[0].equalsIgnoreCase("200")){
+				System.out.println("Recommendation supprimé");
+			}else{
+				System.out.println(retour[0]+" "+retour[1]);
+			}
+		} 
+		catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return " ";
 	}
 
 	/**

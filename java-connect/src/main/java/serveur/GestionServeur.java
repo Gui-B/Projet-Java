@@ -13,6 +13,7 @@ import common.Message;
 import sql.DBCompetence;
 import sql.DBDiplome;
 import sql.DBMessages;
+import sql.DBRecommander;
 import sql.DBUtilisateur;
 
 public class GestionServeur
@@ -78,12 +79,57 @@ public class GestionServeur
 			retour = listerEcoutesMessagerie(splitMess, idS);
 		}else if (splitMess[0].equals(proto.getPasserEnEcoute())){
 			retour = passerEnEcoute(splitMess, idS);
+		}else if (splitMess[0].equals(proto.getAddRecomendationString())){
+			retour = addRecomendation(splitMess, idS);
+		}else if (splitMess[0].equals(proto.getDelRecomendationString())){
+			retour = delRecomendation(splitMess, idS);
 		}else{ 
 			retour = "erreur message non reconnu";
 		}
 		return retour;
 	}
 	
+	private String addRecomendation (String[] splitMess,int idS){
+		String mess = "";
+		String retour;
+		if ( splitMess.length > 3) {
+			Utilisateur us = new Utilisateur(Integer.parseInt(splitMess[2]));
+			Utilisateur uss = new Utilisateur(gc.getIdProprietaireSocket(idS));
+			Competence cp = new Competence(Integer.parseInt(splitMess[3]), "");
+			if (DBRecommander.recommander(uss, us, cp)) {
+				mess = "OK";
+				retour = proto.reponse(mess);
+			} else {
+				mess = "Erreur bdd";
+				retour = proto.erreur("400", mess);
+			}
+		}else{
+			mess ="Erreur nombre de parametre invalide";
+			retour = proto.erreur("400", mess);
+		}
+		return retour;
+	}
+	
+	private String delRecomendation (String[] splitMess,int idS){
+		String mess = "";
+		String retour;
+		if ( splitMess.length > 3) {
+			Utilisateur us = new Utilisateur(Integer.parseInt(splitMess[2]));
+			Utilisateur uss = new Utilisateur(gc.getIdProprietaireSocket(idS));
+			Competence cp = new Competence(Integer.parseInt(splitMess[3]), "");
+			if (DBRecommander.supprimerRecommandation(uss, us, cp)) {
+				mess = "OK";
+				retour = proto.reponse(mess);
+			} else {
+				mess = "Erreur bdd";
+				retour = proto.erreur("400", mess);
+			}
+		}else{
+			mess ="Erreur nombre de parametre invalide";
+			retour = proto.erreur("400", mess);
+		}
+		return retour;
+	}
 	private String listUsers(String[] splitMess){
 		String retour;
 		String id = "0"; //contient l'id de l'utilisateur qui demande la liste des utilisateurs
@@ -145,7 +191,12 @@ public class GestionServeur
 			else 
 			{
 				for (Competence comp : comps) {
-					mess = mess + comp.getId() + ";" + comp.getCompetence() + "/";
+					int i = 0;
+					for (Utilisateur ut : DBRecommander.getRecommandeurs(user, comp)) {
+						i++;
+					}
+					comp.setLike(i);
+					mess = mess + comp.getId() + ";" + comp.getCompetence() + ";" + comp.getLike() + " recomendation(s)/";
 				}
 			}
 			System.out.println(mess);

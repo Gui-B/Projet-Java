@@ -1,4 +1,5 @@
 
+DROP Table IF EXISTS Recommander;
 DROP TABLE IF EXISTS Messages;
 DROP TABLE IF EXISTS Obtenir;
 DROP TABLE IF EXISTS Avoir;
@@ -69,3 +70,20 @@ CREATE TABLE IF NOT EXISTS Messages(
 ALTER TABLE Messages
  ADD CONSTRAINT FK_messages_u1 FOREIGN KEY (idEnvoyeur) REFERENCES Utilisateur(IdU),
  ADD CONSTRAINT FK_messages_u2 FOREIGN KEY (IdDestinataire) REFERENCES Utilisateur(IdU);
+
+CREATE TABLE IF NOT EXISTS Recommander(
+    idCompetence int(6) NOT NULL,
+    idConseilleur int(6) NOT NULL,
+    idRecommande int(6) NOT NULL,
+    note int(6) NOT NULL DEFAULT 0 
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE Recommander
+ ADD CONSTRAINT PK_RECOMMANDER PRIMARY KEY (idCompetence,idConseilleur, idRecommande),
+ ADD CONSTRAINT FK_avoir FOREIGN KEY (idCompetence; idRecommande) REFERENCES Avoir(idC,idU),
+ ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (idConseilleur) REFERENCES Utilisateur(IdU);
+-- ALTER TABLE Recommander
+--  ADD CONSTRAINT PK_RECOMMANDER PRIMARY KEY (idCompetence,idConseilleur, idRecommande),
+--  ADD CONSTRAINT FK_recommander_competence FOREIGN KEY (idCompetence) REFERENCES Competences(idC),
+--  ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (idConseilleur) REFERENCES Utilisateur(IdU),
+--  ADD CONSTRAINT FK_recommander_u3 FOREIGN KEY (idRecommande) REFERENCES Utilisateur(IdU);

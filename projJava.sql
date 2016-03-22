@@ -80,6 +80,10 @@ CREATE TABLE IF NOT EXISTS Recommander(
 
 ALTER TABLE Recommander
  ADD CONSTRAINT PK_RECOMMANDER PRIMARY KEY (idCompetence,idConseilleur, idRecommande),
- ADD CONSTRAINT FK_recommander_competence FOREIGN KEY (idCompetence) REFERENCES Competences(idC),
- ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (idConseilleur) REFERENCES Utilisateur(IdU),
- ADD CONSTRAINT FK_recommander_u3 FOREIGN KEY (idRecommande) REFERENCES Utilisateur(IdU);
+ ADD CONSTRAINT FK_avoir FOREIGN KEY (idCompetence; idRecommande) REFERENCES Avoir(idC,idU),
+ ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (idConseilleur) REFERENCES Utilisateur(IdU);
+-- ALTER TABLE Recommander
+--  ADD CONSTRAINT PK_RECOMMANDER PRIMARY KEY (idCompetence,idConseilleur, idRecommande),
+--  ADD CONSTRAINT FK_recommander_competence FOREIGN KEY (idCompetence) REFERENCES Competences(idC),
+--  ADD CONSTRAINT FK_recommander_u2 FOREIGN KEY (idConseilleur) REFERENCES Utilisateur(IdU),
+--  ADD CONSTRAINT FK_recommander_u3 FOREIGN KEY (idRecommande) REFERENCES Utilisateur(IdU);
